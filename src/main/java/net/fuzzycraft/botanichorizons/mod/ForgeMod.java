@@ -1,5 +1,6 @@
 package net.fuzzycraft.botanichorizons.mod;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -10,7 +11,7 @@ public class ForgeMod {
     public static final String MOD_ID = "botanichorizons";
     public static final String MOD_NAME = MOD_ID;
     public static final String VERSION = "GRADLETOKEN_VERSION";
-    public static final String DEPENDENCIES = "required-after:Baubles;required-after:Thaumcraft;required-after:Botania;required-after:gregtech;after:witchery;after:BiomesOPlenty;after:dreamcraft;required-after:TConstruct";
+    public static final String DEPENDENCIES = "required-after:Baubles;required-after:Thaumcraft;required-after:Botania;required-after:gregtech;after:witchery;after:BiomesOPlenty;after:dreamcraft;required-after:TConstruct;after:chisel";
 
     @Mod.Instance(MOD_ID)
     public static ForgeMod instance;
@@ -36,5 +37,8 @@ public class ForgeMod {
     public void postInit(FMLPostInitializationEvent event) {
         ThaumcraftAspects.registerAspects();
         ThaumcraftPatches.applyPatches();
+        if (Loader.isModLoaded("chisel")) {
+            ChiselPatches.applyPatches();
+        }
     }
 }

@@ -2,6 +2,7 @@ package net.fuzzycraft.botanichorizons.patches;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.api.enums.ItemList;
 import gregtech.api.enums.ToolDictNames;
 import gregtech.api.util.GT_Utility;
 import net.fuzzycraft.botanichorizons.util.OreDict;
@@ -1236,6 +1237,13 @@ public class CraftingPatches {
                 "SSS", "SPS", "SSS",
                 'S', "stone",
                 'P', ModItems.tinyPlanet);
+        ModCraftingRecipes.recipeTinyPlanetBlock = BotaniaAPI.getLatestAddedRecipe();
+
+        // Alternate non-magic Tiny Planet Block Recipe
+        addOreDictRecipe(new ItemStack(ModBlocks.tinyPlanet),
+                "SSS", "SPS", "SSS",
+                'S', "stone",
+                'P', ItemList.Field_Generator_IV.get(1));
         ModCraftingRecipes.recipeTinyPlanetBlock = BotaniaAPI.getLatestAddedRecipe();
 
         // Drum of the Wild Recipe

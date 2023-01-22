@@ -3,8 +3,6 @@ package net.fuzzycraft.botanichorizons.patches;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.crafting.ModPureDaisyRecipes;
-import vazkii.botania.common.lib.LibOreDict;
 
 public class DaisyPatches {
     public static void applyPatches() {

@@ -1,5 +1,8 @@
 package net.fuzzycraft.botanichorizons.util;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -7,16 +10,11 @@ import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.CrucibleRecipe;
-import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class ResearchBuilder {
 
@@ -42,7 +40,7 @@ public class ResearchBuilder {
 
     public ResearchBuilder setResearchAspects(Aspect... aspects) {
         AspectList list = new AspectList();
-        for (Aspect aspect: aspects) {
+        for (Aspect aspect : aspects) {
             list.add(aspect, 1);
         }
         this.researchAspects = list;
@@ -95,7 +93,8 @@ public class ResearchBuilder {
     }
 
     public ResearchBuilder addShapelessCraftingRecipe(ItemStack out, AspectList aspects, Object... craftingRecipe) {
-        ShapelessArcaneRecipe recipe = ThaumcraftApi.addShapelessArcaneCraftingRecipe(key, out, aspects, craftingRecipe);
+        ShapelessArcaneRecipe recipe =
+                ThaumcraftApi.addShapelessArcaneCraftingRecipe(key, out, aspects, craftingRecipe);
         content.add(new ResearchPage(recipe));
         return this;
     }
@@ -106,8 +105,10 @@ public class ResearchBuilder {
         return this;
     }
 
-    public ResearchBuilder addInfusionRecipe(AspectList aspects, ItemStack out, int instability, ItemStack centerItem, ItemStack... inputs) {
-        NonFuzzyInfusionRecipe patchedRecipe = new NonFuzzyInfusionRecipe(key,out, instability, aspects, centerItem, inputs);
+    public ResearchBuilder addInfusionRecipe(
+            AspectList aspects, ItemStack out, int instability, ItemStack centerItem, ItemStack... inputs) {
+        NonFuzzyInfusionRecipe patchedRecipe =
+                new NonFuzzyInfusionRecipe(key, out, instability, aspects, centerItem, inputs);
         try {
             Field reflectionTarget = ThaumcraftApi.class.getDeclaredField("craftingRecipes");
             reflectionTarget.setAccessible(true);
@@ -152,17 +153,9 @@ public class ResearchBuilder {
     public void commit() {
         ResearchItem research;
         if (researchItemIcon != null) {
-            research = new ResearchItem(
-                    key, category, researchAspects,
-                    col, row, researchDifficulty,
-                    researchItemIcon
-            );
+            research = new ResearchItem(key, category, researchAspects, col, row, researchDifficulty, researchItemIcon);
         } else {
-            research = new ResearchItem(
-                    key, category, researchAspects,
-                    col, row, researchDifficulty,
-                    researchIcon
-            );
+            research = new ResearchItem(key, category, researchAspects, col, row, researchDifficulty, researchIcon);
         }
         research.setPages(content.toArray(new ResearchPage[0]));
         research.parents = dependencies;

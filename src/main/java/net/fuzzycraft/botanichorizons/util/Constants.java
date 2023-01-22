@@ -103,7 +103,7 @@ public final class Constants {
     public static final String GT_CASING_ID = "gregtech:gt.blockcasings4";
     public static final int GT_CASING_META = 1;
 
-    public static final int POOL_MAX_MANA_DILUTED =   10000;
+    public static final int POOL_MAX_MANA_DILUTED = 10000;
     public static final int POOL_MAX_MANA_REGULAR = 1000000;
 
     public static final int MANA_TABLET_MAGIC_META = 10000;

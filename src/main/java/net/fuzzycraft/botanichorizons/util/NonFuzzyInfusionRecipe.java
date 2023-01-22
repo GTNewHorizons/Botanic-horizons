@@ -1,13 +1,12 @@
 package net.fuzzycraft.botanichorizons.util;
 
+import java.util.ArrayList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.InfusionRecipe;
-
-import java.util.ArrayList;
 
 /**
  * Thaumcraft has an internal check for recipe matching.
@@ -24,7 +23,8 @@ import java.util.ArrayList;
 public class NonFuzzyInfusionRecipe extends InfusionRecipe {
     final boolean fuzzy;
 
-    public NonFuzzyInfusionRecipe(String research, Object output, int inst, AspectList aspects2, ItemStack input, ItemStack[] recipe) {
+    public NonFuzzyInfusionRecipe(
+            String research, Object output, int inst, AspectList aspects2, ItemStack input, ItemStack[] recipe) {
         super(research, output, inst, aspects2, input, recipe);
         this.fuzzy = false;
     }
@@ -33,7 +33,8 @@ public class NonFuzzyInfusionRecipe extends InfusionRecipe {
     public boolean matches(ArrayList<ItemStack> input, ItemStack central, World world, EntityPlayer player) {
         if (this.getRecipeInput() == null) {
             return false;
-        } else if (this.research.length() > 0 && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
+        } else if (this.research.length() > 0
+                && !ThaumcraftApiHelper.isResearchComplete(player.getCommandSenderName(), this.research)) {
             return false;
         } else {
             ItemStack i2 = central.copy();

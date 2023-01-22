@@ -1,4 +1,4 @@
-//version: 1674409054
+//version: 1673027205
 /*
  DO NOT CHANGE THIS FILE!
  Also, you may replace this file at any time if there is an update available.
@@ -144,7 +144,6 @@ propertyDefaultIfUnset("modrinthProjectId", "")
 propertyDefaultIfUnset("modrinthRelations", "")
 propertyDefaultIfUnset("curseForgeProjectId", "")
 propertyDefaultIfUnset("curseForgeRelations", "")
-propertyDefaultIfUnset("minimizeShadowedDependencies", true)
 
 String javaSourceDir = "src/main/java/"
 String scalaSourceDir = "src/main/scala/"
@@ -412,9 +411,7 @@ shadowJar {
         attributes(getManifestAttributes())
     }
 
-    if (minimizeShadowedDependencies.toBoolean()) {
-        minimize()  // This will only allow shading for actually used classes
-    }
+    minimize()  // This will only allow shading for actually used classes
     configurations = [
         project.configurations.shadowImplementation,
         project.configurations.shadowCompile
@@ -557,9 +554,7 @@ task shadowDevJar(type: ShadowJar) {
         attributes(getManifestAttributes())
     }
 
-    if (minimizeShadowedDependencies.toBoolean()) {
-        minimize()  // This will only allow shading for actually used classes
-    }
+    minimize()  // This will only allow shading for actually used classes
     configurations = [
         project.configurations.shadowImplementation,
         project.configurations.shadowCompile

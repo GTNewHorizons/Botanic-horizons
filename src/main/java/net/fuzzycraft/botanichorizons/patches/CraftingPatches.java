@@ -4,15 +4,14 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.ToolDictNames;
-import net.fuzzycraft.botanichorizons.util.OreDict;
 import net.fuzzycraft.botanichorizons.util.Constants;
+import net.fuzzycraft.botanichorizons.util.OreDict;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -34,11 +33,6 @@ import java.util.List;
 import static net.fuzzycraft.botanichorizons.patches.GregtechPatches.addQuartzRecipes;
 
 public class CraftingPatches {
-    private static IRecipe recipeBlazeQuartz;
-    private static IRecipe recipeRedQuartz;
-    private static List<IRecipe> recipesLavenderQuartz;
-    private static IRecipe recipeSunnyQuartz;
-    private static IRecipe recipeDarkQuartz;
 
     public static void applyPatches() {
 
@@ -1755,9 +1749,9 @@ public class CraftingPatches {
 
         // Quartz Recipes
 		if(ConfigHandler.darkQuartzEnabled)
-                recipeDarkQuartz = addQuartzRecipes(0, Items.coal, ModFluffBlocks.darkQuartz, ModFluffBlocks.darkQuartzStairs, ModFluffBlocks.darkQuartzSlab);
+            ModCraftingRecipes.recipeDarkQuartz = addQuartzRecipes(0, Items.coal, ModFluffBlocks.darkQuartz, ModFluffBlocks.darkQuartzStairs, ModFluffBlocks.darkQuartzSlab);
         addQuartzRecipes(1, null, ModFluffBlocks.manaQuartz, ModFluffBlocks.manaQuartzStairs, ModFluffBlocks.manaQuartzSlab);
-        recipeBlazeQuartz = addQuartzRecipes(2, Items.blaze_powder, ModFluffBlocks.blazeQuartz, ModFluffBlocks.blazeQuartzStairs, ModFluffBlocks.blazeQuartzSlab);
+        ModCraftingRecipes.recipeBlazeQuartz = addQuartzRecipes(2, Items.blaze_powder, ModFluffBlocks.blazeQuartz, ModFluffBlocks.blazeQuartzStairs, ModFluffBlocks.blazeQuartzSlab);
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.quartz, 8, 3),
                         "QQQ", "QCQ", "QQQ",
@@ -1775,13 +1769,13 @@ public class CraftingPatches {
                         "QQQ", "QCQ", "QQQ",
                         'Q', "manaQuartz",
                         'C', new ItemStack(Blocks.double_plant, 1, 5)));
-        recipesLavenderQuartz = BotaniaAPI.getLatestAddedRecipes(4);
+        ModCraftingRecipes.recipesLavenderQuartz = BotaniaAPI.getLatestAddedRecipes(4);
         addQuartzRecipes(3, null, ModFluffBlocks.lavenderQuartz, ModFluffBlocks.lavenderQuartzStairs, ModFluffBlocks.lavenderQuartzSlab);
 
-        recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModFluffBlocks.redQuartz, ModFluffBlocks.redQuartzStairs, ModFluffBlocks.redQuartzSlab);
+        ModCraftingRecipes.recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModFluffBlocks.redQuartz, ModFluffBlocks.redQuartzStairs, ModFluffBlocks.redQuartzSlab);
         addQuartzRecipes(5, null, ModFluffBlocks.elfQuartz, ModFluffBlocks.elfQuartzStairs, ModFluffBlocks.elfQuartzSlab);
 
-        recipeSunnyQuartz = addQuartzRecipes(6, Item.getItemFromBlock(Blocks.double_plant), ModFluffBlocks.sunnyQuartz, ModFluffBlocks.sunnyQuartzStairs, ModFluffBlocks.sunnyQuartzSlab);
+        ModCraftingRecipes.recipeSunnyQuartz = addQuartzRecipes(6, Item.getItemFromBlock(Blocks.double_plant), ModFluffBlocks.sunnyQuartz, ModFluffBlocks.sunnyQuartzStairs, ModFluffBlocks.sunnyQuartzSlab);
 
         // 1.8 Stone Recipes
         ModCraftingRecipes.recipe18StonePolish = new ArrayList<>();

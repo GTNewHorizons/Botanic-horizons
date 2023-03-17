@@ -516,22 +516,22 @@ public class CraftingPatches {
         addOreDictRecipe(new ItemStack(ModItems.manasteelHelm),
                 "SSS", "ShS",
                 'S', OreDict.MANA_STEEL_PLATE,
-                'h', ToolDictNames.craftingToolHardHammer.name());
+                'h', new ItemStack(ModItems.manaweaveHelm));
         ModCraftingRecipes.recipeManasteelHelm = BotaniaAPI.getLatestAddedRecipe();
         addOreDictRecipe(new ItemStack(ModItems.manasteelChest),
                 "ShS", "SSS", "SSS",
                 'S', OreDict.MANA_STEEL_PLATE,
-                'h', ToolDictNames.craftingToolHardHammer.name());
+                'h', new ItemStack(ModItems.manaweaveChest));
         ModCraftingRecipes.recipeManasteelChest = BotaniaAPI.getLatestAddedRecipe();
         addOreDictRecipe(new ItemStack(ModItems.manasteelLegs),
                 "SSS", "ShS", "S S",
                 'S', OreDict.MANA_STEEL_PLATE,
-                'h', ToolDictNames.craftingToolHardHammer.name());
+                'h', new ItemStack(ModItems.manaweaveLegs));
         ModCraftingRecipes.recipeManasteelLegs = BotaniaAPI.getLatestAddedRecipe();
         addOreDictRecipe(new ItemStack(ModItems.manasteelBoots),
                 "ShS", "S S",
                 'S', OreDict.MANA_STEEL_PLATE,
-                'h', ToolDictNames.craftingToolHardHammer.name());
+                'h', new ItemStack(ModItems.manaweaveBoots));
         ModCraftingRecipes.recipeManasteelBoots = BotaniaAPI.getLatestAddedRecipe();
         addOreDictRecipe(new ItemStack(ModItems.manasteelPick),
                 "SSS", "fTh", " T ",
@@ -572,22 +572,22 @@ public class CraftingPatches {
         addOreDictRecipe(new ItemStack(ModItems.elementiumHelm),
                 "SSS", "ShS",
                 'S', OreDict.ELEMENTIUM_PLATE,
-                'h', ToolDictNames.craftingToolHardHammer.name());
+                'h', new ItemStack(ModItems.terrasteelHelm));
         ModCraftingRecipes.recipeElementiumHelm = BotaniaAPI.getLatestAddedRecipe();
         addOreDictRecipe(new ItemStack(ModItems.elementiumChest),
                 "ShS", "SSS", "SSS",
                 'S', OreDict.ELEMENTIUM_PLATE,
-                'h', ToolDictNames.craftingToolHardHammer.name());
+                'h', new ItemStack(ModItems.terrasteelChest));
         ModCraftingRecipes.recipeElementiumChest = BotaniaAPI.getLatestAddedRecipe();
         addOreDictRecipe(new ItemStack(ModItems.elementiumLegs),
                 "SSS", "ShS", "S S",
                 'S', OreDict.ELEMENTIUM_PLATE,
-                'h', ToolDictNames.craftingToolHardHammer.name());
+                'h', new ItemStack(ModItems.terrasteelLegs));
         ModCraftingRecipes.recipeElementiumLegs = BotaniaAPI.getLatestAddedRecipe();
         addOreDictRecipe(new ItemStack(ModItems.elementiumBoots),
                 "ShS", "S S",
                 'S', OreDict.ELEMENTIUM_PLATE,
-                'h', ToolDictNames.craftingToolHardHammer.name());
+                'h', new ItemStack(ModItems.terrasteelBoots));
         ModCraftingRecipes.recipeElementiumBoots = BotaniaAPI.getLatestAddedRecipe();
         addOreDictRecipe(new ItemStack(ModItems.elementiumPick),
                 "SSS", "fTh", " T ",
@@ -729,7 +729,7 @@ public class CraftingPatches {
 
         // Aura Band Recipe
         addOreDictRecipe(new ItemStack(ModItems.auraRing),
-                "RI ", "I I", " I ",
+                "RI ", "I I", " I ",   
                 'R', LibOreDict.RUNE[8],
                 'I', OreDict.MANA_STEEL_PLATE);
         ModCraftingRecipes.recipeAuraRing = BotaniaAPI.getLatestAddedRecipe();
@@ -816,7 +816,7 @@ public class CraftingPatches {
         addOreDictRecipe(new ItemStack(ModItems.divaCharm),
                 "LGP", " HG", " GL",
                 'L', LibOreDict.LIFE_ESSENCE,
-                'G', "ingotGold",
+                'G', "blockGold",
                 'H', LibOreDict.RUNE[15],
                 'P', new ItemStack(ModItems.tinyPlanet));
         ModCraftingRecipes.recipeDivaCharm = BotaniaAPI.getLatestAddedRecipe();
@@ -1149,7 +1149,7 @@ public class CraftingPatches {
                 'I', OreDict.ELEMENTIUM_PLATE,
                 'D', LibOreDict.DRAGONSTONE,
                 'A', LibOreDict.ENDER_AIR_BOTTLE,
-                'T', new ItemStack(ModItems.terraSword));
+                'T', new ItemStack(ModItems.thunderSword));
         ModCraftingRecipes.recipeStarSword = BotaniaAPI.getLatestAddedRecipe();
 
         // Flare Chakram Recipe
@@ -1335,7 +1335,7 @@ public class CraftingPatches {
         addOreDictRecipe(new ItemStack(ModBlocks.hourglass),
                 "GSG", "MrM", "GRG",
                 'G', "plateGold",
-                'M', new ItemStack(ModBlocks.manaGlass),
+                'M', new ItemStack(ModBlocks.prism),
                 'R', "dustRedstone",
                 'r', "ringGold",
                 'S', new ItemStack(Blocks.sand));
@@ -1745,6 +1745,36 @@ public class CraftingPatches {
         addShapelessOreDictRecipe(new ItemStack(ModBlocks.shimmerwoodPlanks), new ItemStack(ModBlocks.dreamwood, 1, 1), new ItemStack(ModBlocks.bifrostPerm));
         ModCraftingRecipes.recipeShimmerwoodPlanks = BotaniaAPI.getLatestAddedRecipe();
         GregtechPatches.addStairs(ModFluffBlocks.shimmerwoodPlankStairs, new ItemStack(ModBlocks.shimmerwoodPlanks));
+
+        // Quartz Recipes
+		if(ConfigHandler.darkQuartzEnabled)
+                recipeDarkQuartz = addQuartzRecipes(0, Items.coal, ModFluffBlocks.darkQuartz, ModFluffBlocks.darkQuartzStairs, ModFluffBlocks.darkQuartzSlab);
+        addQuartzRecipes(1, null, ModFluffBlocks.manaQuartz, ModFluffBlocks.manaQuartzStairs, ModFluffBlocks.manaQuartzSlab);
+        recipeBlazeQuartz = addQuartzRecipes(2, Items.blaze_powder, ModFluffBlocks.blazeQuartz, ModFluffBlocks.blazeQuartzStairs, ModFluffBlocks.blazeQuartzSlab);
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.quartz, 8, 3),
+                        "QQQ", "QCQ", "QQQ",
+                        'Q', "manaQuartz",
+                        'C', new ItemStack(Blocks.red_flower, 1, 2)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.quartz, 8, 3),
+                        "QQQ", "QCQ", "QQQ",
+                        'Q', "manaQuartz",
+                        'C', new ItemStack(Blocks.red_flower, 1, 7)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.quartz, 8, 3),
+                        "QQQ", "QCQ", "QQQ",
+                        'Q', "manaQuartz",
+                        'C', new ItemStack(Blocks.double_plant, 1, 1)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.quartz, 8, 3),
+                        "QQQ", "QCQ", "QQQ",
+                        'Q', "manaQuartz",
+                        'C', new ItemStack(Blocks.double_plant, 1, 5)));
+        recipesLavenderQuartz = BotaniaAPI.getLatestAddedRecipes(4);
+        addQuartzRecipes(3, null, ModFluffBlocks.lavenderQuartz, ModFluffBlocks.lavenderQuartzStairs, ModFluffBlocks.lavenderQuartzSlab);
+
+        recipeRedQuartz = addQuartzRecipes(4, Items.redstone, ModFluffBlocks.redQuartz, ModFluffBlocks.redQuartzStairs, ModFluffBlocks.redQuartzSlab);
+        addQuartzRecipes(5, null, ModFluffBlocks.elfQuartz, ModFluffBlocks.elfQuartzStairs, ModFluffBlocks.elfQuartzSlab);
+
+        recipeSunnyQuartz = addQuartzRecipes(6, Item.getItemFromBlock(Blocks.double_plant), ModFluffBlocks.sunnyQuartz, ModFluffBlocks.sunnyQuartzStairs, ModFluffBlocks.sunnyQuartzSlab);
 
         // 1.8 Stone Recipes
         ModCraftingRecipes.recipe18StonePolish = new ArrayList<>();

@@ -4,7 +4,6 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.ToolDictNames;
-import gregtech.api.util.GT_Utility;
 import net.fuzzycraft.botanichorizons.util.OreDict;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.minecraft.block.Block;
@@ -13,6 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -22,7 +22,6 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModCraftingRecipes;
-import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ItemSignalFlare;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
@@ -32,7 +31,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static net.fuzzycraft.botanichorizons.patches.GregtechPatches.addQuartzRecipes;
+
 public class CraftingPatches {
+    private static IRecipe recipeBlazeQuartz;
+    private static IRecipe recipeRedQuartz;
+    private static List<IRecipe> recipesLavenderQuartz;
+    private static IRecipe recipeSunnyQuartz;
+    private static IRecipe recipeDarkQuartz;
+
     public static void applyPatches() {
 
         // Lexicon Recipe

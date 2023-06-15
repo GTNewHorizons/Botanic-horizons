@@ -84,7 +84,7 @@ public class AvaritiaPatches {
                 '8', LibOreDict.RUNE[7]
         );
 
-        ItemStack creativeFlower = new ItemStack(ItemBlockSpecialFlower.ofType("Asgardandelion"));
+        ItemStack creativeFlower = ItemBlockSpecialFlower.ofType("Asgardandelion");
         ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(
                 creativeFlower,
                 //"SSSSSSSSS","IIIIIIIII","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii",
@@ -97,22 +97,22 @@ public class AvaritiaPatches {
                 "t1102011H",
                 "001121100",
                 "e0K131S0m",
-                'R', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ARCANE_ROSE)),
-                'D', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DANDELIFEON)),
-                'B', new ItemStack(ItemBlockSpecialFlower.ofType("Beegonia")),
-                'E', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENTROPINNYUM)),
-                'M', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MUNCHDEW)),
-                'd', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM)),
-                'n', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE)),
-                'T', new ItemStack(ItemBlockSpecialFlower.ofType("Tainthistle")), 
-                'r', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_RAFFLOWSIA)),
-                't', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_THERMALILY)),
-                'H', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HYDROANGEAS)),
-                'e', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME)),
-                'K', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_KEKIMURUS)),
-                '3', new ItemStack(ItemBlockSpecialFlower.ofType("Soarleander")), 
-                'S', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SPECTROLUS)),
-                'm', new ItemStack(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NARSLIMMUS)),
+                'R', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ARCANE_ROSE),
+                'D', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DANDELIFEON),
+                'B', ItemBlockSpecialFlower.ofType("Beegonia"),
+                'E', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENTROPINNYUM),
+                'M', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MUNCHDEW),
+                'd', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM),
+                'n', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE),
+                'T', ItemBlockSpecialFlower.ofType("Tainthistle"), 
+                'r', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_RAFFLOWSIA),
+                't', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_THERMALILY),
+                'H', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HYDROANGEAS),
+                'e', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME),
+                'K', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_KEKIMURUS),
+                '3', ItemBlockSpecialFlower.ofType("Soarleander"), 
+                'S', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SPECTROLUS),
+                'm', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NARSLIMMUS),
                 'F', new ItemStack(LudicrousBlocks.infinitato),
                 '1', new ItemStack(LudicrousItems.resource, 1, 3), //Neutronium nugget
                 '2', "blockCosmicNeutronium",

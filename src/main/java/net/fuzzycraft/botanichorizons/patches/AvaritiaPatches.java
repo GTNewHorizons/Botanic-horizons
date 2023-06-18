@@ -90,9 +90,9 @@ public class AvaritiaPatches {
                 //"SSSSSSSSS","IIIIIIIII","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii",
                 "R0D0B0E0M",
                 "000iii000",
-                "d0iIIIi0n",
-                "00iIFIi00",
-                "T0iIIIi0r",
+                "d0i876i0n",
+                "00iAFai00",
+                "T0i5B4i0r",
                 "010iii010",
                 "t1102011H",
                 "001121100",
@@ -104,20 +104,27 @@ public class AvaritiaPatches {
                 'M', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MUNCHDEW),
                 'd', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM),
                 'n', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE),
-                'T', ItemBlockSpecialFlower.ofType("Tainthistle"), 
+                'T', ItemBlockSpecialFlower.ofType("Soarleander"), 
                 'r', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_RAFFLOWSIA),
                 't', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_THERMALILY),
                 'H', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HYDROANGEAS),
                 'e', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME),
                 'K', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_KEKIMURUS),
-                '3', ItemBlockSpecialFlower.ofType("Soarleander"), 
+                '3', new ItemStack(ModItems.blackLotus,1,1),
                 'S', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SPECTROLUS),
                 'm', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NARSLIMMUS),
                 'F', new ItemStack(LudicrousBlocks.infinitato),
                 '1', new ItemStack(LudicrousItems.resource, 1, 3), //Neutronium nugget
                 '2', "blockCosmicNeutronium",
                 'i', "plateInfinity",
-                'I', "plateDenseInfinity" 
+                'A', "gemExquisiteBotaniaDragonstone",
+                'a', "gemExquisiteManaDiamond",
+                'B', "plateGaiaSpirit",
+                '4', "plateLivingwood",
+                '5', "plateLivingrock",
+                '6', "plateElvenElementium",
+                '7', "plateManasteel",
+                '8', "plateTerrasteel"
         );
     }
 }

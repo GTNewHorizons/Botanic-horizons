@@ -113,7 +113,8 @@ public class AvaritiaPatches {
                 '3', new ItemStack(ModItems.blackLotus,1,1),
                 'S', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SPECTROLUS),
                 'm', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NARSLIMMUS),
-                'Z', new ItemStack(LudicrousBlocks.infinitato),
+                //'Z', new ItemStack(LudicrousBlocks.infinitato), // Until is fixed
+                'Z', new ItemStack(LudicrousItems.resource,1,5),
                 '1', new ItemStack(LudicrousItems.resource, 1, 3), //Neutronium nugget
                 '2', "blockCosmicNeutronium",
                 'i', "plateInfinity",

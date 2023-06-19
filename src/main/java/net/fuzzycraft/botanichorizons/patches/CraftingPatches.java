@@ -1192,7 +1192,13 @@ public class CraftingPatches {
         // Cellular Block Recipe
         GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.cellBlock, 3), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Blocks.cactus), new ItemStack(Items.carrot), new ItemStack(Items.potato));
         ModCraftingRecipes.recipeCellBlock = BotaniaAPI.getLatestAddedRecipe();
-
+        //BOP clover starter
+        addOreDictRecipe(new ItemStack((Item) Item.itemRegistry.getObject("BiomesOPlenty:flowers"),4,0),
+                "SBS","BFB","SBS",
+                'S', "listAllseed",
+                'B', "dustBone",
+                'F', new ItemStack(ModItems.fertilizer)
+                );
         // Worldshaper's Sextant Recipe
         addOreDictRecipe(new ItemStack(ModItems.sextant),
                 "hTI", "fTT", "IMI",

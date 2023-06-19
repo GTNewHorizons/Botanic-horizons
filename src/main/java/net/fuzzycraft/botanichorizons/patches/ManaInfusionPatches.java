@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -110,7 +111,9 @@ public class ManaInfusionPatches {
 
         ModManaAlchemyRecipes.swampFolliageRecipes = new ArrayList<>();
         ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.waterlily), new ItemStack(Blocks.vine), 320));
-        ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.vine), new ItemStack(Blocks.waterlily), 320));
+        ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.vine), "cropFloweringVines", 320));
+        ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropFloweringVines").get(0), "cropIvy", 320));
+        ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropIvy").get(0),new ItemStack(Blocks.waterlily), 320));
 
         ModManaAlchemyRecipes.fishRecipes = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
@@ -141,7 +144,8 @@ public class ManaInfusionPatches {
 
         ModManaAlchemyRecipes.slimeballCactusRecipes = new ArrayList<>();
         ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.slime_ball), new ItemStack(Blocks.cactus), 1200));
-        ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.cactus), new ItemStack(Items.slime_ball), 1200));
+        ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.cactus),"cropSmallCactus", 1200));
+        ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropSmallCactus").get(0),new ItemStack(Items.slime_ball), 1200));
 
         ModManaAlchemyRecipes.enderPearlRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.ender_pearl), new ItemStack(Items.ghast_tear), 28000);
 
@@ -187,6 +191,30 @@ public class ManaInfusionPatches {
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant, 1, 5), new ItemStack(Blocks.double_plant, 1, 4), 400));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.yellow_flower), new ItemStack(Blocks.double_plant, 1, 5), 400));
 
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerClover").get(0),"flowerSwamp", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerSwamp").get(0),"flowerDeathbloom", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerDeathbloom").get(0), "flowerGlowflower", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerGlowflower").get(0), "flowerHydrangeaBlue", 16000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerHydrangeaBlue").get(0),"flowerCosmosOrange", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerCosmosOrange").get(0), "flowerDaffodil", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerDaffodil").get(0),"flowerWildflower", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerWildflower").get(0),"flowerViolet", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerViolet").get(0), "flowerAnemoneWhite", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerAnemoneWhite").get(0), "flowerWaterlily", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerWaterlily").get(0), "flowerEnderlotus", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerEnderlotus").get(0), "flowerBromeliad", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerBromeliad").get(0), "flowerEyebulb", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerEyebulb").get(0), "flowerDandelionPuff", 16000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerDandelionPuff").get(0), "flowerHibiscusPink", 800));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerHibiscusPink").get(0), "flowerLilyValley", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerLilyValley").get(0), "flowerBurningBlossom", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerBurningBlossom").get(0), "flowerLavender", 16000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerLavender").get(0), "flowerGoldenrod", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerGoldenrod").get(0), "flowerBluebell", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerBluebell").get(0), "flowerMinersDelight", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerMinersDelight").get(0),"flowerIcyIris", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerIcyIris").get(0), "flowerRose", 8000));
+        ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerRose").get(0), "flowerClover", 8000));
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Conjuration catalyst
 

@@ -111,9 +111,10 @@ public class ManaInfusionPatches {
 
         ModManaAlchemyRecipes.swampFolliageRecipes = new ArrayList<>();
         ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.waterlily), new ItemStack(Blocks.vine), 320));
-        ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.vine), "cropFloweringVines", 320));
-        ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropFloweringVines").get(0), "cropIvy", 320));
-        ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropIvy").get(0),new ItemStack(Blocks.waterlily), 320));
+        ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.vine), new ItemStack(Blocks.waterlily), 320));
+        //ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropIvy").get(0),"cropFloweringVines", 8000));
+        //ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropFloweringVines").get(0),"cropThornVines", 8000));
+        //ModManaAlchemyRecipes.swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropThornVines").get(0),"cropIvy", 8000));
 
         ModManaAlchemyRecipes.fishRecipes = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
@@ -144,8 +145,9 @@ public class ManaInfusionPatches {
 
         ModManaAlchemyRecipes.slimeballCactusRecipes = new ArrayList<>();
         ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.slime_ball), new ItemStack(Blocks.cactus), 1200));
-        ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.cactus),"cropSmallCactus", 1200));
-        ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropSmallCactus").get(0),new ItemStack(Items.slime_ball), 1200));
+        ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.cactus), new ItemStack(Items.slime_ball), 1200));
+        //ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropCactusfruit").get(0),"cropSmallCactus", 8000));
+        //ModManaAlchemyRecipes.slimeballCactusRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("cropSmallCactus").get(0),"cropCactusfruit", 8000));
 
         ModManaAlchemyRecipes.enderPearlRecipe = BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.ender_pearl), new ItemStack(Items.ghast_tear), 28000);
 

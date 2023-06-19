@@ -84,14 +84,14 @@ public class AvaritiaPatches {
                 '8', LibOreDict.RUNE[7]
         );
 
-        ItemStack creativeFlower = ItemBlockSpecialFlower.ofType("Asgardandelion");
+        ItemStack creativeFlower = ItemBlockSpecialFlower.ofType("asgardandelion");
         ExtremeCraftingManager.getInstance().addExtremeShapedOreRecipe(
                 creativeFlower,
                 //"SSSSSSSSS","IIIIIIIII","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii","iiiiiiiii",
-                "R0D0B0E0M",
+                "R0D0G0E0M",
                 "000iii000",
                 "d0i876i0n",
-                "00iAFai00",
+                "00iAZai00",
                 "T0i5B4i0r",
                 "010iii010",
                 "t1102011H",
@@ -99,12 +99,12 @@ public class AvaritiaPatches {
                 "e0K131S0m",
                 'R', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ARCANE_ROSE),
                 'D', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DANDELIFEON),
-                'B', ItemBlockSpecialFlower.ofType("Beegonia"),
+                'G', ItemBlockSpecialFlower.ofType("beegonia"),
                 'E', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENTROPINNYUM),
                 'M', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MUNCHDEW),
                 'd', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM),
                 'n', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NIGHTSHADE),
-                'T', ItemBlockSpecialFlower.ofType("Soarleander"), 
+                'T', ItemBlockSpecialFlower.ofType("soarleander"), 
                 'r', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_RAFFLOWSIA),
                 't', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_THERMALILY),
                 'H', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HYDROANGEAS),
@@ -113,7 +113,7 @@ public class AvaritiaPatches {
                 '3', new ItemStack(ModItems.blackLotus,1,1),
                 'S', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SPECTROLUS),
                 'm', ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NARSLIMMUS),
-                'F', new ItemStack(LudicrousBlocks.infinitato),
+                'Z', new ItemStack(LudicrousBlocks.infinitato),
                 '1', new ItemStack(LudicrousItems.resource, 1, 3), //Neutronium nugget
                 '2', "blockCosmicNeutronium",
                 'i', "plateInfinity",

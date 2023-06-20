@@ -19,6 +19,8 @@ import vazkii.botania.common.lib.LibOreDict;
 
 import java.util.ArrayList;
 
+import cpw.mods.fml.common.Loader;
+
 import static net.fuzzycraft.botanichorizons.util.Constants.*;
 
 public class ManaInfusionPatches {
@@ -192,7 +194,7 @@ public class ManaInfusionPatches {
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant, 1, 4), new ItemStack(Blocks.double_plant, 1, 1), 400));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant, 1, 5), new ItemStack(Blocks.double_plant, 1, 4), 400));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.yellow_flower), new ItemStack(Blocks.double_plant, 1, 5), 400));
-
+            if(Loader.isModLoaded("BiomesOPlenty")){
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerClover").get(0),"flowerSwamp", 8000));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerSwamp").get(0),"flowerDeathbloom", 8000));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerDeathbloom").get(0), "flowerGlowflower", 8000));
@@ -217,6 +219,7 @@ public class ManaInfusionPatches {
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerMinersDelight").get(0),"flowerIcyIris", 8000));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerIcyIris").get(0), "flowerRose", 8000));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerRose").get(0), "flowerClover", 8000));
+            }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Conjuration catalyst
 

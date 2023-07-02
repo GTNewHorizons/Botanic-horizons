@@ -189,7 +189,8 @@ public class ManaInfusionPatches {
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant, 1, 4), new ItemStack(Blocks.double_plant, 1, 1), 400));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.double_plant, 1, 5), new ItemStack(Blocks.double_plant, 1, 4), 400));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.yellow_flower), new ItemStack(Blocks.double_plant, 1, 5), 400));
-            if(Loader.isModLoaded("BiomesOPlenty")){
+        
+        if(Loader.isModLoaded("BiomesOPlenty")){
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerClover").get(0),"flowerSwamp", 8000));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerSwamp").get(0),"flowerDeathbloom", 8000));
         ModManaAlchemyRecipes.flowersRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(OreDictionary.getOres("flowerDeathbloom").get(0), "flowerGlowflower", 8000));

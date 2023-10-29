@@ -4,7 +4,20 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.fuzzycraft.botanichorizons.patches.*;
+
+import net.fuzzycraft.botanichorizons.patches.AlfheimPatches;
+import net.fuzzycraft.botanichorizons.patches.ApothecaryPatches;
+import net.fuzzycraft.botanichorizons.patches.AvaritiaPatches;
+import net.fuzzycraft.botanichorizons.patches.BreweryPatches;
+import net.fuzzycraft.botanichorizons.patches.ChiselPatches;
+import net.fuzzycraft.botanichorizons.patches.CraftingPatches;
+import net.fuzzycraft.botanichorizons.patches.DaisyPatches;
+import net.fuzzycraft.botanichorizons.patches.GregtechPatches;
+import net.fuzzycraft.botanichorizons.patches.ManaInfusionPatches;
+import net.fuzzycraft.botanichorizons.patches.OredictPatches;
+import net.fuzzycraft.botanichorizons.patches.RunicAltarPatches;
+import net.fuzzycraft.botanichorizons.patches.ThaumcraftAspects;
+import net.fuzzycraft.botanichorizons.patches.ThaumcraftPatches;
 
 @Mod(modid = ForgeMod.MOD_ID, name = ForgeMod.MOD_NAME, version = ForgeMod.VERSION, dependencies = ForgeMod.DEPENDENCIES)
 public class ForgeMod {

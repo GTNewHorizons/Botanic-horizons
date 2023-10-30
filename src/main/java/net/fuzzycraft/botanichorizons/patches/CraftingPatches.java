@@ -1412,11 +1412,20 @@ public class CraftingPatches {
         ModCraftingRecipes.recipesMiniIsland = BotaniaAPI.getLatestAddedRecipes(16);
 
         // Flower Pouch Recipe
-        GameRegistry.addShapedRecipe(new ItemStack(ModItems.flowerBag),
-                "WPW", "W W", " W ",
+        addOreDictRecipe(new ItemStack(ModItems.flowerBag),
+                "CSC", "CPC", " C ",
                 'P', new ItemStack(ModItems.petal, 1, Short.MAX_VALUE),
-                'W', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE));
+                'C', new ItemStack((Item)Item.itemRegistry.getObject("Thaumcraft:ItemResource"), 1, 7),
+                'S', LibOreDict.MANA_STRING);
         ModCraftingRecipes.recipeFlowerBag = BotaniaAPI.getLatestAddedRecipe();
+
+        // Mushroom Pouch Recipe
+        addOreDictRecipe(new ItemStack(ModItems.shroomBag),
+                "CSC", "CMC", " C ",
+                'M', new ItemStack(ModBlocks.mushroom, 1, Short.MAX_VALUE),
+                'C', new ItemStack((Item)Item.itemRegistry.getObject("Thaumcraft:ItemResource"), 1, 7),
+                'S', LibOreDict.MANA_STRING);
+        ModCraftingRecipes.recipeShroomBag = BotaniaAPI.getLatestAddedRecipe();
 
         // Double Petal Recipes
         for(int i = 0; i < 16; i++)

@@ -1,6 +1,5 @@
 package net.fuzzycraft.botanichorizons.patches;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.ToolDictNames;
@@ -29,6 +28,8 @@ import vazkii.botania.common.lib.LibOreDict;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 
 public class CraftingPatches {
     public static void applyPatches() {
@@ -297,7 +298,7 @@ public class CraftingPatches {
         addShapelessOreDictRecipe(new ItemStack(ModItems.lens, 1, 6), new ItemStack(ModItems.lens), "blockObsidian", "compressedCobblestone1x");
         ModCraftingRecipes.recipeLensGravity = BotaniaAPI.getLatestAddedRecipe();
 
-        if(Loader.isModLoaded("dreamcraft")) {
+        if(NewHorizonsCoreMod.isModLoaded()) {
             addOreDictRecipe(new ItemStack(ModItems.lens, 1, 7),
                     " P ", "ALA", " R ",
                     'P', Item.itemRegistry.getObject("dreamcraft:item.DiamondDrillTip"),

@@ -4,9 +4,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.ToolDictNames;
+import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.api.util.GT_Recipe;
 import gregtech.api.util.GT_Utility;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.minecraft.block.Block;
@@ -152,7 +152,7 @@ public class GregtechPatches {
         GT_ModHandler.addExtractionRecipe(new ItemStack(ModBlocks.prismarine), new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_PRISMARINE));
 
         GT_ModHandler.addExtractionRecipe(new ItemStack(ModBlocks.reedBlock), new ItemStack(Items.reeds, 8));
-        GT_Recipe.GT_Recipe_Map.sAssemblerRecipes.addRecipe(true,
+        RecipeMaps.assemblerRecipes.addRecipe(true,
                 new ItemStack[]{new ItemStack(Items.reeds, 8), GT_Utility.getIntegratedCircuit(16)},
                 new ItemStack[]{new ItemStack(ModBlocks.reedBlock)},
                 null, null, null,
@@ -160,7 +160,7 @@ public class GregtechPatches {
         );
 
         // Livingwood and Crystal Bows
-        GT_Recipe.GT_Recipe_Map.sAssemblerRecipes.addRecipe(true,
+        RecipeMaps.assemblerRecipes.addRecipe(true,
                 new ItemStack[]{
                         new ItemStack(ModItems.manaResource, 3, Constants.MANARESOURCE_META_TWIG_WOOD),
                         new ItemStack(ModItems.manaResource, 3, Constants.MANARESOURCE_META_STRING),
@@ -170,7 +170,7 @@ public class GregtechPatches {
                 null, null, null,
                 80, 24, 0
         );
-        GT_Recipe.GT_Recipe_Map.sAssemblerRecipes.addRecipe(true,
+        RecipeMaps.assemblerRecipes.addRecipe(true,
                 new ItemStack[]{
                         new ItemStack(ModItems.manaResource, 3, Constants.MANARESOURCE_META_TWIG_DREAM),
                         new ItemStack(ModItems.manaResource, 3, Constants.MANARESOURCE_META_STRING),
@@ -191,7 +191,7 @@ public class GregtechPatches {
                     'P', new ItemStack(choice, 1, i % 16),
                     'S', LibOreDict.MANAWEAVE_CLOTH
             );
-            GT_Recipe.GT_Recipe_Map.sAssemblerRecipes.addRecipe(true,
+            RecipeMaps.assemblerRecipes.addRecipe(true,
                     new ItemStack[]{fabric, new ItemStack(choice, 2, i % 16), GT_Utility.getIntegratedCircuit(4)},
                     new ItemStack[]{output},
                     null, null, null,
@@ -209,7 +209,7 @@ public class GregtechPatches {
     }
 
     private static void addMixerRecipe(ItemStack output, int volt, int ticks, ItemStack... input) {
-        GT_Recipe.GT_Recipe_Map.sMixerRecipes.addRecipe(
+        RecipeMaps.mixerRecipes.addRecipe(
                 true,
                 input,
                 new ItemStack[]{output},
@@ -228,7 +228,7 @@ public class GregtechPatches {
             ItemStack circuitStack = GT_Utility.getIntegratedCircuit(circuit);
             inputs = new ItemStack[]{input, circuitStack};
         }
-        GT_Recipe.GT_Recipe_Map.sCutterRecipes.addRecipe(
+        RecipeMaps.cutterRecipes.addRecipe(
                 true,
                 inputs,
                 new ItemStack[]{output},
@@ -237,7 +237,7 @@ public class GregtechPatches {
                 null,
                 ticks, volt, 0
         );
-        GT_Recipe.GT_Recipe_Map.sCutterRecipes.addRecipe(
+        RecipeMaps.cutterRecipes.addRecipe(
                 true,
                 inputs,
                 new ItemStack[]{output},
@@ -246,7 +246,7 @@ public class GregtechPatches {
                 null,
                 ticks, volt, 0
         );
-        GT_Recipe.GT_Recipe_Map.sCutterRecipes.addRecipe(
+        RecipeMaps.cutterRecipes.addRecipe(
                 true,
                 inputs,
                 new ItemStack[]{output},
@@ -276,7 +276,7 @@ public class GregtechPatches {
     }
 
     public static IRecipe addHammerRecipe(ItemStack output, ItemStack input) {
-        GT_Recipe.GT_Recipe_Map.sHammerRecipes.addRecipe(
+        RecipeMaps.hammerRecipes.addRecipe(
                 true,
                 new ItemStack[]{input},
                 new ItemStack[]{output},
@@ -339,7 +339,7 @@ public class GregtechPatches {
     }
 
     public static void addGlassPane(Block paneBlock, Block inputBlock) {
-        GT_Recipe.GT_Recipe_Map.sCutterRecipes.addRecipe(
+        RecipeMaps.cutterRecipes.addRecipe(
                 true,
                 new ItemStack[]{new ItemStack(inputBlock, 3)},
                 new ItemStack[]{new ItemStack(paneBlock, 8)},
@@ -348,7 +348,7 @@ public class GregtechPatches {
                 null,
                 100, 7, 0
         );
-        GT_Recipe.GT_Recipe_Map.sCutterRecipes.addRecipe(
+        RecipeMaps.cutterRecipes.addRecipe(
                 true,
                 new ItemStack[]{new ItemStack(inputBlock, 3)},
                 new ItemStack[]{new ItemStack(paneBlock, 8)},
@@ -357,7 +357,7 @@ public class GregtechPatches {
                 null,
                 100, 7, 0
         );
-        GT_Recipe.GT_Recipe_Map.sCutterRecipes.addRecipe(
+        RecipeMaps.cutterRecipes.addRecipe(
                 true,
                 new ItemStack[]{new ItemStack(inputBlock, 3)},
                 new ItemStack[]{new ItemStack(paneBlock, 8)},

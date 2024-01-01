@@ -51,7 +51,7 @@ public class ChiselPatches {
         for (int i = 0; i < 4; i++) {
             int base = 4 * i;
             registry.addVariation("andesite", ModFluffBlocks.stone, base + 0, 0);
-            registry.addVariation("basalt", ModFluffBlocks.stone,   base + 1, 0);
+            registry.addVariation("basalts", ModFluffBlocks.stone,   base + 1, 0);
             registry.addVariation("diorite", ModFluffBlocks.stone,  base + 2, 0);
             registry.addVariation("granite", ModFluffBlocks.stone,  base + 3, 0);
         }

@@ -1,8 +1,11 @@
 package net.fuzzycraft.botanichorizons.patches;
 
+import com.github.bartimaeusnek.bartworks.common.loaders.ItemRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregtech.api.enums.GT_Values;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.TierEU;
 import gregtech.api.enums.ToolDictNames;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GT_ModHandler;
@@ -29,6 +32,11 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
+import static gregtech.api.recipe.RecipeMaps.compressorRecipes;
+import static gregtech.api.recipe.RecipeMaps.extractorRecipes;
+import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
+import static gregtech.api.util.GT_RecipeBuilder.SECONDS;
+
 public class GregtechPatches {
     public static void applyPatches() {
 
@@ -40,17 +48,35 @@ public class GregtechPatches {
 
             // petals
             GT_ModHandler.addShapelessCraftingRecipe(powder, GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{ToolDictNames.craftingToolMortar, petal});
-            GT_ModHandler.addPulverisationRecipe(petal, powder);
+            GT_Values.RA.stdBuilder()
+                    .itemInputs(petal)
+                    .itemOutputs(powder)                    .duration(20 * SECONDS)
+                    .eut(2)
+                    .addTo(maceratorRecipes);
 
             // flowers
             GT_ModHandler.addShapelessCraftingRecipe(powder, GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{ToolDictNames.craftingToolMortar, flower});
-            GT_ModHandler.addPulverisationRecipe(flower, powder);
+            GT_Values.RA.stdBuilder()
+                    .itemInputs(flower)
+                    .itemOutputs(powder)                    .duration(20 * SECONDS)
+                    .eut(2)
+                    .addTo(maceratorRecipes);
         }
 
         // Petal Block from 9x in compressor + reverse in extractor
         for(int i = 0; i < 16; i++) {
-            GT_ModHandler.addCompressionRecipe(new ItemStack(ModItems.petal, 9, i), new ItemStack(ModBlocks.petalBlock, 1, i));
-            GT_ModHandler.addExtractionRecipe(new ItemStack(ModBlocks.petalBlock, 1, i), new ItemStack(ModItems.petal, 9, i));
+            GT_Values.RA.stdBuilder()
+                    .itemInputs(new ItemStack(ModItems.petal, 9, i))
+                    .itemOutputs( new ItemStack(ModBlocks.petalBlock, 1, i))
+                    .duration(20 * SECONDS)
+                    .eut(2)
+                    .addTo(compressorRecipes);
+            GT_Values.RA.stdBuilder()
+                    .itemInputs(new ItemStack(ModBlocks.petalBlock, 1, i))
+                    .itemOutputs(new ItemStack(ModItems.petal, 9, i))
+                    .duration(20 * SECONDS)
+                    .eut(2)
+                    .addTo(extractorRecipes);
         }
 
         // Petals from flowers

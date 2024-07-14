@@ -1,17 +1,14 @@
 package net.fuzzycraft.botanichorizons.patches;
 
-import com.github.bartimaeusnek.bartworks.common.loaders.ItemRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.GT_Values;
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
-import gregtech.api.enums.TierEU;
 import gregtech.api.enums.ToolDictNames;
-import gregtech.api.recipe.RecipeCategories;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_OreDictUnificator;
+import gregtech.api.util.GT_RecipeBuilder;
 import gregtech.api.util.GT_Utility;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.minecraft.block.Block;
@@ -34,12 +31,6 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-import static gregtech.api.recipe.RecipeMaps.alloySmelterRecipes;
-import static gregtech.api.recipe.RecipeMaps.compressorRecipes;
-import static gregtech.api.recipe.RecipeMaps.extractorRecipes;
-import static gregtech.api.recipe.RecipeMaps.maceratorRecipes;
-import static gregtech.api.util.GT_RecipeBuilder.SECONDS;
-import static gregtech.api.util.GT_Utility.calculateRecipeEU;
 
 public class GregtechPatches {
     public static void applyPatches() {
@@ -52,53 +43,25 @@ public class GregtechPatches {
 
             // petals
             GT_ModHandler.addShapelessCraftingRecipe(powder, GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{ToolDictNames.craftingToolMortar, petal});
-            GT_Values.RA.stdBuilder()
-                    .itemInputs(petal)
-                    .itemOutputs(powder)                    .duration(20 * SECONDS)
-                    .eut(2)
-                    .addTo(maceratorRecipes);
+            addIC2MacerationRecipe(powder, petal);
 
             // flowers
             GT_ModHandler.addShapelessCraftingRecipe(powder, GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{ToolDictNames.craftingToolMortar, flower});
-            GT_Values.RA.stdBuilder()
-                    .itemInputs(flower)
-                    .itemOutputs(powder)                    .duration(20 * SECONDS)
-                    .eut(2)
-                    .addTo(maceratorRecipes);
+            addIC2MacerationRecipe(powder, flower);
         }
 
         // Petal Block from 9x in compressor + reverse in extractor
         for(int i = 0; i < 16; i++) {
-            GT_Values.RA.stdBuilder()
-                    .itemInputs(new ItemStack(ModItems.petal, 9, i))
-                    .itemOutputs( new ItemStack(ModBlocks.petalBlock, 1, i))
-                    .duration(20 * SECONDS)
-                    .eut(2)
-                    .addTo(compressorRecipes);
-            GT_Values.RA.stdBuilder()
-                    .itemInputs(new ItemStack(ModBlocks.petalBlock, 1, i))
-                    .itemOutputs(new ItemStack(ModItems.petal, 9, i))
-                    .duration(20 * SECONDS)
-                    .eut(2)
-                    .addTo(extractorRecipes);
+            compressAndExtract(new ItemStack(ModItems.petal, 9, i), new ItemStack(ModBlocks.petalBlock, 1, i));
         }
 
         // Petals from flowers
         for(int i = 0; i < 16; i++) {
-            GT_Values.RA.stdBuilder()
-                    .itemInputs(new ItemStack(ModBlocks.flower, 1, i))
-                    .itemOutputs(new ItemStack(ModItems.petal, 2, i))
-                    .duration(20 * SECONDS)
-                    .eut(2)
-                    .addTo(extractorRecipes);
+            addIC2ExtractorRecipe(new ItemStack(ModItems.petal, 2, i), new ItemStack(ModBlocks.flower, 1, i));
+
             for (ItemStack doubleFlowerPart : OreDictionary.getOres(LibOreDict.DOUBLE_FLOWER[i])) {
-                GT_Values.RA.stdBuilder()
-                        .itemInputs(doubleFlowerPart)
-                        .itemOutputs(new ItemStack(ModItems.petal, 4, i))
-                        .duration(20 * SECONDS)
-                        .eut(2)
-                        .addTo(extractorRecipes);
-               }
+                addIC2ExtractorRecipe(new ItemStack(ModItems.petal, 4, i), doubleFlowerPart);
+            }
         }
 
         // Better floral fertiliser
@@ -177,85 +140,33 @@ public class GregtechPatches {
 
 
         // Ingots into blocks. Wouldn't be surprised if this becomes unnecessary when GT provides its own ingots
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_MANASTEEL))
-                .itemOutputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_MANASTEELBLOCK))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(compressorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_MANASTEELBLOCK))
-                .itemOutputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_MANASTEEL))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(extractorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_TERRASTEEL))
-                .itemOutputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_TERRASTEELBLOCK))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(compressorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_TERRASTEELBLOCK))
-                .itemOutputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_TERRASTEEL))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(extractorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_ELEMENTIUM))
-                .itemOutputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_ELEMENTIUMBLOCK))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(compressorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_ELEMENTIUMBLOCK))
-                .itemOutputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_ELEMENTIUM))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(extractorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_DRAGONSTONE))
-                .itemOutputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_DRAGONSTONEBLOCK))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(compressorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_DRAGONSTONEBLOCK))
-                .itemOutputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_DRAGONSTONE))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(extractorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_DIAMOND))
-                .itemOutputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_DIAMONDBLOCK))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(compressorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_DIAMONDBLOCK))
-                .itemOutputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_DIAMOND))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(extractorRecipes);
+        compressAndExtract(
+                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_MANASTEEL),
+                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_MANASTEELBLOCK)
+        );
+        compressAndExtract(
+                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_TERRASTEEL),
+                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_TERRASTEELBLOCK)
+        );
+        compressAndExtract(
+                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_ELEMENTIUM),
+                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_ELEMENTIUMBLOCK)
+        );
+        compressAndExtract(
+                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_DRAGONSTONE),
+                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_DRAGONSTONEBLOCK)
+        );
+        compressAndExtract(
+                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_DIAMOND),
+                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_DIAMONDBLOCK)
+        );
+        compressAndExtract(
+                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_PRISMARINE),
+                new ItemStack(ModBlocks.prismarine)
+        );
 
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_PRISMARINE))
-                .itemOutputs(new ItemStack(ModBlocks.prismarine))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(compressorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModBlocks.prismarine))
-                .itemOutputs(new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_PRISMARINE))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(extractorRecipes);
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModBlocks.reedBlock))
-                .itemOutputs(new ItemStack(Items.reeds, 8))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(extractorRecipes);
+        // Reeds compress to plantballs by default
+        addIC2ExtractorRecipe(new ItemStack(Items.reeds, 8), new ItemStack(ModBlocks.reedBlock));
         RecipeMaps.assemblerRecipes.addRecipe(true,
                 new ItemStack[]{new ItemStack(Items.reeds, 8), GT_Utility.getIntegratedCircuit(16)},
                 new ItemStack[]{new ItemStack(ModBlocks.reedBlock)},
@@ -301,12 +212,7 @@ public class GregtechPatches {
                     null, null, null,
                     120, 80, 0
             );
-            GT_Values.RA.stdBuilder()
-                    .itemInputs(new ItemStack(ModItems.cosmetic, 1, i))
-                    .itemOutputs(fabric)
-                    .duration(20 * SECONDS)
-                    .eut(2)
-                    .addTo(extractorRecipes);
+            addIC2ExtractorRecipe(fabric, new ItemStack(ModItems.cosmetic, 1, i));
         }
         ModCraftingRecipes.recipesCosmeticItems = BotaniaAPI.getLatestAddedRecipes(32);
 
@@ -318,14 +224,44 @@ public class GregtechPatches {
     }
 
     private static void addMixerRecipe(ItemStack output, int volt, int ticks, ItemStack... input) {
-        RecipeMaps.mixerRecipes.addRecipe(
-                true,
-                input,
-                new ItemStack[]{output},
-                null, null, null, null,
-                ticks, volt,
-                0
-        );
+        GT_Values.RA.stdBuilder()
+                .itemInputs(input)
+                .itemOutputs(output)
+                .duration(ticks)
+                .eut(volt)
+                .addTo(RecipeMaps.mixerRecipes);
+    }
+
+    private static void addIC2MacerationRecipe(ItemStack output, ItemStack input) {
+        GT_Values.RA.stdBuilder()
+                .itemInputs(input)
+                .itemOutputs(output)
+                .duration(20 * GT_RecipeBuilder.SECONDS)
+                .eut(2)
+                .addTo(RecipeMaps.maceratorRecipes);
+    }
+
+    private static void addIC2ExtractorRecipe(ItemStack output, ItemStack input) {
+        GT_Values.RA.stdBuilder()
+                .itemInputs(input)
+                .itemOutputs(output)
+                .duration(20 * GT_RecipeBuilder.SECONDS)
+                .eut(2)
+                .addTo(RecipeMaps.extractorRecipes);
+    }
+
+    private static void addIC2CompressorRecipe(ItemStack output, ItemStack input) {
+        GT_Values.RA.stdBuilder()
+                .itemInputs(input)
+                .itemOutputs(output)
+                .duration(20 * GT_RecipeBuilder.SECONDS)
+                .eut(2)
+                .addTo(RecipeMaps.compressorRecipes);
+    }
+
+    private static void compressAndExtract(ItemStack uncompressed, ItemStack compressed) {
+        addIC2ExtractorRecipe(uncompressed, compressed);
+        addIC2CompressorRecipe(compressed, uncompressed);
     }
 
     @Nullable
@@ -385,13 +321,13 @@ public class GregtechPatches {
     }
 
     public static IRecipe addHammerRecipe(ItemStack output, ItemStack input) {
-        RecipeMaps.hammerRecipes.addRecipe(
-                true,
-                new ItemStack[]{input},
-                new ItemStack[]{output},
-                null, null, null,null,
-                32, 4, 0
-        );
+        GT_Values.RA.stdBuilder()
+                .itemInputs(input)
+                .itemOutputs(output)
+                .duration(32 * GT_RecipeBuilder.TICKS)
+                .eut(4)
+                .addTo(RecipeMaps.hammerRecipes);
+
         GT_ModHandler.addCraftingRecipe(
                 output,
                 new Object[]{
@@ -409,20 +345,10 @@ public class GregtechPatches {
     public static IRecipe addQuartzRecipes(int quartzMeta, @Nullable Object ingredient, Block block, Block stairs, Block slab) {
 
         // quartz-to-block and vice versa
-        GT_Values.RA.stdBuilder()
-                .itemInputs(new ItemStack(ModItems.quartz, 4, quartzMeta))
-                .itemOutputs(new ItemStack(block))
-                .duration(20 * SECONDS)
-                .eut(2)
-                .addTo(compressorRecipes);
+        addIC2CompressorRecipe(new ItemStack(block), new ItemStack(ModItems.quartz, 4, quartzMeta));
         for (int i = 0; i < 3; i++) {
-            GT_Values.RA.stdBuilder()
-                    .itemInputs(new ItemStack(block, 1, i))
-                    .itemOutputs(new ItemStack(ModItems.quartz, 4, quartzMeta))
-                    .duration(20 * SECONDS)
-                    .eut(2)
-                    .addTo(extractorRecipes);
-            }
+            addIC2ExtractorRecipe(new ItemStack(ModItems.quartz, 4, quartzMeta), new ItemStack(block, 1, i));
+        }
 
         addSlabRecipe(new ItemStack(slab, 2, 0), new ItemStack(block, 1, 0), 1, 16, 80);
 
@@ -451,15 +377,15 @@ public class GregtechPatches {
                 GT_Values.RA.stdBuilder()
                         .itemInputs(new ItemStack(Items.quartz, 8), GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Coal, 1))
                         .itemOutputs(new ItemStack(ModItems.quartz, 8))
-                        .duration(20 * SECONDS)
+                        .duration(20 * GT_RecipeBuilder.SECONDS)
                         .eut(16)
-                        .addTo(alloySmelterRecipes);
+                        .addTo(RecipeMaps.alloySmelterRecipes);
                 GT_Values.RA.stdBuilder()
                         .itemInputs(new ItemStack(Items.quartz, 8), GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Charcoal, 1))
                         .itemOutputs(new ItemStack(ModItems.quartz, 8))
-                        .duration(20 * SECONDS)
+                        .duration(20 * GT_RecipeBuilder.SECONDS)
                         .eut(16)
-                        .addTo(alloySmelterRecipes);
+                        .addTo(RecipeMaps.alloySmelterRecipes);
                }
             return BotaniaAPI.getLatestAddedRecipe();
         } else {

@@ -139,34 +139,12 @@ public class GregtechPatches {
         addQuartzRecipes(Constants.QUARTZ_META_ELVEN, null, ModFluffBlocks.elfQuartz, ModFluffBlocks.elfQuartzStairs, ModFluffBlocks.elfQuartzSlab);
         ModCraftingRecipes.recipeSunnyQuartz = addQuartzRecipes(Constants.QUARTZ_META_SUNNY, new ItemStack(Blocks.double_plant, 1, 0), ModFluffBlocks.sunnyQuartz, ModFluffBlocks.sunnyQuartzStairs, ModFluffBlocks.sunnyQuartzSlab);
 
-        // Ingots into blocks. Wouldn't be surprised if this becomes unnecessary when GT provides its own ingots
-        compressAndExtract(
-                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_MANASTEEL),
-                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_MANASTEELBLOCK)
-        );
-        compressAndExtract(
-                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_TERRASTEEL),
-                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_TERRASTEELBLOCK)
-        );
-        compressAndExtract(
-                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_ELEMENTIUM),
-                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_ELEMENTIUMBLOCK)
-        );
-        compressAndExtract(
-                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_DRAGONSTONE),
-                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_DRAGONSTONEBLOCK)
-        );
-        compressAndExtract(
-                new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_DIAMOND),
-                new ItemStack(ModBlocks.storage, 1, Constants.STORAGE_META_DIAMONDBLOCK)
-        );
         compressAndExtract(
                 new ItemStack(ModItems.manaResource, 9, Constants.MANARESOURCE_META_PRISMARINE),
                 new ItemStack(ModBlocks.prismarine)
         );
 
         // Reeds compress to plantballs by default
-        addIC2ExtractorRecipe(new ItemStack(Items.reeds, 8), new ItemStack(ModBlocks.reedBlock));
         GTValues.RA.stdBuilder()
                 .itemInputs(new ItemStack(Items.reeds, 8), GTUtility.getIntegratedCircuit(16))
                 .itemOutputs(new ItemStack(ModBlocks.reedBlock))

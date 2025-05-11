@@ -108,6 +108,10 @@ public final class Constants {
 
     public static final int MANA_TABLET_MAGIC_META = 10000;
 
+    public static final int MC_BLOCK_UPDATE = 1;
+    public static final int MC_BLOCK_SEND_TO_CLIENT = 2;
+    public static final int MC_BLOCK_PREVENT_RENDER = 4;
+
     public static ItemStack thaumcraftCrucible() {
         return new ItemStack(Block.getBlockFromName(THAUMCRAFT_METAL_DEVICE), 1, THAUMCRAFT_METAL_META_CRUCIBLE);
     }

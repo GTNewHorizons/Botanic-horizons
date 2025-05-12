@@ -2,32 +2,34 @@ package net.fuzzycraft.botanichorizons.addons.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.tile.IWrenchable;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlfPortal;
 import net.fuzzycraft.botanichorizons.util.Facing2D;
-import net.fuzzycraft.botanichorizons.util.multiblock.MultiblockStructure;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.ModAchievements;
-import vazkii.botania.common.block.BlockModContainer;
-import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class BlockAdvancedAlfPortal extends BlockModContainer implements IWandable, ILexiconable {
+public class BlockAdvancedAlfPortal extends BlockModContainer<TileAdvancedAlfPortal> implements IWandHUD, IWandable, ILexiconable {
 
     public static final String NAME = "automatedAlfPortal";
+
+    // META: bit 0 = online, bit 1..2 = 2D facing
 
     public BlockAdvancedAlfPortal() {
         super(Material.wood);
@@ -37,7 +39,7 @@ public class BlockAdvancedAlfPortal extends BlockModContainer implements IWandab
     }
 
     @Override
-    public TileEntity createNewTileEntity(World world, int meta) {
+    public TileAdvancedAlfPortal createNewTileEntity(World world, int meta) {
         return new TileAdvancedAlfPortal();
     }
 
@@ -58,6 +60,11 @@ public class BlockAdvancedAlfPortal extends BlockModContainer implements IWandab
         return (meta & 1) == 0 ? this.iconOff : this.iconOn;
     }
 
+    @SideOnly(Side.CLIENT) @Override
+    public void renderHUD(Minecraft mc, ScaledResolution res, World world, int x, int y, int z) {
+        ((TileAdvancedAlfPortal) world.getTileEntity(x, y, z)).renderHUD(mc, res);
+    }
+
     public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
         return LexiconData.alfhomancyIntro;
     }
@@ -68,7 +75,7 @@ public class BlockAdvancedAlfPortal extends BlockModContainer implements IWandab
             EntityPlayerMP player = (EntityPlayerMP) placer;
             player.addChatMessage(new ChatComponentText("Facing index: " + facing.index + ": " + facing.name()));
         }
-        worldIn.setBlockMetadataWithNotify(x, y, z, facing.index * 2, 3);
+        worldIn.setBlockMetadataWithNotify(x, y, z, facing.index << 1, 3);
     }
 
 
@@ -82,6 +89,6 @@ public class BlockAdvancedAlfPortal extends BlockModContainer implements IWandab
     }
 
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        return world.getBlockMetadata(x, y, z) == 0 ? 0 : 15;
+        return (world.getBlockMetadata(x, y, z) & 1) == 0 ? 0 : 15;
     }
 }

@@ -2,6 +2,7 @@ package net.fuzzycraft.botanichorizons.patches;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.ToolDictNames;
@@ -10,6 +11,7 @@ import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
+import net.fuzzycraft.botanichorizons.addons.BHBlocks;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -17,7 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import vazkii.botania.api.BotaniaAPI;
@@ -35,7 +37,6 @@ import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.recipe.RecipeMaps.cutterRecipes;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
-
 
 public class GregtechPatches {
     public static void applyPatches() {
@@ -196,6 +197,23 @@ public class GregtechPatches {
         addGlassPane(ModFluffBlocks.managlassPane, ModBlocks.manaGlass);
         addGlassPane(ModFluffBlocks.alfglassPane, ModBlocks.elfGlass);
         addGlassPane(ModFluffBlocks.bifrostPane, ModBlocks.bifrostPerm);
+
+        // Multis
+
+        GTValues.RA.stdBuilder()
+                .itemInputs(
+                        new ItemStack(ModBlocks.alfPortal),
+                        ItemList.Field_Generator_LuV.get(1),
+                        ItemList.Robot_Arm_LuV.get(2),
+                        ItemList.Conveyor_Module_LuV.get(2),
+                        new ItemStack(ModItems.manaResource, 4, Constants.MANARESOURCE_META_DRAGONSTONE),
+                        new ItemStack(ModItems.manaResource, 8, Constants.MANARESOURCE_META_PIXIE_DUST)
+                )
+                .fluidInputs(FluidRegistry.getFluidStack("molten.elvenelementium", 720))
+                .itemOutputs(new ItemStack(BHBlocks.autoPortal))
+                .duration(60 * 20)
+                .eut(30000)
+                .addTo(assemblerRecipes);
 
     }
 

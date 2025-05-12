@@ -31,13 +31,22 @@ public final class Multiblocks {
 
         alfPortal = builder.buildForMap(
                 new String[] {
-                    "n   n", "     ", "     ", "     ", "n   n"
+                    "       ", "       ", "  lll  ", "  lnl  ", "  lll  ", "       ", "       "
                 },
                 new String[] {
-                    "lglgl", "g...g", "l...l", "g...g", "lgxgl"
+                    "       ", "  l l  ", " l   l ", "       ", " l   l ", "  l l  ", "       "
                 },
                 new String[] {
-                    "     ", " lll ", " lll ", " lll ", "     "
+                    "  l l  ", "       ", "l     l", "       ", "l     l", "       ", "  l l  "
+                },
+                new String[] {
+                    "n l l n", "       ", "l     l", "       ", "l     l", "       ", "n l l n"
+                },
+                new String[] {
+                    "llglgll", "l.....l", "g.....g", "l.....l", "g.....g", "l.....l", "llgxgll"
+                },
+                new String[] {
+                    "       ", " lllll ", " llgll ", " lglgl ", " llgll ", " lllll ", "       "
                 }
         );
     }

@@ -1,5 +1,7 @@
 package net.fuzzycraft.botanichorizons.util.multiblock;
 
+import net.minecraft.util.ChunkCoordinates;
+
 public final class MultiblockStructure {
     final int dx;
     final int dy;
@@ -11,5 +13,9 @@ public final class MultiblockStructure {
         this.dy = dy;
         this.dz = dz;
         this.check = check;
+    }
+
+    public ChunkCoordinates lexiconPackedCoordinates(int xOffset, int yOffset, int zOffset) {
+        return new ChunkCoordinates(-dx + xOffset, -dy + yOffset, -dz + zOffset);
     }
 }

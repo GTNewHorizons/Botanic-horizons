@@ -1,6 +1,10 @@
 package net.fuzzycraft.botanichorizons.util.multiblock;
 
-public class WrongBlockException extends Exception {
+import net.minecraft.util.ChunkCoordinates;
+
+import javax.annotation.Nonnull;
+
+public class WrongBlockException extends Exception implements IMultiblockErrorLocation {
     public final int xCoord;
     public final int yCoord;
     public final int zCoord;
@@ -12,5 +16,10 @@ public class WrongBlockException extends Exception {
         this.yCoord = yCoord;
         this.zCoord = zCoord;
         this.blockName = blockName;
+    }
+
+    @Override @Nonnull
+    public ChunkCoordinates getErrorLocation() {
+        return new ChunkCoordinates(xCoord, yCoord, zCoord);
     }
 }

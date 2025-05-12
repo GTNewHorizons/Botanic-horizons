@@ -1,12 +1,14 @@
 package net.fuzzycraft.botanichorizons.mod;
 
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-import net.fuzzycraft.botanichorizons.addons.Blocks;
+import net.fuzzycraft.botanichorizons.addons.BHBlocks;
 
 import net.fuzzycraft.botanichorizons.addons.Multiblocks;
+import net.fuzzycraft.botanichorizons.lexicon.BHLexicon;
 import net.fuzzycraft.botanichorizons.patches.AlfheimPatches;
 import net.fuzzycraft.botanichorizons.patches.ApothecaryPatches;
 import net.fuzzycraft.botanichorizons.patches.AvaritiaPatches;
@@ -37,10 +39,11 @@ public class ForgeMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        Blocks.initBlocks();
+        BHBlocks.initBlocks();
 
         OredictPatches.applyPatches();
         AlfheimPatches.applyPatches();
+        BHLexicon.preInit();
 
         if (!isPackMode()) return;
         CraftingPatches.applyPatches();
@@ -55,9 +58,13 @@ public class ForgeMod {
     }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         Multiblocks.init();
+        BHLexicon.init();
+    }
 
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
         if (!isPackMode()) return;
 
         ThaumcraftAspects.registerAspects();

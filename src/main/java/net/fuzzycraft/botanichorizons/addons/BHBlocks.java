@@ -6,7 +6,7 @@ import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlfPortal;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.minecraft.tileentity.TileEntity;
 
-public final class Blocks {
+public final class BHBlocks {
     public static BlockAdvancedAlfPortal autoPortal;
 
     public static void initBlocks() {

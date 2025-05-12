@@ -1,10 +1,18 @@
 package net.fuzzycraft.botanichorizons.addons.tileentity;
 
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.tile.IWrenchable;
+import net.fuzzycraft.botanichorizons.addons.BHBlocks;
 import net.fuzzycraft.botanichorizons.addons.Multiblocks;
+import net.fuzzycraft.botanichorizons.util.ChargeState;
 import net.fuzzycraft.botanichorizons.util.Facing2D;
 import net.fuzzycraft.botanichorizons.util.InventoryHelper;
 import net.fuzzycraft.botanichorizons.util.SparkHelper;
+import net.fuzzycraft.botanichorizons.util.multiblock.MultiblockHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInvBasic;
@@ -19,12 +27,16 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
+import vazkii.botania.client.core.handler.HUDHandler;
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
@@ -34,7 +46,25 @@ import java.util.List;
 import static net.fuzzycraft.botanichorizons.util.Constants.MC_BLOCK_SEND_TO_CLIENT;
 import static net.fuzzycraft.botanichorizons.util.Constants.MC_BLOCK_UPDATE;
 
-public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IInvBasic, IManaReceiver, ISparkAttachable {
+public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IInvBasic, IManaReceiver, ISparkAttachable, IWrenchable {
+
+    // Balance
+    public final int MANA_CAPACITY = 200000;
+    public final int CYCLE_TICKS = 20; // time between checks
+    public final int SPARK_CYCLE_TICKS = 100; // time between spark requests for extra mana
+    public final int CYCLE_UPKEEP = 75;
+    public final int RECIPE_MANA = 10; // added cost on top of upkeep
+    public final int ACTIVATE_MANA = 95000; // activation cost
+    public final int MAX_PARALLELS = 32;
+    // Startup safety buffer. Should be slightly more than the upkeep needed of one SPARK_CYCLE
+    public final int SPARK_BUFFER_MANA = 2000;
+    /*
+       Vanilla portal stats for comparison:
+       activation cost: 75000 mana
+       running cost: 2 mana/t = 40 mana/s
+       crafting rate: 4t/recipe = 5 items/s
+       crafting cost: no added cost, upkeep is 8 mana per recipe
+     */
 
     // Tile entity state
     public final InventoryBasic inventoryHandler;
@@ -49,14 +79,6 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
     // Definitions
     static final int INPUT_SIZE = 2;
     static final int OUTPUT_SIZE = 2;
-
-    public final int MANA_CAPACITY = 200000;
-    public final int CYCLE_TICKS = 20;
-    public final int SPARK_CYCLE_TICKS = 100;
-    public final int CYCLE_UPKEEP = 20;
-    public final int RECIPE_MANA = 100;
-    public final int ACTIVATE_MANA = 95000;
-    public final int SPARK_BUFFER_MANA = 500;
 
     // Debug stats
     protected boolean requestedSparkTransfer = false;
@@ -91,7 +113,7 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
             cycleRemaining--;
         } else if (storedMana < CYCLE_UPKEEP) {
             isOnline = false;
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing.index << 1, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
             // TODO: more visual stuff
         } else if (partialStructureValidation()) {
             cycleRemaining = CYCLE_TICKS;
@@ -104,7 +126,7 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
             markDirty();
         } else {
             isOnline = false;
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing.index << 1, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
         }
     }
 
@@ -130,37 +152,6 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
         }
     }
 
-    public boolean onWanded(EntityPlayer wandUser) {
-        this.facing = Facing2D.fromIndex((worldObj.getBlockMetadata(xCoord, yCoord, zCoord) >> 1) & 3);
-
-        if (!isOnline && storedMana > ACTIVATE_MANA) {
-            Exception error = Multiblocks.alfPortal.checkEntireStructure(worldObj, xCoord, yCoord, zCoord, this.facing);
-            if (error != null) {
-                if (wandUser != null) {
-                    wandUser.addChatComponentMessage(new ChatComponentText(error.getMessage()));
-                    wandUser.addChatComponentMessage(new ChatComponentText(
-                        String.format("Facing: (%d + %d, %d, %d + %d)", xCoord, facing.dx, yCoord, zCoord, facing.dz)
-                    ));
-                }
-                return false;
-            }
-
-            storedMana -= ACTIVATE_MANA;
-            cycleRemaining = CYCLE_TICKS;
-            isOnline = true;
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1 + facing.index * 2, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
-            markDirty();
-            return true;
-        } else if (isOnline) {
-            isOnline = false;
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing.index * 2, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
-            markDirty();
-            return true;
-        }
-
-        return false;
-    }
-
     private boolean partialStructureValidation() {
         structureCycle++;
         if (structureCycle >= Multiblocks.alfPortal.blocks.length) {
@@ -171,12 +162,14 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
 
     // process recipes
     private void handleCrafts() {
-        int parallel = 64;
+        int parallel = MAX_PARALLELS;
 
         // check energy capacity
-        final int max_mana_parallel = (storedMana - CYCLE_UPKEEP) / RECIPE_MANA;
-        parallel = Math.min(parallel, max_mana_parallel);
-        if (parallel <= 0) return;
+        if (RECIPE_MANA > 0) { // just in case some hack turns this off later.
+            final int max_mana_parallel = (storedMana - CYCLE_UPKEEP) / RECIPE_MANA;
+            parallel = Math.min(parallel, max_mana_parallel);
+            if (parallel <= 0) return;
+        }
 
         // check if last output slot is empty, i.e. we can safely dump the output
         final ItemStack currentLastSlot = inventoryHandler.getStackInSlot(INPUT_SIZE + OUTPUT_SIZE - 1);
@@ -287,6 +280,36 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
         return null;
     }
 
+    // IWandable delegate
+
+    public boolean onWanded(EntityPlayer wandUser) {
+        this.facing = Facing2D.fromIndex((worldObj.getBlockMetadata(xCoord, yCoord, zCoord) >> 1) & 3);
+
+        if (!isOnline) {
+            Exception error = Multiblocks.alfPortal.checkEntireStructure(worldObj, xCoord, yCoord, zCoord, this.facing);
+            if (error != null) {
+                boolean handled = MultiblockHelper.handleFailedStructure(worldObj, wandUser, error);
+                return false;
+            }
+
+            if (storedMana <= ACTIVATE_MANA) {
+                return false;
+            }
+
+            storedMana -= ACTIVATE_MANA;
+            cycleRemaining = CYCLE_TICKS;
+            isOnline = true;
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1 + facing.index * 2, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
+            markDirty();
+            return true;
+        } else {
+            isOnline = false;
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing.index * 2, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
+            markDirty();
+            return true;
+        }
+    }
+
     // Persistence
 
     private static final String KEY_INVENTORY = "inv";
@@ -297,7 +320,6 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
 
     @Override
     public Packet getDescriptionPacket() {
-        FMLLog.warning("AAP: packet out");
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         writeCustomNBT(nbttagcompound);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, -999, nbttagcompound);
@@ -305,7 +327,6 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
 
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
-        FMLLog.warning("AAP: packet in");
         readCustomNBT(packet.func_148857_g());
     }
 
@@ -422,6 +443,15 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
         return storedMana;
     }
 
+    // Mana HUD
+
+    @SideOnly(Side.CLIENT)
+    public void renderHUD(Minecraft mc, ScaledResolution res) {
+        ChargeState state = ChargeState.genState(isOnline, storedMana, ACTIVATE_MANA);
+        String tooltip = state.getLocalisedHudString(BHBlocks.autoPortal);
+        HUDHandler.drawSimpleManaHUD(state.color, storedMana, MANA_CAPACITY, tooltip, res);
+    }
+
     // ISparkAttachable
 
     @Override
@@ -453,5 +483,43 @@ public class TileAdvancedAlfPortal extends TileEntity implements IInventory, IIn
     @Override
     public boolean areIncomingTranfersDone() {
         return storedMana >= (isOnline ? MANA_CAPACITY : ACTIVATE_MANA + SPARK_BUFFER_MANA);
+    }
+
+    // IWrenchable
+
+    @Override
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int facingIndex) {
+        return Facing2D.fromIC2(facingIndex) != null;
+    }
+
+    @Override
+    public short getFacing() {
+        return (short)facing.ic2index;
+    }
+
+    @Override
+    public void setFacing(short facingIndex) {
+        Facing2D newFacing = Facing2D.fromIC2(facingIndex);
+        if (newFacing != null && newFacing == facing) return;
+
+        isOnline = false;
+        facing = newFacing;
+
+        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing.index << 1, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
+    }
+
+    @Override
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+        return true;
+    }
+
+    @Override
+    public float getWrenchDropRate() {
+        return 1;
+    }
+
+    @Override
+    public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+        return new ItemStack(BHBlocks.autoPortal);
     }
 }

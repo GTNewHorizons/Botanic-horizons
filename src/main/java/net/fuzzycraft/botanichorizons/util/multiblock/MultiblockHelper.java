@@ -2,14 +2,23 @@ package net.fuzzycraft.botanichorizons.util.multiblock;
 
 import net.fuzzycraft.botanichorizons.util.Facing2D;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
+import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class MultiblockHelper {
     public final MultiblockStructure[] blocks;
+    private static final Random particleRandomiser = new Random();
 
-    public MultiblockHelper(MultiblockStructure[] blocks) {
+    public MultiblockHelper(@Nonnull MultiblockStructure[] blocks) {
         this.blocks = blocks;
     }
 
@@ -64,5 +73,52 @@ public class MultiblockHelper {
 
     private int transformedZ(int rootZ, @Nonnull Facing2D orientation, @Nonnull MultiblockStructure item) {
         return rootZ + item.dz * orientation.dz - item.dx * orientation.cw_dz;
+    }
+
+    @Nonnull
+    public MultiblockSet lexiconMultiblock(int xOffset, int yOffset, int zOffset, Block rootBlock, int rootMeta) {
+        Multiblock export = new Multiblock();
+        for (MultiblockStructure block : blocks) {
+            MultiblockComponent component = block.check.getLexiconRenderer(block, xOffset, yOffset, zOffset);
+            if (component != null) {
+                export.addComponent(component);
+            }
+        }
+        export.addComponent(new MultiblockComponent(
+                new ChunkCoordinates(xOffset, yOffset, zOffset),
+                rootBlock,
+                rootMeta,
+                true
+        ));
+
+        return export.makeSet();
+    }
+
+    /**
+     * Tries to do UI for the given error.
+     * @param world the world object.
+     * @param player the player object triggering the check
+     * @param error the Exception generated from the multiblock check
+     * @return Returns true if something was done to help the player.
+     */
+    public static boolean handleFailedStructure(World world, EntityPlayer player, Exception error) {
+        if (error instanceof IMultiblockErrorLocation) {
+            ChunkCoordinates errorLocation = ((IMultiblockErrorLocation) error).getErrorLocation();
+            for (int i = 0; i < 10; i++) {
+                world.spawnParticle("fireworksSpark",
+                        errorLocation.posX + 0.5, errorLocation.posY + 0.5, errorLocation.posZ + 0.5,
+                        MultiblockHelper.genParticleVelocity(), MultiblockHelper.genParticleVelocity(), MultiblockHelper.genParticleVelocity());
+            }
+            return true;
+        } else if (player != null) {
+            player.addChatComponentMessage(new ChatComponentText(error.getMessage()));
+            return true;
+        }
+
+        return false;
+    }
+
+    private static float genParticleVelocity() {
+        return (particleRandomiser.nextFloat() - 0.5f) / 3;
     }
 }

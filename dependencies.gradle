@@ -8,5 +8,5 @@ dependencies {
 
     compileOnly("com.github.GTNewHorizons:Chisel:2.16.4-GTNH:dev") {transitive = false}
 
-    runtimeOnly('com.github.GTNewHorizons:Baubles:1.0.4:dev')
+	runtimeOnly('com.github.GTNewHorizons:Baubles-Expanded:2.1.8-GTNH:dev')
 }

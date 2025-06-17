@@ -1,5 +1,6 @@
 package net.fuzzycraft.botanichorizons.patches;
 
+import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.fuzzycraft.botanichorizons.util.OreDict;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -10,8 +11,13 @@ import vazkii.botania.common.item.ModItems;
 
 public class OredictPatches {
     public static void applyPatches() {
+        applyBasicPatches();
+        if (ForgeMod.isPackMode()) applyCrossModPatches();
+    }
+
+    private static void applyBasicPatches() {
         // fold mushrooms and petals together
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++) {
             OreDictionary.registerOre(OreDict.FLOWER_INGREDIENT[i], new ItemStack(ModBlocks.mushroom, 1, i));
             OreDictionary.registerOre(OreDict.FLOWER_INGREDIENT[i], new ItemStack(ModItems.petal, 1, i));
             OreDictionary.registerOre(OreDict.MUSHROOM, new ItemStack(ModBlocks.mushroom, 1, i));
@@ -24,7 +30,9 @@ public class OredictPatches {
                 "flowerRed",   "flowerLightBlue",  "flowerMagenta", "flowerLightGray",  "flowerRed",      "flowerOrange",      "flowerWhite",      "flowerPink",      "flowerLightGray");
         oredictThirdPartyBlocks("minecraft:red_flower",
                 "flowerPoppy", "flowerBlueOrchid", "flowerAllium",  "flowerAzureBluet", "flowerTulipRed", "flowerTulipOrange", "flowerTulipWhite", "flowerTulipPink", "flowerOxeyeDaisy");
+    }
 
+    private static void applyCrossModPatches() {
         oredictThirdPartyBlocks("BiomesOPlenty:flowers",
                 "flowerClover", "flowerSwamp",  "flowerDeathbloom", "flowerGlowflower", "flowerHydrangeaBlue",  "flowerCosmosOrange",   "flowerDaffodil",   "flowerWildflower", "flowerViolet", "flowerAnemoneWhite",    "flowerWaterlily", "flowerEnderlotus",  "flowerBromeliad",  "flowerEyebulb", null, "flowerDandelionPuff");
         oredictThirdPartyBlocks("BiomesOPlenty:flowers",

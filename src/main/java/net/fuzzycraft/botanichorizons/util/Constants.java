@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 public final class Constants {
     private Constants() {}
 
+    public static final String BH_ICON_PREFIX = "botanichorizons:";
+
     public static final int POOL_META_DILUTE = 2;
     public static final int POOL_META_REGULAR = 0;
     public static final int POOL_META_REGULAR_FABULOUS = 3;
@@ -78,6 +80,10 @@ public final class Constants {
     public static final int QUARTZ_META_ELVEN = 5;
     public static final int QUARTZ_META_SUNNY = 6;
 
+    public static final int QUARTZBLOCK_META_BASIC = 0;
+    public static final int QUARTZBLOCK_META_CHISELED = 1;
+    public static final int QUARTZBLOCK_META_PILLAR = 2;
+
     public static final int VIRUS_METADATA_NECRO = 0;
     public static final int VIRUS_METADATA_NULL = 1;
 
@@ -103,10 +109,17 @@ public final class Constants {
     public static final String GT_CASING_ID = "gregtech:gt.blockcasings4";
     public static final int GT_CASING_META = 1;
 
+    public static final String GT_MACHINE_ID = "gregtech:gt.blockmachines";
+    public static final int GT_MACHINE_BATH_START_ID = 540;
+
     public static final int POOL_MAX_MANA_DILUTED =   10000;
     public static final int POOL_MAX_MANA_REGULAR = 1000000;
 
     public static final int MANA_TABLET_MAGIC_META = 10000;
+
+    public static final int MC_BLOCK_UPDATE = 1;
+    public static final int MC_BLOCK_SEND_TO_CLIENT = 2;
+    public static final int MC_BLOCK_PREVENT_RENDER = 4;
 
     public static ItemStack thaumcraftCrucible() {
         return new ItemStack(Block.getBlockFromName(THAUMCRAFT_METAL_DEVICE), 1, THAUMCRAFT_METAL_META_CRUCIBLE);
@@ -122,5 +135,9 @@ public final class Constants {
 
     public static ItemStack gtTradeCasing() {
         return new ItemStack(Block.getBlockFromName(GT_CASING_ID), 1, GT_CASING_META);
+    }
+
+    public static ItemStack gtChemicalBath(int tier) {
+        return new ItemStack(Block.getBlockFromName(GT_MACHINE_ID), 1, GT_MACHINE_BATH_START_ID + tier);
     }
 }

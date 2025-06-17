@@ -3,6 +3,8 @@ package net.fuzzycraft.botanichorizons.patches;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.ToolDictNames;
+import net.fuzzycraft.botanichorizons.addons.BHBlocks;
+import net.fuzzycraft.botanichorizons.lexicon.BHRecipes;
 import net.fuzzycraft.botanichorizons.util.OreDict;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.minecraft.block.Block;
@@ -1817,6 +1819,35 @@ public class CraftingPatches {
         for(int i = 0; i < ModFluffBlocks.pavementStairs.length; i++)
             GregtechPatches.addStairs(ModFluffBlocks.pavementStairs[i], new ItemStack(ModFluffBlocks.pavement, 1, i));
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Multiblocks
+
+        addOreDictRecipe(new ItemStack(BHBlocks.autoPoolInfusion), "qpq", "aBa", "qrq",
+                'q', new ItemStack(ModFluffBlocks.manaQuartz, 1, Constants.QUARTZBLOCK_META_CHISELED),
+                'p', new ItemStack(ModBlocks.pool, 1, Constants.POOL_META_REGULAR),
+                'a', ItemList.Robot_Arm_HV.get(1),
+                'r', LibOreDict.LIVING_ROCK,
+                'B', Constants.gtChemicalBath(3)
+                );
+        BHRecipes.poolInfusionRecipe = BotaniaAPI.getLatestAddedRecipe();
+
+        addOreDictRecipe(new ItemStack(BHBlocks.autoPoolAlchemy), "qpq", "aBa", "qcq",
+                'q', new ItemStack(ModFluffBlocks.sunnyQuartz, 1, Constants.QUARTZBLOCK_META_CHISELED),
+                'p', new ItemStack(ModBlocks.pool, 1, Constants.POOL_META_REGULAR),
+                'a', ItemList.Robot_Arm_EV.get(1),
+                'c', new ItemStack(ModBlocks.alchemyCatalyst, 1),
+                'B', Constants.gtChemicalBath(4)
+        );
+        BHRecipes.poolAlchemyRecipe = BotaniaAPI.getLatestAddedRecipe();
+
+        addOreDictRecipe(new ItemStack(BHBlocks.autoPoolConjuration), "qpq", "aBa", "qcq",
+                'q', new ItemStack(ModFluffBlocks.elfQuartz, 1, Constants.QUARTZBLOCK_META_CHISELED),
+                'p', new ItemStack(ModBlocks.pool, 1, Constants.POOL_META_REGULAR),
+                'a', ItemList.Robot_Arm_IV.get(1),
+                'c', new ItemStack(ModBlocks.conjurationCatalyst, 1),
+                'B', Constants.gtChemicalBath(5)
+        );
+        BHRecipes.poolConjurationRecipe = BotaniaAPI.getLatestAddedRecipe();
     }
 
     public static void addOreDictRecipe(ItemStack output, Object... recipe) {

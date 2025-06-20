@@ -1,4 +1,9 @@
 // Add any additional repositories for your dependencies here
 
 repositories {
+    maven {
+	// StructureLib
+        name = "jitpack.io"
+        url = "https://jitpack.io"
+    }
 }

@@ -9,8 +9,8 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import javax.annotation.Nonnull;
 
 public final class MetaBlockCheck implements MultiblockCheck {
-    final @Nonnull Block referenceBlock;
-    final int referenceMeta;
+    public final @Nonnull Block referenceBlock;
+    public final int referenceMeta;
 
     public MetaBlockCheck(@Nonnull Block referenceBlock, int referenceMeta) {
         this.referenceBlock = referenceBlock;

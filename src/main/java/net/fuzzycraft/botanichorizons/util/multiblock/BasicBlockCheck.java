@@ -8,8 +8,7 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import javax.annotation.Nonnull;
 
 public final class BasicBlockCheck implements MultiblockCheck {
-    @Nonnull
-    final Block referenceBlock;
+    public final @Nonnull Block referenceBlock;
 
     public BasicBlockCheck(@Nonnull Block referenceBlock) {
         this.referenceBlock = referenceBlock;

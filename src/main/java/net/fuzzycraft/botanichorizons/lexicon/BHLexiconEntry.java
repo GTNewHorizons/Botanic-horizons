@@ -38,7 +38,8 @@ public class BHLexiconEntry extends LexiconEntry {
     }
 
     public String getWebLink() {
-        return "http://botaniamod.net/lexicon.php#" + this.unlocalizedName;
+        // For those interested in writing these pages
+        return "https://wiki.gtnewhorizons.com/wiki/BotanicHorizonsLexicon/" + this.unlocalizedName;
     }
 
     public int compareTo(LexiconEntry o) {

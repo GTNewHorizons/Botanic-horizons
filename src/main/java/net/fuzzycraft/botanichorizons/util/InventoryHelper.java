@@ -1,10 +1,14 @@
 package net.fuzzycraft.botanichorizons.util;
 
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class InventoryHelper {
 
@@ -107,5 +111,31 @@ public class InventoryHelper {
                 inventory.setInventorySlotContents(slot, null);
             }
         }
+    }
+
+    public static boolean isIngredient(ItemStack stack, Object recipe) {
+        if (recipe instanceof String) {
+            int[] oreIds = OreDictionary.getOreIDs(stack);
+            for (int oreId: oreIds) {
+                if (OreDictionary.getOreName(oreId).equals(recipe)) {
+                    return true;
+                }
+            }
+        } else if (recipe instanceof ItemStack) {
+            ItemStack compare = (ItemStack) recipe;
+            if (compare.isItemEqual(stack)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void setRandomDropDirection(EntityItem item, World world) {
+        double speed = 0.05;
+        Random random = world.rand;
+        item.motionX = random.nextGaussian() * speed;
+        item.motionY = random.nextGaussian() * speed + 0.2F;
+        item.motionZ = random.nextGaussian() * speed;
     }
 }

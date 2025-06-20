@@ -10,3 +10,10 @@ dependencies {
 
 	runtimeOnly('com.github.GTNewHorizons:Baubles-Expanded:2.1.9-GTNH:dev')
 }
+
+repositories {
+    maven {
+        name = "jitpack.io"
+        url = "https://jitpack.io"
+    }
+}

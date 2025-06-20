@@ -3,10 +3,10 @@ package net.fuzzycraft.botanichorizons.util.multiblock;
 import net.minecraft.util.ChunkCoordinates;
 
 public final class MultiblockStructure {
-    final int dx;
-    final int dy;
-    final int dz;
-    final MultiblockCheck check;
+    public final int dx;
+    public final int dy;
+    public final int dz;
+    public final MultiblockCheck check;
 
     public MultiblockStructure(int dx, int dy, int dz, MultiblockCheck check) {
         this.dx = dx;

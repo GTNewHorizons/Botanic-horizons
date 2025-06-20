@@ -11,6 +11,7 @@ public enum Facing2D {
     EAST(1,  5,  1,  0,  0,  1),
     SOUTH(2, 3,  0,  1, -1,  0),
     WEST(3,  4, -1,  0,  0, -1);
+    // Note: 3d indices are 0 = down and 1 = up
 
     public final int index;
     public final int ic2index;

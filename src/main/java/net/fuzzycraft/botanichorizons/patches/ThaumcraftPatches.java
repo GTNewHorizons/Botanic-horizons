@@ -187,7 +187,7 @@ public class ThaumcraftPatches {
             .apply(builder -> {
                 ItemStack glimmer = new ItemStack(ModBlocks.livingwood, 1, Constants.LIVINGWOOD_META_GLIMMERING);
                 ItemStack glow = new ItemStack(Blocks.glowstone);
-                ItemStack gemIV = new ItemStack((Item) Item.itemRegistry.getObject("dreamcraft:item.EngravedEnergyChip"));
+                ItemStack gemEV = new ItemStack((Item) Item.itemRegistry.getObject("dreamcraft:item.QuantumCrystal"));
                 ItemStack construct = Constants.thaumcraftConstruct();
                 ItemStack terra = OreDict.preference("plateTerrasteel", LibOreDict.TERRA_STEEL);
 
@@ -196,7 +196,7 @@ public class ThaumcraftPatches {
                     new ItemStack(ModBlocks.alfPortal),
                     20,
                     new ItemStack(ModBlocks.alchemyCatalyst),
-                    construct, glimmer, glow, terra, construct, glimmer, gemIV, terra, construct, glimmer, glow, terra, construct, glimmer, gemIV, terra
+                    construct, glimmer, glow, terra, construct, glimmer, gemEV, terra, construct, glimmer, glow, terra, construct, glimmer, gemEV, terra
                 );
             })
             .commit();

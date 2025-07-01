@@ -37,7 +37,7 @@ public class AlfheimPatches {
         ModElvenTradeRecipes.dreamwoodRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.dreamwood), Constants.gtTradeCasing());
 
         ModElvenTradeRecipes.elementiumRecipes = new ArrayList();
-        ModElvenTradeRecipes.elementiumRecipes.add(BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.manaResource, 1, 7), "gearGtSmallTitanium"));
+        ModElvenTradeRecipes.elementiumRecipes.add(BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.manaResource, 1, 7), "gearGtSmallTPVAlloy"));
 
         ModElvenTradeRecipes.pixieDustRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.manaResource, 1, 8), "craftingSunnariumPart");
 

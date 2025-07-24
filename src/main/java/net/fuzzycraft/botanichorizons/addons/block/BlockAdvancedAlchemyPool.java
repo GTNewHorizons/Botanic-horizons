@@ -93,10 +93,9 @@ public class BlockAdvancedAlchemyPool extends BlockModContainer<TileAdvancedAlch
         return (world.getBlockMetadata(x, y, z) & 1) == 0 ? 0 : 10;
     }
 
-    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
-    public void addTooltipInformation(ItemStack itemStack, @SuppressWarnings("rawtypes") List tooltipStrings) {
+    public void addTooltipInformation(ItemStack itemStack, List<String> tooltipStrings) {
         tooltipStrings.add(I18n.format("botanichorizons.tooltip.parallels", TileAdvancedAlchemyPool.MAX_PARALLELS));
         Multiblocks.poolAlchemy.addBuildInfoToTooltip(tooltipStrings);
         tooltipStrings.add(I18n.format("botanichorizons.author.combuster"));

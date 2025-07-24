@@ -96,10 +96,9 @@ public class BlockAdvancedCraftingPool extends BlockModContainer<TileAdvancedCra
         return (world.getBlockMetadata(x, y, z) & 1) == 0 ? 0 : 10;
     }
 
-    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
-    public void addTooltipInformation(ItemStack itemStack, @SuppressWarnings("rawtypes") List tooltipStrings) {
+    public void addTooltipInformation(ItemStack itemStack, List<String> tooltipStrings) {
         tooltipStrings.add(I18n.format("botanichorizons.tooltip.parallels", TileAdvancedCraftingPool.MAX_PARALLELS));
         Multiblocks.poolInfusion.addBuildInfoToTooltip(tooltipStrings);
         tooltipStrings.add(I18n.format("botanichorizons.author.combuster"));

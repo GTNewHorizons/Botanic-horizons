@@ -125,9 +125,8 @@ public class MultiblockHelper {
         return (particleRandomiser.nextFloat() - 0.5f) / 3;
     }
 
-    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
-    public void addBuildInfoToTooltip(@SuppressWarnings("rawtypes") List tooltipStrings) {
+    public void addBuildInfoToTooltip(List<String> tooltipStrings) {
         int minX = blocks[0].dx;
         int minY = blocks[0].dy;
         int minZ = blocks[0].dz;

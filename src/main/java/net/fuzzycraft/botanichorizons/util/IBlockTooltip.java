@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IBlockTooltip {
     @SideOnly(Side.CLIENT)
-    void addTooltipInformation(ItemStack itemStack, @SuppressWarnings("rawtypes") List tooltipStrings);
+    void addTooltipInformation(ItemStack itemStack, List<String> tooltipStrings);
 }

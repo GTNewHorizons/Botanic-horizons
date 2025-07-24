@@ -24,7 +24,7 @@ public class ItemModBlock extends ItemBlockMod {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List/*String*/ tooltipStrings, boolean p_77624_4_) {
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List<String> tooltipStrings, boolean p_77624_4_) {
         super.addInformation(itemStack, player, tooltipStrings, p_77624_4_);
         Item item = itemStack.getItem();
         if (item instanceof ItemBlock) {

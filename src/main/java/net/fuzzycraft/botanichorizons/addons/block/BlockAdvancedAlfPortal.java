@@ -101,10 +101,9 @@ public class BlockAdvancedAlfPortal extends BlockModContainer<TileAdvancedAlfPor
         return (world.getBlockMetadata(x, y, z) & 1) == 0 ? 0 : 15;
     }
 
-    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
-    public void addTooltipInformation(ItemStack itemStack, @SuppressWarnings("rawtypes") List tooltipStrings) {
+    public void addTooltipInformation(ItemStack itemStack, List<String> tooltipStrings) {
         tooltipStrings.add(I18n.format("botanichorizons.tooltip.parallels", TileAdvancedAlfPortal.MAX_PARALLELS));
         Multiblocks.alfPortal.addBuildInfoToTooltip(tooltipStrings);
         tooltipStrings.add(I18n.format("botanichorizons.author.combuster"));

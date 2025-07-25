@@ -2,14 +2,17 @@ package net.fuzzycraft.botanichorizons.addons.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.fuzzycraft.botanichorizons.addons.Multiblocks;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlchemyPool;
 import net.fuzzycraft.botanichorizons.lexicon.BHLexicon;
 import net.fuzzycraft.botanichorizons.util.Facing2D;
+import net.fuzzycraft.botanichorizons.util.IBlockTooltip;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,11 +23,12 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 import static net.fuzzycraft.botanichorizons.util.Constants.BH_ICON_PREFIX;
 
-public class BlockAdvancedAlchemyPool extends BlockModContainer<TileAdvancedAlchemyPool> implements IWandHUD, IWandable, ILexiconable {
+public class BlockAdvancedAlchemyPool extends BlockModContainer<TileAdvancedAlchemyPool> implements IWandHUD, IWandable, ILexiconable, IBlockTooltip {
 
     public static final String NAME = "automatedAlchemyPool";
 
@@ -87,5 +91,13 @@ public class BlockAdvancedAlchemyPool extends BlockModContainer<TileAdvancedAlch
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
         return (world.getBlockMetadata(x, y, z) & 1) == 0 ? 0 : 10;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addTooltipInformation(ItemStack itemStack, List<String> tooltipStrings) {
+        tooltipStrings.add(I18n.format("botanichorizons.tooltip.parallels", TileAdvancedAlchemyPool.MAX_PARALLELS));
+        Multiblocks.poolAlchemy.addBuildInfoToTooltip(tooltipStrings);
+        tooltipStrings.add(I18n.format("botanichorizons.author.combuster"));
     }
 }

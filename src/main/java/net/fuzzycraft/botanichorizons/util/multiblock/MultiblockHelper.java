@@ -1,9 +1,11 @@
 package net.fuzzycraft.botanichorizons.util.multiblock;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.fuzzycraft.botanichorizons.util.Facing2D;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
@@ -12,6 +14,7 @@ import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Random;
 
 public class MultiblockHelper {
@@ -120,5 +123,31 @@ public class MultiblockHelper {
 
     private static float genParticleVelocity() {
         return (particleRandomiser.nextFloat() - 0.5f) / 3;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addBuildInfoToTooltip(List<String> tooltipStrings) {
+        int minX = blocks[0].dx;
+        int minY = blocks[0].dy;
+        int minZ = blocks[0].dz;
+        int maxX = minX;
+        int maxY = minY;
+        int maxZ = minZ;
+        for (MultiblockStructure entry: blocks) {
+            minX = Math.min(minX, entry.dx);
+            minY = Math.min(minY, entry.dy);
+            minZ = Math.min(minZ, entry.dz);
+            maxX = Math.max(maxX, entry.dx);
+            maxY = Math.max(maxY, entry.dy);
+            maxZ = Math.max(maxZ, entry.dz);
+        }
+        int sizeX = maxX - minX + 1;
+        int sizeY = maxY - minY + 1;
+        int sizeZ = maxZ - minZ + 1;
+
+        String dimensionString = I18n.format("botanichorizons.tooltip.multiblock.1", sizeX, sizeY, sizeZ);
+        tooltipStrings.add(dimensionString);
+        tooltipStrings.add(I18n.format("botanichorizons.tooltip.multiblock.2"));
+        tooltipStrings.add(I18n.format("botanichorizons.tooltip.multiblock.3"));
     }
 }

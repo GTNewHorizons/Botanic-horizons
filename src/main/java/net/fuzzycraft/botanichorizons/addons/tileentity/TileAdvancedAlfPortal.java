@@ -29,12 +29,12 @@ import static net.fuzzycraft.botanichorizons.util.Constants.MC_BLOCK_UPDATE;
 public class TileAdvancedAlfPortal extends SimpleAutomationTileEntity<RecipeElvenTrade> implements IManaReceiver, ISparkAttachable, IWrenchable {
 
     // Balance
-    public final int MANA_CAPACITY = 200000;
-    public final int CYCLE_TICKS = 20; // time between checks
-    public final int CYCLE_UPKEEP = 75;
-    public final int RECIPE_MANA = 10; // added cost on top of upkeep
-    public final int ACTIVATE_MANA = 95000; // activation cost
-    public final int MAX_PARALLELS = 32;
+    public static final int MANA_CAPACITY = 200000;
+    public static final int CYCLE_TICKS = 20; // time between checks
+    public static final int CYCLE_UPKEEP = 75;
+    public static final int RECIPE_MANA = 10; // added cost on top of upkeep
+    public static final int ACTIVATE_MANA = 95000; // activation cost
+    public static final int MAX_PARALLELS = 32;
 
     /*
        Vanilla portal stats for comparison:

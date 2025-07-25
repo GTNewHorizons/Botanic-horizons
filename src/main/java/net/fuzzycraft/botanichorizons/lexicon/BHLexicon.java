@@ -67,6 +67,7 @@ public final class BHLexicon {
         LexiconEntry gatewayEntry = new BHLexiconEntry("automatedAlfPortal", multiblockCategory);
         gatewayEntry.setKnowledgeType(BotaniaAPI.elvenKnowledge);
         gatewayEntry.addPage(new PageText("botanichorizons.lexicon.text.automatedAlfPortal.1"));
+        gatewayEntry.addPage(new PageText("botanichorizons.lexicon.text.automatedAlfPortal.2"));
         gatewayEntry.addPage(new PageMultiblock("botanichorizons.lexicon.preview.automatedAlfPortal",
                 Multiblocks.alfPortal.lexiconMultiblock(
                         0, 1, -2,

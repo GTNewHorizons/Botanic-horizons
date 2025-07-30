@@ -22,16 +22,16 @@ public class HoloContainer<T extends TileEntity> implements IMultiblockInfoConta
     }
 
     @Override
-    public void construct(ItemStack stackSize, boolean hintsOnly, T ctx, ExtendedFacing aSide) {
+    public void construct(ItemStack stackSize, boolean hintsOnly, T tileEntity, ExtendedFacing aSide) {
         structrue.buildOrHints(
-                ctx,
+                tileEntity,
                 stackSize,
                 HOLO_DEFAULT_CHANNEL,
-                ctx.getWorldObj(),
-                noSideWay(aSide),
-                ctx.xCoord,
-                ctx.yCoord,
-                ctx.zCoord,
+                tileEntity.getWorldObj(),
+                getOrientation(tileEntity, aSide),
+                tileEntity.xCoord,
+                tileEntity.yCoord,
+                tileEntity.zCoord,
                 offsetA,
                 offsetB,
                 offsetC,
@@ -39,17 +39,17 @@ public class HoloContainer<T extends TileEntity> implements IMultiblockInfoConta
     }
 
     @Override
-    public int survivalConstruct(ItemStack stackSize, int elementBudge, ISurvivalBuildEnvironment env, T ctx,
+    public int survivalConstruct(ItemStack stackSize, int elementBudge, ISurvivalBuildEnvironment env, T tileEntity,
                                  ExtendedFacing aSide) {
         return structrue.survivalBuild(
-                ctx,
+                tileEntity,
                 stackSize,
                 HOLO_DEFAULT_CHANNEL,
-                ctx.getWorldObj(),
-                noSideWay(aSide),
-                ctx.xCoord,
-                ctx.yCoord,
-                ctx.zCoord,
+                tileEntity.getWorldObj(),
+                getOrientation(tileEntity, aSide),
+                tileEntity.xCoord,
+                tileEntity.yCoord,
+                tileEntity.zCoord,
                 offsetA,
                 offsetB,
                 offsetC,
@@ -63,7 +63,7 @@ public class HoloContainer<T extends TileEntity> implements IMultiblockInfoConta
         return new String[0];
     }
 
-    private static ExtendedFacing noSideWay(ExtendedFacing aSide) {
+    public ExtendedFacing getOrientation(T tileEntity, ExtendedFacing aSide) {
         return aSide.getDirection().offsetY != 0 ? ExtendedFacing.DEFAULT : aSide.getOppositeDirection();
     }
 }

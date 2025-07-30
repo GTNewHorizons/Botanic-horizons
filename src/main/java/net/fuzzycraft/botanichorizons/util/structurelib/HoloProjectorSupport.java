@@ -4,6 +4,7 @@ import com.gtnewhorizon.structurelib.alignment.constructable.IMultiblockInfoCont
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
+import ic2.api.tile.IWrenchable;
 import net.fuzzycraft.botanichorizons.util.multiblock.BasicBlockCheck;
 import net.fuzzycraft.botanichorizons.util.multiblock.MetaBlockCheck;
 import net.fuzzycraft.botanichorizons.util.multiblock.MultiblockCheck;
@@ -25,7 +26,8 @@ public class HoloProjectorSupport {
 
     public static final String HOLO_DEFAULT_CHANNEL = "main";
 
-    public static <T extends TileEntity> void registerWithStructureLib(MultiblockHelper definition, Block controllerBlock, Class<T> controllerTileClass) {
+    public static <T extends TileEntity & IWrenchable> void registerOrientedWithStructureLib(MultiblockHelper definition, Block controllerBlock, Class<T> controllerTileClass) {
+
         final Map<MultiblockCheck, Character> keys = new HashMap<>();
         int xMin = definition.blocks[0].dx, xMax = definition.blocks[0].dx;
         int yMin = definition.blocks[0].dy, yMax = definition.blocks[0].dy;
@@ -85,7 +87,8 @@ public class HoloProjectorSupport {
         builder.addElement(counter, ofBlockAnyMeta(controllerBlock));
 
         IStructureDefinition<T> structure = builder.build();
-        HoloContainer<T> container = new HoloContainer<>(structure, -xMin, -yMin, -zMin);
+        HoloContainer<T> container;
+        container = new OrientedHoloContainer<>(structure, -xMin, -yMin, -zMin);
         IMultiblockInfoContainer.registerTileClass(controllerTileClass, container);
     }
 

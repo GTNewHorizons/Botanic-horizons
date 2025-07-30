@@ -224,6 +224,7 @@ abstract public class AutomationTileEntity extends TileEntity implements IManaRe
 
     @Override
     public short getFacing() {
+        this.facing = Facing2D.fromIndex((worldObj.getBlockMetadata(xCoord, yCoord, zCoord) >> 1) & 3);
         return (short)facing.ic2index;
     }
 

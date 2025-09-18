@@ -127,6 +127,8 @@ public final class Constants {
     public static final String NEI_RECIPE_CATEGORY_ALFHEIM = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerElvenTrade";
     public static final String NEI_RECIPE_CATEGORY_APOTHECARY = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerPetalApothecary";
 
+    public static final String TOOL_CLASS_WRENCH = "wrench";
+
     public static ItemStack thaumcraftCrucible() {
         return new ItemStack(Block.getBlockFromName(THAUMCRAFT_METAL_DEVICE), 1, THAUMCRAFT_METAL_META_CRUCIBLE);
     }

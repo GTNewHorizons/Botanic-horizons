@@ -8,6 +8,7 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import cpw.mods.fml.common.FMLLog;
 import ic2.api.tile.IWrenchable;
 import net.fuzzycraft.botanichorizons.util.BlockPos;
+import net.fuzzycraft.botanichorizons.util.structurelib.HoloExtractor;
 import net.fuzzycraft.botanichorizons.util.structurelib.HoloProjectorSupport;
 import net.fuzzycraft.botanichorizons.util.structurelib.HoloScanner;
 import net.minecraft.block.Block;
@@ -45,34 +46,15 @@ public class ItemDisassemblyWrench extends ItemManaWrench {
     }
 
     private <T extends TileEntity> boolean onItemUseTileEntity(T tileEntity, ItemStack heldItem, EntityPlayer player, World world, int side) {
-        IConstructable constructable;
-        if (tileEntity instanceof IConstructable) {
-            constructable = (IConstructable) tileEntity;
-        } else if (tileEntity instanceof IConstructableProvider) {
-            constructable = ((IConstructableProvider) tileEntity).getConstructable();
-            if (constructable == null) {
-                FMLLog.warning("[Wrench] TE %s aka %s is not a IConstructable", tileEntity.getClass().getCanonicalName(), tileEntity.getClass().getName());
-                return false;
-            }
-        } else {
-            IMultiblockInfoContainer<T> container = IMultiblockInfoContainer.get(tileEntity.getClass());
-            if (container == null) {
-                FMLLog.warning("[Wrench] TE %s aka %s is not a MBIC", tileEntity.getClass().getCanonicalName(), tileEntity.getClass().getName());
-                return false;
-            }
-
-            ExtendedFacing facing = HoloProjectorSupport.getExtendedFacingFromItemUse(tileEntity, side);
-            constructable = container.toConstructable(tileEntity, facing);
-        }
-
+        
         int break_count = 5;
 
         if (!world.isRemote) {
             FMLLog.warning("Begin break sequence");
 
-            HoloScanner scanner = new HoloScanner(constructable, world);
-            if(scanner.multiblockLocations.isEmpty()) {
-                FMLLog.warning("No blocks in this multi to break");
+            HoloScanner scanner = HoloExtractor.scanTileEntity(tileEntity, side);
+            if(scanner == null) {
+                FMLLog.warning("No disassembly available for this multi");
                 return true;
             }
 
@@ -114,8 +96,8 @@ public class ItemDisassemblyWrench extends ItemManaWrench {
             }
             return true;
         } else {
-            FMLLog.warning("Not the local world");
-            return false;
+            // return false to allow intercept on server
+            return !HoloExtractor.isProbablyConstructable(tileEntity);
         }
     }
 }

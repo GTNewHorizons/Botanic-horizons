@@ -25,10 +25,7 @@ public class HoloScanner {
 
         // This API stinks, send events to OnStructureEvent though a callback located in ThreadLocalStorage
         ItemStack buildStack = new ItemStack(StructureLibAPI.getDefaultHologramItem());
-        boolean wasRemote = attachedWorld.isRemote;
-        attachedWorld.isRemote = true; // hintsOnly requires isRemote
         constructable.construct(buildStack, true);
-        attachedWorld.isRemote = wasRemote;
 
         StructureLibAPI.disableInstrument();
         MinecraftForge.EVENT_BUS.unregister(this);

@@ -1,33 +1,30 @@
 package net.fuzzycraft.botanichorizons.addons.item;
 
-import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
-import com.gtnewhorizon.structurelib.alignment.constructable.IConstructableProvider;
-import com.gtnewhorizon.structurelib.alignment.constructable.IMultiblockInfoContainer;
-import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
-import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import cpw.mods.fml.common.FMLLog;
-import ic2.api.tile.IWrenchable;
+import net.fuzzycraft.botanichorizons.util.BlockBreakHelper;
 import net.fuzzycraft.botanichorizons.util.BlockPos;
 import net.fuzzycraft.botanichorizons.util.structurelib.HoloExtractor;
-import net.fuzzycraft.botanichorizons.util.structurelib.HoloProjectorSupport;
 import net.fuzzycraft.botanichorizons.util.structurelib.HoloScanner;
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeEventFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
-public class ItemDisassemblyWrench extends ItemManaWrench {
-    public static final String ITEM_ID = "DisassemblyWrench";
+public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
+    public static final String ITEM_ID = "terrasteelDisassemblyWrench";
     public static final int TOOL_MINING_LEVEL = 4;
 
+    //      D  C  B  A   S    SS
+    public static final int[] DISASSEMBLY_PARALLELS = new int[] {
+            1, 1, 5, 25, 125, 625
+    };
+    public static final int DISASSEMBLY_MANA = 150;
+
+    // Speed cache
     private static int resumePos = 0;
     private static final Random dropRandom = new Random();
 
@@ -46,8 +43,8 @@ public class ItemDisassemblyWrench extends ItemManaWrench {
     }
 
     private <T extends TileEntity> boolean onItemUseTileEntity(T tileEntity, ItemStack heldItem, EntityPlayer player, World world, int side) {
-        
-        int break_count = 5;
+
+        int fail_count = 0;
 
         if (!world.isRemote) {
             FMLLog.warning("Begin break sequence");
@@ -58,46 +55,59 @@ public class ItemDisassemblyWrench extends ItemManaWrench {
                 return true;
             }
 
-            for (int i = 0; i < break_count; i++) {
-                ItemDisassemblyWrench.resumePos = (ItemDisassemblyWrench.resumePos + 1) % scanner.multiblockLocations.size();
-                BlockPos pos = scanner.multiblockLocations.get(ItemDisassemblyWrench.resumePos);
-
-                FMLLog.warning("Processing multiblock at %d, %d, %d (%d/%d)", pos.x, pos.y, pos.z, resumePos, scanner.multiblockLocations.size());
+            final int break_capacity = DISASSEMBLY_PARALLELS[getLevel(heldItem)];
+            final int startPos = ItemDisassemblyWrench.resumePos % scanner.multiblockLocations.size();
+            int slot = startPos;
+            int break_capacity_remaining = break_capacity;
+            while (break_capacity_remaining > 0) {
+                slot = (slot + 1) % scanner.multiblockLocations.size();
+                BlockPos pos = scanner.multiblockLocations.get(slot);
+                if (slot == startPos) {
+                    // No more blocks to break
+                    break;
+                }
 
                 Block block = world.getBlock(pos.x, pos.y, pos.z);
                 int blockMeta = world.getBlockMetadata(pos.x, pos.y, pos.z);
 
-                if (block instanceof IWrenchable && ((IWrenchable) block).wrenchCanRemove(player)) {
-                    FMLLog.warning("Wrench break sequence");
-                    ItemStack wrenchedStack = ((IWrenchable) block).getWrenchDrop(player);
-                    block.breakBlock(world, pos.x, pos.y, pos.z, block, blockMeta);
-                    world.setBlockToAir(pos.x, pos.y, pos.z);
-                    EntityItem drop = new EntityItem(world, player.posX, player.posY, player.posZ, wrenchedStack);
-                    world.spawnEntityInWorld(drop);
-                } else if (block.canHarvestBlock(player, blockMeta)) {
-                    FMLLog.warning("Harvestable break sequence");
-                    ArrayList<ItemStack> items = block.getDrops(world, pos.x, pos.y, pos.z, blockMeta, 0);
-                    float dropChance = ForgeEventFactory.fireBlockHarvesting(items, world, block, pos.x, pos.y, pos.z, blockMeta, 0, 1.0F, false, player);
-                    for (ItemStack droppedStack: items) {
-                        if (dropRandom.nextFloat() <= dropChance) {
-                            EntityItem drop = new EntityItem(world, player.posX, player.posY, player.posZ, droppedStack);
-                            world.spawnEntityInWorld(drop);
-                        }
-                    }
-                    block.breakBlock(world, pos.x, pos.y, pos.z, block, blockMeta);
-                    world.setBlockToAir(pos.x, pos.y, pos.z);
-                } else {
-                    String interfaces = Arrays
-                            .stream(block.getClass().getInterfaces())
-                            .map(Class::getName)
-                            .reduce("", (a, b) -> b + " " + a);
-                    FMLLog.warning("Cannot harvest block: %s (%s)", block.getClass().getName(), interfaces);
+                if (block == Blocks.air) {
+                    continue;
                 }
+                if (BlockBreakHelper.tryBreakWrenchable(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ)) {
+                    break_capacity_remaining--;
+                    continue;
+                }
+                if (BlockBreakHelper.tryBreakHeldTool(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ, dropRandom)) {
+                    break_capacity_remaining--;
+                    continue;
+                }
+
+                // Cannot break this block
+                fail_count++;
             }
+
+            // Item updates
+            resumePos = slot;
+            int broken_blocks = break_capacity - break_capacity_remaining;
+            damageOrConsumeMana(heldItem, player, broken_blocks, DISASSEMBLY_MANA);
+
+            if (broken_blocks == 0 && fail_count == 0) {
+                // TODO: end result player feedback
+            } else if (broken_blocks == 0) { // fail count > 0
+                // TODO: end result player feedback
+            } else { // broken_blocks > 0
+                // TODO: end result player feedback
+            }
+
             return true;
         } else {
-            // return false to allow intercept on server
-            return !HoloExtractor.isProbablyConstructable(tileEntity);
+            if (HoloExtractor.isProbablyConstructable(tileEntity)) {
+                // return false to allow intercept on server
+                return false;
+            } else {
+                // TODO: end result player feedback
+                return true;
+            }
         }
     }
 }

@@ -82,7 +82,9 @@ public class BlockAdvancedAlfPortal extends BlockModContainer<TileAdvancedAlfPor
     @Override
     public void breakBlock(World world, int x, int y, int z, Block blockBroken, int meta) {
         TileAdvancedAlfPortal tileEntity = (TileAdvancedAlfPortal)world.getTileEntity(x, y, z);
-        tileEntity.dropItems(world, x, y, z);
+        if (tileEntity != null) {
+            tileEntity.dropItems(world, x, y, z);
+        }
         super.breakBlock(world, x, y, z, blockBroken, meta);
     }
 

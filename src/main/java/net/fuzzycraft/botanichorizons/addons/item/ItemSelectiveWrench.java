@@ -17,6 +17,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
+import java.util.List;
 import java.util.Random;
 
 public class ItemSelectiveWrench extends ItemSuperchargedWrench {
@@ -29,6 +30,13 @@ public class ItemSelectiveWrench extends ItemSuperchargedWrench {
 
     public ItemSelectiveWrench(ToolMaterial toolMaterial) {
         super(toolMaterial, TOOL_MINING_LEVEL, ITEM_ID);
+    }
+
+    @Override
+    public void addInformation(ItemStack heldItem, EntityPlayer player, List<String> tooltips, boolean par4) {
+        super.addInformation(heldItem, player, tooltips, par4);
+        tooltips.add(I18n.format("botanichorizons.tooltip.disassembly.rightClick"));
+        tooltips.add(I18n.format("botanichorizons.tooltip.disassembly.shiftRightClick"));
     }
 
     @Override

@@ -1,6 +1,8 @@
 package net.fuzzycraft.botanichorizons.addons.item;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
@@ -26,12 +28,25 @@ public abstract class ItemSuperchargedWrench extends ItemManaWrench implements I
     }
 
     @Override
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack heldItem, EntityPlayer player, List<String> tooltips, boolean par4) {
         String rankFormat = StatCollector.translateToLocal("botaniamisc.toolRank");
-        String rank = StatCollector.translateToLocal("botania.rank" + getLevel(par1ItemStack));
-        par3List.add(String.format(rankFormat, rank).replaceAll("&", "\u00a7"));
-        if(getMana(par1ItemStack) == Integer.MAX_VALUE)
-            par3List.add(EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.getALife"));
+        String rank = StatCollector.translateToLocal("botania.rank" + getLevel(heldItem));
+        tooltips.add(String.format(rankFormat, rank).replaceAll("&", "\u00a7"));
+        if (getMana(heldItem) == Integer.MAX_VALUE) {
+            tooltips.add(EnumChatFormatting.RED + StatCollector.translateToLocal("botaniamisc.getALife"));
+        }
+    }
+
+    @Override
+    public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
+        for(int baseMana : TIERING_LEVELS) {
+            int mana = baseMana - 1;
+            if (baseMana > 0) {
+                ItemStack stack = new ItemStack(item);
+                setMana(stack, mana);
+                list.add(stack);
+            }
+        }
     }
 
     public void setMana(ItemStack stack, int mana) {

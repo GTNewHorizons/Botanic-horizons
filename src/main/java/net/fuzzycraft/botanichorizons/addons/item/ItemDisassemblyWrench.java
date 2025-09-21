@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
+import java.util.List;
 import java.util.Random;
 
 public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
@@ -32,6 +33,12 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
 
     public ItemDisassemblyWrench(ToolMaterial toolMaterial) {
         super(toolMaterial, TOOL_MINING_LEVEL, ITEM_ID);
+    }
+
+    @Override
+    public void addInformation(ItemStack heldItem, EntityPlayer player, List<String> tooltips, boolean par4) {
+        super.addInformation(heldItem, player, tooltips, par4);
+        tooltips.add(I18n.format("botanichorizons.tooltip.disassembly.rightClick"));
     }
 
     @Override

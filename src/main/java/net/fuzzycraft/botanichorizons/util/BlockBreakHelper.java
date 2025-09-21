@@ -15,6 +15,10 @@ import java.util.Random;
 public class BlockBreakHelper {
     private BlockBreakHelper() {} // static class
 
+    public static boolean isWrenchableBlock(Block block, EntityPlayer player) {
+        return (block instanceof IWrenchable && ((IWrenchable) block).wrenchCanRemove(player));
+    }
+
     public static boolean tryBreakWrenchable(World world, EntityPlayer player, int x, int y, int z, Block block, int blockMeta, double dropX, double dropY, double dropZ) {
         if (block instanceof IWrenchable && ((IWrenchable) block).wrenchCanRemove(player)) {
             ItemStack wrenchedStack = ((IWrenchable) block).getWrenchDrop(player);
@@ -26,6 +30,10 @@ public class BlockBreakHelper {
         } else {
             return false;
         }
+    }
+
+    public static boolean isBlockBreakableWithHeldTool(Block block, int meta, EntityPlayer player) {
+        return block.canHarvestBlock(player, meta);
     }
 
     public static boolean tryBreakHeldTool(World world, EntityPlayer player, int blockX, int blockY, int blockZ, Block block, int blockMeta, double dropX, double dropY, double dropZ, Random random) {

@@ -27,7 +27,7 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
     public static final int DISASSEMBLY_MANA = 150;
 
     // Speed cache
-    private static int resumePos = 0;
+    public static int resumePos = 0;
     private static final Random dropRandom = new Random();
 
     public ItemDisassemblyWrench(ToolMaterial toolMaterial) {
@@ -39,7 +39,7 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
         TileEntity blockTileEntity = world.getTileEntity(blockX, blockY, blockZ);
         if (blockTileEntity == null) {
             player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
-            return false;
+            return true;
         }
         return onItemUseTileEntity(blockTileEntity, heldItem, player, world, side);
     }

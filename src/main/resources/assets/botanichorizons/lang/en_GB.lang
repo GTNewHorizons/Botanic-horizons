@@ -123,3 +123,4 @@ botanichorizons.chat.disassembly.amount=Disassembled %d blocks
 botanichorizons.chat.disassembly.complete=§aThere are no more blocks to remove§7
 botanichorizons.chat.disassembly.obstructed=Some blocks couldn't be disassembled
 botanichorizons.chat.disassembly.missingConstruct=The wrench doesn't respond to this block
+botanichorizons.chat.disassembly.notWrenchable=The wrench doesn't respond to this block

@@ -78,6 +78,13 @@ tile.botanichorizons.automatedConjurationPool.hud.empty=Fountain of Conjuration 
 tile.botanichorizons.automatedConjurationPool.hud.idle=Fountain of Conjuration (unformed)
 tile.botanichorizons.automatedConjurationPool.hud.active=Fountain of Conjuration (online)
 
+item.botanichorizons.manasteelWrench.name=Manasteel Wrench
+item.botanichorizons.manasteelSuperWrench.name=Demolition Wrench
+item.botanichorizons.terrasteelWrench.name=Terrasteel Wrench
+item.botanichorizons.terrasteelDisassemblyWrench.name=Wrench of Erosion
+item.botanichorizons.elvenWrench.name=Elementium Wrench
+item.botanichorizons.elvenDisassemblyWrench.name=Wrench of Evolution
+
 botanichorizons.lexicon.category.multiblock=Mechanized Botany
 botanichorizons.lexicon.entry.multiblockInfo=New Multiblocks
 botanichorizons.lexicon.tagline.multiblockInfo=Gregorius Botanicus
@@ -108,3 +115,11 @@ botanichorizons.tooltip.multiblock.1=Dimensions: §6%d§7x§6%d§7x§6%d§7 (§6
 botanichorizons.tooltip.multiblock.2=This is an advanced multiblock.
 botanichorizons.tooltip.multiblock.3=Refer to the §eLexica Botania§7 for building instructions.
 botanichorizons.author.combuster=Added by: §4(Com)§6Buster§7
+
+botanichorizons.tooltip.disassembly.rightClick=Right click a controller to remove its blocks
+botanichorizons.tooltip.disassembly.shiftRightClick=Shift+Right click to choose a block to remove.
+
+botanichorizons.chat.disassembly.amount=Disassembled %d blocks
+botanichorizons.chat.disassembly.complete=§aThere are no more blocks to remove§7
+botanichorizons.chat.disassembly.obstructed=Some blocks couldn't be disassembled
+botanichorizons.chat.disassembly.missingConstruct=The wrench doesn't respond to this block

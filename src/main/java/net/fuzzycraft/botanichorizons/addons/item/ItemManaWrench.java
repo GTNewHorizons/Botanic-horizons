@@ -3,6 +3,7 @@ package net.fuzzycraft.botanichorizons.addons.item;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -31,7 +32,7 @@ public class ItemManaWrench extends ItemTool implements IManaUsingItem {
 
         setHarvestLevel(TOOL_CLASS_WRENCH, toolLevel);
         setTextureName(BH_ICON_PREFIX + name);
-        setUnlocalizedName(name);
+        setUnlocalizedName(ForgeMod.MOD_ID + "." + name);
         GameRegistry.registerItem(this, name);
     }
 

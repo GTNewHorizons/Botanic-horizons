@@ -6,10 +6,12 @@ import net.fuzzycraft.botanichorizons.util.BlockPos;
 import net.fuzzycraft.botanichorizons.util.structurelib.HoloExtractor;
 import net.fuzzycraft.botanichorizons.util.structurelib.HoloScanner;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -36,7 +38,7 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
     public boolean onItemUseFirst(ItemStack heldItem, EntityPlayer player, World world, int blockX, int blockY, int blockZ, int side, float hitX, float hitY, float hitZ) {
         TileEntity blockTileEntity = world.getTileEntity(blockX, blockY, blockZ);
         if (blockTileEntity == null) {
-            FMLLog.warning("[Wrench] Block is not a TE");
+            player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
             return false;
         }
         return onItemUseTileEntity(blockTileEntity, heldItem, player, world, side);
@@ -47,11 +49,9 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
         int fail_count = 0;
 
         if (!world.isRemote) {
-            FMLLog.warning("Begin break sequence");
-
             HoloScanner scanner = HoloExtractor.scanTileEntity(tileEntity, side);
             if(scanner == null) {
-                FMLLog.warning("No disassembly available for this multi");
+                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
                 return true;
             }
 
@@ -92,11 +92,11 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
             damageOrConsumeMana(heldItem, player, broken_blocks, DISASSEMBLY_MANA);
 
             if (broken_blocks == 0 && fail_count == 0) {
-                // TODO: end result player feedback
+                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.complete")));
             } else if (broken_blocks == 0) { // fail count > 0
-                // TODO: end result player feedback
+                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.obstructed")));
             } else { // broken_blocks > 0
-                // TODO: end result player feedback
+                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.amount", broken_blocks)));
             }
 
             return true;
@@ -105,7 +105,7 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
                 // return false to allow intercept on server
                 return false;
             } else {
-                // TODO: end result player feedback
+                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
                 return true;
             }
         }

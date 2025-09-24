@@ -128,6 +128,15 @@ botanichorizons.lexicon.tagline.automatedAlchemyPool=Large Chemical Reactor
 botanichorizons.lexicon.crafting.automatedAlchemyPool=Making the fountain
 botanichorizons.lexicon.preview.automatedAlchemyPool=Building the device
 
+botanichorizons.lexicon.entry.basicWrenches=Wrenches
+botanichorizons.lexicon.tagline.basicWrenches=Rattles like a snake
+botanichorizons.lexicon.text.basicWrenches.1=You can make a &1Wrench&0 out of various botanic materials. If you have a mana source on you, they will not take damage but consume a bit of &4Mana&0 instead. Unfortunately they are only good at breaking blocks. Check your &1thaumonomicon&0 for research and recipes.
+botanichorizons.lexicon.entry.multiblockWrenches=Disassembling Wrenches
+botanichorizons.lexicon.tagline.multiblockWrenches=A force of nature.
+botanichorizons.lexicon.text.multiblockWrenches.1=The upgraded &1Wrench&0 is built to do the exact opposite as the holo projector, it can disassemble multiblocks in its entirety by right-clicking on the controller. This costs &4Mana&0, and the wrench needs to be charged before it can be used. These wrenches are made from a &1Terrasteel Wrench&0 or a &1Elementium Wrench&0 with some further upgrades. The recipe can be researched in the &1Thaumonomicon&0.
+botanichorizons.lexicon.text.multiblockWrenches.2=There are two wrenches you can make. The &1Wrench of Erosion&0 is made from the &1Terrasteel Wrench&0, and it breaks brocks indiscriminately. The second, the &1Wrench of Evolution&0 is made from the &1Elementium Wrench&0, will only disassemble one specific kind of block at a time. Shift+right-click with the &1Wrench of Evolution&0 on the block you wish, to select which block you want to remove.
+botanichorizons.lexicon.text.multiblockWrenches.3=The wrench has some limitations. It requires that the block can be wrenched, or is soft enough that the game considers it to be removable by hand. The wrench deposits blocks removed at your feet, but may not do so with their contents. This tool has charge tiers, and the number of blocks removed multiplies by 5 after the second tier, up to a maximum of 625.
+
 botanichorizons.tooltip.parallels=Processes up to %d recipes per second.
 botanichorizons.tooltip.multiblock.1=Dimensions: §6%d§7x§6%d§7x§6%d§7 (§6W§7x§6H§7x§6L§7)
 botanichorizons.tooltip.multiblock.2=This is an advanced multiblock.

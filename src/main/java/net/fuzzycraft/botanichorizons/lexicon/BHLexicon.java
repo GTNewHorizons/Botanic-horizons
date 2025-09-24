@@ -3,6 +3,7 @@ package net.fuzzycraft.botanichorizons.lexicon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.fuzzycraft.botanichorizons.addons.BHBlocks;
+import net.fuzzycraft.botanichorizons.addons.BHItems;
 import net.fuzzycraft.botanichorizons.addons.Multiblocks;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.fuzzycraft.botanichorizons.util.Constants;
@@ -26,6 +27,8 @@ public final class BHLexicon {
     public static LexiconEntry multiblockIntro;
     public static LexiconEntry automatedManaPool;
     public static LexiconEntry automatedPortal;
+    public static LexiconEntry basicWrenches;
+    public static LexiconEntry multiblockWrenches;
 
     public static void preInit() {
         multiblockCategory = new LexiconCategory("botanichorizons.lexicon.category.multiblock")
@@ -75,6 +78,18 @@ public final class BHLexicon {
                 )));
         gatewayEntry.setIcon(new ItemStack(BHBlocks.autoPortal));
         BHLexicon.automatedPortal = gatewayEntry;
+
+        LexiconEntry wrenchEntry = new BHLexiconEntry("basicWrenches", BotaniaAPI.categoryTools);
+        wrenchEntry.addPage(new PageText("botanichorizons.lexicon.text.basicWrenches.1"));
+        wrenchEntry.setIcon(new ItemStack(BHItems.manasteelWrench));
+        BHLexicon.basicWrenches = wrenchEntry;
+
+        LexiconEntry wrenchXLEntry = new BHLexiconEntry("multiblockWrenches", multiblockCategory);
+        wrenchXLEntry.addPage(new PageText("botanichorizons.lexicon.text.multiblockWrenches.1"));
+        wrenchXLEntry.addPage(new PageText("botanichorizons.lexicon.text.multiblockWrenches.2"));
+        wrenchXLEntry.addPage(new PageText("botanichorizons.lexicon.text.multiblockWrenches.3"));
+        wrenchXLEntry.setIcon(new ItemStack(BHItems.disassemblyWrench));
+        BHLexicon.multiblockWrenches = wrenchEntry;
     }
 
     @SideOnly(Side.CLIENT)

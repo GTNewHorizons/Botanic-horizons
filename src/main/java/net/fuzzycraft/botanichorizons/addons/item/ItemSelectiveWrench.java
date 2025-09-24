@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -69,7 +70,7 @@ public class ItemSelectiveWrench extends ItemSuperchargedWrench {
             // Decoding done, check the tile entity
             TileEntity blockTileEntity = world.getTileEntity(blockX, blockY, blockZ);
             if (blockTileEntity == null) {
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.missingConstruct"));
                 return true;
             }
 
@@ -81,7 +82,7 @@ public class ItemSelectiveWrench extends ItemSuperchargedWrench {
         if (!world.isRemote) {
             HoloScanner scanner = HoloExtractor.scanTileEntity(tileEntity, side);
             if(scanner == null) {
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.missingConstruct"));
                 return true;
             }
 
@@ -126,9 +127,9 @@ public class ItemSelectiveWrench extends ItemSuperchargedWrench {
             damageOrConsumeMana(heldItem, player, broken_blocks, ItemDisassemblyWrench.DISASSEMBLY_MANA);
 
             if (broken_blocks == 0) {
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.complete")));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.complete"));
             } else { // broken_blocks > 0
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.amount", broken_blocks)));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.amount", "" + broken_blocks));
             }
 
             return true;

@@ -146,7 +146,7 @@ botanichorizons.author.combuster=Added by: §4(Com)§6Buster§7
 botanichorizons.tooltip.disassembly.rightClick=Right click a controller to remove its blocks
 botanichorizons.tooltip.disassembly.shiftRightClick=Shift+Right click to choose a block to remove.
 
-botanichorizons.chat.disassembly.amount=Disassembled %d blocks
+botanichorizons.chat.disassembly.amount=Disassembled %s blocks
 botanichorizons.chat.disassembly.complete=§aThere are no more blocks to remove§7
 botanichorizons.chat.disassembly.obstructed=Some blocks couldn't be disassembled
 botanichorizons.chat.disassembly.missingConstruct=The wrench doesn't respond to this block

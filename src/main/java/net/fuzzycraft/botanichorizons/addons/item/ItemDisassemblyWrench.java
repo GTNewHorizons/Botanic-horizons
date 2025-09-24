@@ -1,6 +1,5 @@
 package net.fuzzycraft.botanichorizons.addons.item;
 
-import cpw.mods.fml.common.FMLLog;
 import net.fuzzycraft.botanichorizons.util.BlockBreakHelper;
 import net.fuzzycraft.botanichorizons.util.BlockPos;
 import net.fuzzycraft.botanichorizons.util.structurelib.HoloExtractor;
@@ -11,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
     public boolean onItemUseFirst(ItemStack heldItem, EntityPlayer player, World world, int blockX, int blockY, int blockZ, int side, float hitX, float hitY, float hitZ) {
         TileEntity blockTileEntity = world.getTileEntity(blockX, blockY, blockZ);
         if (blockTileEntity == null) {
-            player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
+            player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.missingConstruct"));
             return true;
         }
         return onItemUseTileEntity(blockTileEntity, heldItem, player, world, side);
@@ -58,7 +57,7 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
         if (!world.isRemote) {
             HoloScanner scanner = HoloExtractor.scanTileEntity(tileEntity, side);
             if(scanner == null) {
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.missingConstruct"));
                 return true;
             }
 
@@ -99,11 +98,11 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
             damageOrConsumeMana(heldItem, player, broken_blocks, DISASSEMBLY_MANA);
 
             if (broken_blocks == 0 && fail_count == 0) {
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.complete")));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.complete"));
             } else if (broken_blocks == 0) { // fail count > 0
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.obstructed")));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.obstructed"));
             } else { // broken_blocks > 0
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.amount", broken_blocks)));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.amount", "" + broken_blocks));
             }
 
             return true;
@@ -112,7 +111,7 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
                 // return false to allow intercept on server
                 return false;
             } else {
-                player.addChatMessage(new ChatComponentText(I18n.format("botanichorizons.chat.disassembly.missingConstruct")));
+                player.addChatMessage(new ChatComponentTranslation("botanichorizons.chat.disassembly.missingConstruct"));
                 return true;
             }
         }

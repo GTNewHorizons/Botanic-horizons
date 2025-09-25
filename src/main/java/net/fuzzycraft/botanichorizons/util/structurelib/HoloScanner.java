@@ -3,11 +3,9 @@ package net.fuzzycraft.botanichorizons.util.structurelib;
 import com.gtnewhorizon.structurelib.StructureEvent;
 import com.gtnewhorizon.structurelib.StructureLibAPI;
 import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
-import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.fuzzycraft.botanichorizons.util.BlockPos;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 

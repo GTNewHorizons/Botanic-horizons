@@ -1,11 +1,8 @@
 package net.fuzzycraft.botanichorizons.addons.client.render;
 
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.fuzzycraft.botanichorizons.addons.item.ItemSelectiveWrench;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

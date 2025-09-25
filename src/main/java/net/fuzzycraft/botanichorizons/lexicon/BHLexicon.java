@@ -11,7 +11,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModBlocks;

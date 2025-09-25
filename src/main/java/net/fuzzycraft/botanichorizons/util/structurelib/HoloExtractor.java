@@ -8,11 +8,9 @@ import cpw.mods.fml.common.FMLLog;
 import net.fuzzycraft.botanichorizons.util.BlockPos;
 import net.fuzzycraft.botanichorizons.util.structurelib.extraction.InMemoryWorld;
 import net.minecraft.block.Block;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import org.apache.logging.log4j.Level;
 
 import javax.annotation.Nonnull;

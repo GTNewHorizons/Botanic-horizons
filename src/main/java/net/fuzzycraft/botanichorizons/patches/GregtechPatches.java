@@ -13,6 +13,7 @@ import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
 import net.fuzzycraft.botanichorizons.addons.BHBlocks;
 import net.fuzzycraft.botanichorizons.util.Constants;
+import net.fuzzycraft.botanichorizons.util.OreDict;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -183,7 +184,7 @@ public class GregtechPatches {
                     'S', LibOreDict.MANAWEAVE_CLOTH
             );
             GTValues.RA.stdBuilder()
-                    .itemInputs(fabric, new ItemStack(choice, 2, i % 16), GTUtility.getIntegratedCircuit(4))
+                    .itemInputs(fabric, new ItemStack(choice, 2, i % 16), GTUtility.getIntegratedCircuit(2))
                     .itemOutputs(output)
                     .duration(6*SECONDS)
                     .eut(80)
@@ -197,6 +198,62 @@ public class GregtechPatches {
         addGlassPane(ModFluffBlocks.managlassPane, ModBlocks.manaGlass);
         addGlassPane(ModFluffBlocks.alfglassPane, ModBlocks.elfGlass);
         addGlassPane(ModFluffBlocks.bifrostPane, ModBlocks.bifrostPerm);
+
+        // Assembler crafting equivalents
+        // Mana tablet
+        addAssemblerCrafting(new ItemStack(ModItems.manaTablet, 1, Constants.MANA_TABLET_MAGIC_META), 0,
+                new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_PEARL),
+                new ItemStack(ModBlocks.livingrock, 8));
+        addAssemblerCrafting(new ItemStack(ModItems.manaTablet, 1, Constants.MANA_TABLET_MAGIC_META), 0,
+                new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_DIAMOND),
+                new ItemStack(ModBlocks.livingrock, 8));
+        // Gaia spirit
+        addAssemblerCrafting(new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_GAIA_INGOT), 0,
+                new ItemStack(ModItems.manaResource, 4, Constants.MANARESOURCE_META_GAIA_SPIRIT),
+                OreDictionary.getOres(OreDict.TERRA_STEEL_PLATE).get(0));
+        // Vial
+        List<ItemStack> rubberSprings = OreDictionary.getOres("springSmallAnyRubber");
+        for (ItemStack rubber: rubberSprings) {
+            addAssemblerCrafting(new ItemStack(ModItems.vial, 1, Constants.VIAL_META_MANAGLASS), 0,
+                    new ItemStack(ModBlocks.manaGlass, 7),
+                    rubber
+            );
+        }
+        // Redstone root
+        List<ItemStack> ulvCircuits = OreDictionary.getOres("circuitPrimitive");
+        for (ItemStack circuit: ulvCircuits) {
+            addAssemblerCrafting(new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_ROOT), 0,
+                    new ItemStack(Items.redstone, 1),
+                    circuit,
+                    new ItemStack(Blocks.tallgrass, 1, 1));
+        }
+        // Spellbinding cloth
+        addAssemblerCrafting(new ItemStack(ModItems.spellCloth), 1,
+                new ItemStack(ModItems.manaResource, 4, Constants.MANARESOURCE_META_CLOTH),
+                new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_PEARL));
+
+        // Armors
+        addAssemblerArmour(
+                new ItemStack(ModItems.manaweaveHelm),
+                new ItemStack(ModItems.manaweaveChest),
+                new ItemStack(ModItems.manaweaveLegs),
+                new ItemStack(ModItems.manaweaveBoots),
+                new ItemStack(ModItems.manaResource, 4, Constants.MANARESOURCE_META_CLOTH)
+        );
+        addAssemblerArmour(
+                new ItemStack(ModItems.manasteelHelm),
+                new ItemStack(ModItems.manasteelChest),
+                new ItemStack(ModItems.manasteelLegs),
+                new ItemStack(ModItems.manasteelBoots),
+                OreDictionary.getOres(OreDict.MANA_STEEL_PLATE).get(0)
+        );
+        addAssemblerArmour(
+                new ItemStack(ModItems.elementiumHelm),
+                new ItemStack(ModItems.elementiumChest),
+                new ItemStack(ModItems.elementiumLegs),
+                new ItemStack(ModItems.elementiumBoots),
+                OreDictionary.getOres(OreDict.ELEMENTIUM_PLATE).get(0)
+        );
 
         // Multis
 
@@ -256,6 +313,40 @@ public class GregtechPatches {
     private static void compressAndExtract(ItemStack uncompressed, ItemStack compressed) {
         addIC2ExtractorRecipe(uncompressed, compressed);
         addIC2CompressorRecipe(compressed, uncompressed);
+    }
+
+    private static void addAssemblerCrafting(ItemStack output, int circuit, ItemStack... inputs) {
+
+        Object[] realInputs;
+        if (circuit > 0) {
+            realInputs = new ItemStack[inputs.length + 1];
+            System.arraycopy(inputs, 0, realInputs, 0, inputs.length);
+            realInputs[inputs.length] = GTUtility.getIntegratedCircuit(circuit);
+        } else {
+             realInputs = inputs;
+        }
+
+        GTValues.RA.stdBuilder()
+                .itemInputs(realInputs)
+                .itemOutputs(output)
+                .duration(5 * SECONDS)
+                .eut(16)
+                .addTo(assemblerRecipes);
+    }
+
+    private static void addAssemblerArmour(ItemStack helmet, ItemStack chest, ItemStack leggings, ItemStack boots, ItemStack ingredient) {
+        if (helmet != null) {
+            addAssemblerCrafting(helmet, 5, new ItemStack(ingredient.getItem(), 5, ingredient.getItemDamage()));
+        }
+        if (chest != null) {
+            addAssemblerCrafting(chest, 8, new ItemStack(ingredient.getItem(), 8, ingredient.getItemDamage()));
+        }
+        if (leggings != null) {
+            addAssemblerCrafting(leggings, 7, new ItemStack(ingredient.getItem(), 7, ingredient.getItemDamage()));
+        }
+        if (boots != null) {
+            addAssemblerCrafting(boots, 4, new ItemStack(ingredient.getItem(), 4, ingredient.getItemDamage()));
+        }
     }
 
     @Nullable

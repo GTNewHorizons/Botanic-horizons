@@ -511,7 +511,7 @@ public class CraftingPatches {
         ModCraftingRecipes.recipeExchangeRod = BotaniaAPI.getLatestAddedRecipe();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Standard armour and tools
+        // Standard armour and tools - See also GregtechPatches for assembler equivalents
 
         // Mana Armor & Tools Recipes
         addOreDictRecipe(new ItemStack(ModItems.manasteelHelm),

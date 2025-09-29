@@ -1,5 +1,7 @@
 package net.fuzzycraft.botanichorizons.patches;
 
+import com.gtnewhorizon.structurelib.StructureLibAPI;
+import net.fuzzycraft.botanichorizons.addons.BHItems;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.fuzzycraft.botanichorizons.util.OreDict;
@@ -110,7 +112,7 @@ public class ThaumcraftPatches {
 
         // Runic altar
         new ResearchBuilder("ALTAR")
-            .setBookLocation(-1, -1)
+            .setBookLocation(0, -1)
             .setResearchIconItem("botania", "rune8.png")
             .setDifficulty(3)
             .setResearchAspects(Aspect.PLANT, Aspect.EXCHANGE, Aspect.MAGIC, Aspect.AURA, Aspect.ELDRITCH, Aspect.MECHANISM)
@@ -134,7 +136,7 @@ public class ThaumcraftPatches {
 
         // Agglomeration Plate
         new ResearchBuilder("TERRASTEEL")
-                .setBookLocation(-1, -3)
+                .setBookLocation(0, -3)
                 .setResearchIconItem("botania", "terrasteel.png")
                 .setDifficulty(3)
                 .setResearchAspects(Aspect.EARTH, Aspect.GREED, Aspect.MAGIC, Aspect.AURA, Aspect.METAL, Aspect.TOOL)
@@ -203,7 +205,7 @@ public class ThaumcraftPatches {
 
         // Catalysts
         new ResearchBuilder("ALCHEMY_CATALYST")
-                .setBookLocation(-1, 1)
+                .setBookLocation(0, 1)
                 .setResearchIconBlock("botania", "alchemyCatalyst3.png")
                 .setDifficulty(1)
                 .setResearchAspects(Aspect.WATER, Aspect.EXCHANGE, Aspect.MAGIC)
@@ -243,7 +245,7 @@ public class ThaumcraftPatches {
 
         // Pylons
         new ResearchBuilder("MANA_PYLON")
-            .setBookLocation(1, 1)
+            .setBookLocation(2, 1)
             .setResearchIconItemStack(new ItemStack(ModBlocks.pylon, 1, Constants.PYLON_META_MANA))
             .setDifficulty(2)
             .setResearchAspects(Aspect.CRYSTAL, Aspect.GREED, Aspect.MIND)
@@ -261,7 +263,7 @@ public class ThaumcraftPatches {
             .commit();
 
         new ResearchBuilder("NATURA_PYLON")
-            .setBookLocation(3, 0)
+            .setBookLocation(4, 0)
             .setResearchIconItemStack(new ItemStack(ModBlocks.pylon, 1, Constants.PYLON_META_NATURA))
             .setDifficulty(2)
             .setResearchAspects(Aspect.CRYSTAL, Aspect.GREED, Aspect.MIND, Aspect.TRAVEL, Aspect.PLANT)
@@ -413,6 +415,100 @@ public class ThaumcraftPatches {
                             8,
                             new ItemStack((Item) Item.itemRegistry.getObject("Thaumcraft:ItemAxeElemental")),
                             gem1, twig, terra, crystal, terra, twig, gem2, twig, terra, crystal, terra, twig
+                    );
+                })
+                .commit();
+
+        // Wrenches
+        new ResearchBuilder("MANASTEEL_WRENCH")
+                .setBookLocation(-3, 1)
+                .setResearchIconItem("botanichorizons", "manasteelWrench.png")
+                .setDifficulty(1)
+                .setResearchAspects(Aspect.MAGIC, Aspect.TOOL, Aspect.EXCHANGE)
+                .setDependencies("FLOWERS")
+                .addSingleTextPage()
+                .addCraftingRecipe(
+                        new ItemStack(BHItems.manasteelWrench, 1, 0),
+                        new AspectList().add(Aspect.ENTROPY, 10).add(Aspect.FIRE, 10),
+                        "P P", "PPP", " P ",
+                        'P', "plateManasteel"
+                )
+                .commit();
+
+        new ResearchBuilder("TERRASTEEL_WRENCH")
+                .setBookLocation(-6, 0)
+                .setResearchIconItem("botanichorizons", "terrasteelWrench.png")
+                .setDifficulty(1)
+                .setResearchAspects(Aspect.MAGIC, Aspect.TOOL, Aspect.EARTH)
+                .setDependencies("MANASTEEL_WRENCH")
+                .setExternalDependencies(ResearchBuilder.prefix + "TERRASTEEL")
+                .addSingleTextPage()
+                .addCraftingRecipe(
+                        new ItemStack(BHItems.terrasteelWrench, 1, 0),
+                        new AspectList().add(Aspect.ENTROPY, 75).add(Aspect.EARTH, 75),
+                        "P P", "PPP", " P ",
+                        'P', "plateTerrasteel"
+                )
+                .commit();
+
+        new ResearchBuilder("TERRASTEEL_WRENCH_XL")
+                .setBookLocation(-7, 0)
+                .setResearchIconItem("botanichorizons", "terrasteelDisassemblyWrench.png")
+                .setDifficulty(2)
+                .setResearchAspects(Aspect.MAGIC, Aspect.TOOL, Aspect.EARTH, Aspect.ENTROPY, Aspect.TRAVEL)
+                .setDependencies("TERRASTEEL_WRENCH")
+                .addSingleTextPage()
+                .apply( builder -> {
+                    ItemStack diamond = new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_DIAMOND);
+                    ItemStack dust = new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_MANAPOWDER);
+                    ItemStack gem1 = OreDictionary.getOres("gemFlawlessGreenSapphire").get(0);
+                    ItemStack gem2 = OreDictionary.getOres("gemFlawlessOlivine").get(0);
+                    ItemStack holo = new ItemStack(StructureLibAPI.getDefaultHologramItem());
+                    builder.addInfusionRecipe(
+                            new AspectList().add(Aspect.TOOL, 32).add(Aspect.MECHANISM, 16).add(Aspect.ENTROPY, 16).add(Aspect.EARTH, 8).add(Aspect.EXCHANGE, 8),
+                            new ItemStack(BHItems.disassemblyWrench, 1),
+                            8,
+                            new ItemStack(BHItems.terrasteelWrench, 1),
+                            diamond, dust, gem1, dust, holo, dust, gem2, dust
+                    );
+                })
+                .commit();
+
+        new ResearchBuilder("ELVEN_WRENCH")
+                .setBookLocation(-6, -2)
+                .setResearchIconItem("botanichorizons", "elvenWrench.png")
+                .setDifficulty(1)
+                .setResearchAspects(Aspect.MAGIC, Aspect.TOOL, Aspect.ELDRITCH)
+                .setDependencies("MANASTEEL_WRENCH")
+                .setExternalDependencies(ResearchBuilder.prefix + "ALFHEIM")
+                .addSingleTextPage()
+                .addCraftingRecipe(
+                        new ItemStack(BHItems.elvenWrench, 1, 0),
+                        new AspectList().add(Aspect.ENTROPY, 50).add(Aspect.EARTH, 25).add(Aspect.ORDER, 50),
+                        "P P", "PPP", " P ",
+                        'P', "plateElvenElementium"
+                )
+                .commit();
+
+        new ResearchBuilder("ELVEN_WRENCH_XL")
+                .setBookLocation(-7, -2)
+                .setResearchIconItem("botanichorizons", "elvenDisassemblyWrench.png")
+                .setDifficulty(2)
+                .setResearchAspects(Aspect.MAGIC, Aspect.TOOL, Aspect.ELDRITCH, Aspect.TRAVEL, Aspect.MIND)
+                .setDependencies("ELVEN_WRENCH")
+                .addSingleTextPage()
+                .apply( builder -> {
+                    ItemStack diamond = new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_DIAMOND);
+                    ItemStack dust = new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_MANAPOWDER);
+                    ItemStack book = new ItemStack(Items.book);
+                    ItemStack gem = new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_DRAGONSTONE);
+                    ItemStack holo = new ItemStack(StructureLibAPI.getDefaultHologramItem());
+                    builder.addInfusionRecipe(
+                            new AspectList().add(Aspect.TOOL, 32).add(Aspect.MECHANISM, 16).add(Aspect.MIND, 16).add(Aspect.ELDRITCH, 8).add(Aspect.EXCHANGE, 8),
+                            new ItemStack(BHItems.selectiveWrench),
+                            8,
+                            new ItemStack(BHItems.elvenWrench),
+                            diamond, dust, book, gem, holo, dust, book, dust, holo, gem, book, dust
                     );
                 })
                 .commit();

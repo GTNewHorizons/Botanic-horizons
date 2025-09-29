@@ -1,6 +1,8 @@
 package net.fuzzycraft.botanichorizons.util.structurelib;
 
+import com.gtnewhorizon.structurelib.alignment.IAlignment;
 import com.gtnewhorizon.structurelib.alignment.constructable.IMultiblockInfoContainer;
+import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
@@ -12,7 +14,9 @@ import net.fuzzycraft.botanichorizons.util.multiblock.MultiblockHelper;
 import net.fuzzycraft.botanichorizons.util.multiblock.MultiblockStructure;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +27,8 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class HoloProjectorSupport {
+
+    private HoloProjectorSupport() { /* static methods only */ }
 
     public static final String HOLO_DEFAULT_CHANNEL = "main";
 
@@ -99,6 +105,12 @@ public class HoloProjectorSupport {
             MetaBlockCheck parsed = (MetaBlockCheck) check;
             return ofBlock(parsed.referenceBlock, parsed.referenceMeta);
         } else return null;
+    }
+
+    public static ExtendedFacing getExtendedFacingFromItemUse(@Nullable TileEntity tileEntity, int aSide) {
+        return tileEntity instanceof IAlignment
+                ? ((IAlignment) tileEntity).getExtendedFacing()
+                : ExtendedFacing.of(ForgeDirection.getOrientation(aSide));
     }
 
 }

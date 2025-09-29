@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 import net.fuzzycraft.botanichorizons.addons.BHBlocks;
 
+import net.fuzzycraft.botanichorizons.addons.BHItems;
 import net.fuzzycraft.botanichorizons.addons.Multiblocks;
 import net.fuzzycraft.botanichorizons.lexicon.BHLexicon;
 import net.fuzzycraft.botanichorizons.patches.AlfheimPatches;
@@ -44,6 +45,7 @@ public class ForgeMod {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         BHBlocks.initBlocks();
+        BHItems.initItems();
 
         OredictPatches.applyPatches();
         AlfheimPatches.applyPatches();

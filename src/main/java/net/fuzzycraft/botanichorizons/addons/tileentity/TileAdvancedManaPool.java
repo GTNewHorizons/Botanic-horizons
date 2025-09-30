@@ -1,11 +1,15 @@
 package net.fuzzycraft.botanichorizons.addons.tileentity;
 
+import cpw.mods.fml.common.FMLLog;
 import net.fuzzycraft.botanichorizons.util.Facing2D;
 import net.fuzzycraft.botanichorizons.util.multiblock.MultiblockHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.common.block.tile.mana.TilePool;
 
 import static net.fuzzycraft.botanichorizons.util.Constants.MC_BLOCK_SEND_TO_CLIENT;
 import static net.fuzzycraft.botanichorizons.util.Constants.MC_BLOCK_UPDATE;
@@ -54,10 +58,17 @@ public abstract class TileAdvancedManaPool extends SimpleAutomationTileEntity<Re
     @Override
     public int getAvailableParallels(@NotNull RecipeManaInfusion recipe) {
         int parallel = MAX_PARALLELS;
-
         int recipeManaCost = recipe.getManaToConsume();
+
+        if (parallel * recipeManaCost < storedMana) {
+            return parallel;
+        }
+
+        int externalMana = getExternalMana();
+        int totalReservoir = storedMana + externalMana;
+
         if (recipeManaCost > 0) {
-            int manaParallel = storedMana / recipeManaCost;
+            int manaParallel = totalReservoir / recipeManaCost;
             parallel = Math.min(parallel, manaParallel);
         }
 
@@ -67,7 +78,41 @@ public abstract class TileAdvancedManaPool extends SimpleAutomationTileEntity<Re
     @Override
     void consumeNonItemResources(RecipeManaInfusion recipe, int parallel) {
         storedMana -= parallel * recipe.getManaToConsume();
+
+        if (storedMana < 0) {
+            int deficit = -storedMana;
+            TilePool pool = getExternalPool();
+            if (pool != null && pool.getCurrentMana() >= deficit) {
+                pool.recieveMana(-deficit);
+                storedMana = 0;
+            } else {
+                FMLLog.bigWarning("Exploit: External mana is no longer available");
+                isOnline = false;
+                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing.index << 1, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
+            }
+        }
     }
+
+    @Nullable
+    private TilePool getExternalPool() {
+        int poolX = xCoord - 4 * facing.dx;
+        int poolZ = zCoord - 4 * facing.dz;
+        int poolY = yCoord + 1;
+        TileEntity rawPoolTE = worldObj.getTileEntity(poolX, poolY, poolZ);
+        if (rawPoolTE instanceof TilePool pool) {
+            return pool;
+        } else {
+            FMLLog.warning("Not a pool at %d %d %d", poolX, poolY, poolZ);
+            return null;
+        }
+    }
+
+    private int getExternalMana() {
+        TilePool pool = getExternalPool();
+        return (pool != null) ? pool.getCurrentMana() : 0;
+    }
+
+    // SimpleAutomationTileEntity
 
     @Override
     public int getRecipeInputStackSize(@NotNull RecipeManaInfusion recipe) {

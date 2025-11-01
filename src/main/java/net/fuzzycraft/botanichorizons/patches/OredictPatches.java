@@ -45,6 +45,19 @@ public class OredictPatches {
         oredictThirdPartyBlocks("BiomesOPlenty:mushrooms",
                 "listInedibleMushroom", "listInedibleMushroom", "listInedibleMushroom", "listInedibleMushroom", "listInedibleMushroom", "listInedibleMushroom");
 
+        oredictThirdPartyBlocks("etfuturum:lily_of_the_valley", "flowerWhite");
+        oredictThirdPartyBlocks("etfuturum:lily_of_the_valley", "flowerLilyValley");
+        oredictThirdPartyBlocks("etfuturum:cornflower", "flowerBlue");
+        oredictThirdPartyBlocks("etfuturum:cornflower", "flowerCorn");
+        oredictThirdPartyBlocks("etfuturum:wither_rose", "flowerBlack");
+        oredictThirdPartyBlocks("etfuturum:wither_rose", "flowerRoseWither");
+        oredictThirdPartyBlocks("etfuturum:rose", "flowerRed");
+        oredictThirdPartyBlocks("etfuturum:rose", "flowerRose");
+        oredictThirdPartyBlocks("etfuturum:pink_petals", "flowerPink");
+        oredictThirdPartyBlocks("etfuturum:pink_petals", "flowerPinkPetals");
+
+        oredictThirdPartyBlocks("etfuturum:cave_vine", "cropVine");
+        oredictThirdPartyBlocks("etfuturum:cave_vine_plant", "cropVine");
 
         oredictThirdPartyItem("witchery:ingredient", 14, "itemMutandis");
     }

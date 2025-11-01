@@ -33,7 +33,7 @@ public class ForgeMod {
     public static final String MOD_NAME = MOD_ID;
     public static final String VERSION = "GRADLETOKEN_VERSION";
 
-    public static final String DEPENDENCIES = "required-after:Baubles;required-after:Thaumcraft;required-after:Botania;required-after:gregtech;after:witchery;after:BiomesOPlenty;after:dreamcraft;required-after:TConstruct;required-after:Avaritia;after:chisel;after:StructureLib";
+    public static final String DEPENDENCIES = "required-after:Baubles;required-after:Thaumcraft;required-after:Botania;required-after:gregtech;after:witchery;after:BiomesOPlenty;after:dreamcraft;required-after:TConstruct;required-after:Avaritia;after:chisel;after:StructureLib;after:etfuturum";
     //public static final String DEPENDENCIES = "required-after:Botania"; // developer mode
 
     @Mod.Instance(MOD_ID)

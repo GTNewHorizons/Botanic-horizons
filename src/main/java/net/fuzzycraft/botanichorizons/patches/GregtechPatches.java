@@ -346,25 +346,22 @@ public class GregtechPatches {
     }
 
     @Nullable
-    private static IRecipe addSlabRecipe(ItemStack output, ItemStack input, int circuit, int volt, int ticks) {
+    private static IRecipe addSlabRecipe(ItemStack output, ItemStack input, int circuitNumber, int volt, int ticks) {
+        GTRecipeBuilder recipeBuilder = GTValues.RA.stdBuilder();
         ItemStack[] inputs;
-        if (circuit == 0) {
-            inputs = new ItemStack[]{input};
-        } else {
-            ItemStack circuitStack = GTUtility.getIntegratedCircuit(circuit);
-            inputs = new ItemStack[]{input, circuitStack};
+        if (circuitNumber > 0) {
+            recipeBuilder.circuit(circuitNumber);
         }
-        GTValues.RA.stdBuilder()
-                        .itemInputs(inputs)
-                        .itemOutputs(output)
-                        .duration(ticks)
-                        .eut(volt)
-                        .addTo(cutterRecipes);
+        recipeBuilder.itemInputs(input)
+                .itemOutputs(output)
+                .duration(ticks)
+                .eut(volt)
+                .addTo(cutterRecipes);
 
         if (volt < 32 && (output.stackSize % 2) == 0) {
             ItemStack half_output = new ItemStack(output.getItem(), output.stackSize / 2, output.getItemDamage());
-            String r1 = (circuit <= 1) ? "sR" : "s ";
-            String r2 = (circuit <= 1) ? "  " : "R ";
+            String r1 = (circuitNumber <= 1) ? "sR" : "s ";
+            String r2 = (circuitNumber <= 1) ? "  " : "R ";
             GTModHandler.addCraftingRecipe(
                     half_output,
                     new Object[]{

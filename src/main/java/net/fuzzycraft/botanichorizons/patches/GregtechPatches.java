@@ -345,7 +345,7 @@ public class GregtechPatches {
             addAssemblerCrafting(leggings, 7, new ItemStack(ingredient.getItem(), 7, ingredient.getItemDamage()));
         }
         if (boots != null) {
-            addAssemblerCrafting(boots, 4, new ItemStack(ingredient.getItem(), 4, ingredient.getItemDamage()));
+            addAssemblerCrafting(boots, 6, new ItemStack(ingredient.getItem(), 4, ingredient.getItemDamage()));
         }
     }
 

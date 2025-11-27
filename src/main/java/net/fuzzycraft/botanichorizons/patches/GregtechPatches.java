@@ -148,7 +148,8 @@ public class GregtechPatches {
 
         // Reeds compress to plantballs by default
         GTValues.RA.stdBuilder()
-                .itemInputs(new ItemStack(Items.reeds, 8), GTUtility.getIntegratedCircuit(16))
+                .itemInputs(new ItemStack(Items.reeds, 8))
+                .circuit(16)
                 .itemOutputs(new ItemStack(ModBlocks.reedBlock))
                 .duration(4*SECONDS)
                 .eut(24)
@@ -157,8 +158,8 @@ public class GregtechPatches {
         // Livingwood and Crystal Bows
         GTValues.RA.stdBuilder()
                 .itemInputs(new ItemStack(ModItems.manaResource, 3, Constants.MANARESOURCE_META_TWIG_WOOD),
-                        new ItemStack(ModItems.manaResource, 3, Constants.MANARESOURCE_META_STRING),
-                        GTUtility.getIntegratedCircuit(1))
+                        new ItemStack(ModItems.manaResource, 3, Constants.MANARESOURCE_META_STRING))
+                .circuit(1)
                 .itemOutputs(new ItemStack(ModItems.livingwoodBow))
                 .duration(4*SECONDS)
                 .eut(24)
@@ -184,7 +185,8 @@ public class GregtechPatches {
                     'S', LibOreDict.MANAWEAVE_CLOTH
             );
             GTValues.RA.stdBuilder()
-                    .itemInputs(fabric, new ItemStack(choice, 2, i % 16), GTUtility.getIntegratedCircuit(2))
+                    .itemInputs(fabric, new ItemStack(choice, 2, i % 16))
+                    .circuit(2)
                     .itemOutputs(output)
                     .duration(6*SECONDS)
                     .eut(80)

@@ -315,19 +315,13 @@ public class GregtechPatches {
         addIC2CompressorRecipe(compressed, uncompressed);
     }
 
-    private static void addAssemblerCrafting(ItemStack output, int circuit, ItemStack... inputs) {
+    private static void addAssemblerCrafting(ItemStack output, int circuitNumber, ItemStack... inputs) {
 
-        Object[] realInputs;
-        if (circuit > 0) {
-            realInputs = new ItemStack[inputs.length + 1];
-            System.arraycopy(inputs, 0, realInputs, 0, inputs.length);
-            realInputs[inputs.length] = GTUtility.getIntegratedCircuit(circuit);
-        } else {
-             realInputs = inputs;
+        GTRecipeBuilder recipeBuilder = GTValues.RA.stdBuilder();
+        if (circuitNumber > 0) {
+            recipeBuilder.circuit(circuitNumber);
         }
-
-        GTValues.RA.stdBuilder()
-                .itemInputs(realInputs)
+        recipeBuilder.itemInputs(inputs)
                 .itemOutputs(output)
                 .duration(5 * SECONDS)
                 .eut(16)

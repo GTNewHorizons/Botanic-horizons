@@ -31,6 +31,13 @@ public class ApothecaryPatches {
         whitelistBlockIfExists("BiomesOPlenty:ivy");
         whitelistBlockIfExists("BiomesOPlenty:flowerVine");
         whitelistBlockIfExists("Natura:Thornvines");
+        whitelistBlockIfExists("etfuturum:lily_of_the_valley");
+        whitelistBlockIfExists("etfuturum:cornflower");
+        whitelistBlockIfExists("etfuturum:wither_rose");
+        whitelistBlockIfExists("etfuturum:rose");
+        whitelistBlockIfExists("etfuturum:pink_petals");
+        whitelistBlockIfExists("etfuturum:cave_vine");
+        whitelistBlockIfExists("etfuturum:cave_vine_plant");
         CustomBotaniaAPI.extraFlowerComponents.put(Item.getItemFromBlock(Blocks.red_flower), alwaysAllowHandler);
         CustomBotaniaAPI.extraFlowerComponents.put(Item.getItemFromBlock(Blocks.yellow_flower), alwaysAllowHandler);
         CustomBotaniaAPI.extraFlowerComponents.put(Item.getItemFromBlock(Blocks.vine), alwaysAllowHandler);

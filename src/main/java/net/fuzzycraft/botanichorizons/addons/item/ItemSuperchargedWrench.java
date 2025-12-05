@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
@@ -101,6 +102,11 @@ public abstract class ItemSuperchargedWrench extends ItemManaWrench implements I
     @Override
     public boolean isNoExport(ItemStack stack) {
         return true;
+    }
+
+    @Override
+    public int getEntityLifespan(ItemStack itemStack, World world) {
+        return Integer.MAX_VALUE;
     }
 
     // IManaTooltipDisplay

@@ -9,8 +9,10 @@ import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlchemyPool;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlfPortal;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedConjurationPool;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedCraftingPool;
+import net.fuzzycraft.botanichorizons.block.subtile.generating.SubTileReiujia;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.minecraft.tileentity.TileEntity;
+import vazkii.botania.api.BotaniaAPI;
 
 public final class BHBlocks {
     public static BlockAdvancedCraftingPool autoPoolInfusion;
@@ -32,6 +34,8 @@ public final class BHBlocks {
         registerTile(TileAdvancedAlchemyPool.class, BlockAdvancedAlchemyPool.NAME);
         registerTile(TileAdvancedConjurationPool.class, BlockAdvancedConjurationPool.NAME);
         registerTile(TileAdvancedAlfPortal.class, BlockAdvancedAlfPortal.NAME);
+        
+        BotaniaAPI.registerSubTile(SubTileReiujia.NAME, SubTileReiujia.class);
     }
 
     private static void registerTile(Class<? extends TileEntity> clazz, String key) {

@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.fuzzycraft.botanichorizons.addons.BHBlocks;
 import net.fuzzycraft.botanichorizons.addons.BHItems;
 import net.fuzzycraft.botanichorizons.addons.Multiblocks;
+import net.fuzzycraft.botanichorizons.block.subtile.generating.SubTileReiujia;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.minecraft.init.Items;
@@ -28,6 +29,7 @@ public final class BHLexicon {
     public static LexiconEntry automatedPortal;
     public static LexiconEntry basicWrenches;
     public static LexiconEntry multiblockWrenches;
+    public static LexiconEntry reiujia;
 
     public static void preInit() {
         multiblockCategory = new LexiconCategory("botanichorizons.lexicon.category.multiblock")
@@ -89,6 +91,10 @@ public final class BHLexicon {
         wrenchXLEntry.addPage(new PageText("botanichorizons.lexicon.text.multiblockWrenches.3"));
         wrenchXLEntry.setIcon(new ItemStack(BHItems.disassemblyWrench));
         BHLexicon.multiblockWrenches = wrenchEntry;
+        
+        LexiconEntry reiujiaEntry = new BHLexiconEntry(SubTileReiujia.NAME, BotaniaAPI.categoryGenerationFlowers);
+        reiujiaEntry.setLexiconPages(new PageText("0"));
+        BHLexicon.reiujia = reiujiaEntry;
     }
 
     @SideOnly(Side.CLIENT)

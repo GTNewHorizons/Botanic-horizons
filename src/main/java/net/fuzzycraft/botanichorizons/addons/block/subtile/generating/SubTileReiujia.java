@@ -1,4 +1,4 @@
-package net.fuzzycraft.botanichorizons.block.subtile.generating;
+package net.fuzzycraft.botanichorizons.addons.block.subtile.generating;
 
 import java.util.List;
 
@@ -18,6 +18,7 @@ import net.minecraftforge.event.world.ExplosionEvent;
 import ic2.core.block.EntityIC2Explosive;
 
 import net.fuzzycraft.botanichorizons.lexicon.BHLexicon;
+import net.fuzzycraft.botanichorizons.util.ISparkFlower;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
@@ -27,7 +28,7 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import vazkii.botania.common.Botania;
 
-public class SubTileReiujia extends SubTileEntropinnyum {
+public class SubTileReiujia extends SubTileEntropinnyum implements ISparkFlower {
     
     public SubTileReiujia() {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
@@ -72,7 +73,20 @@ public class SubTileReiujia extends SubTileEntropinnyum {
 		return 100*ENTROPINNYUM_MAX_MANA;
 	}
     
+    @Override
     public int getCurrentMana() {
+        return mana;
+    }
+    
+    @Override
+    public int receiveMana(int num) {
+        mana = mana + num > getMaxMana() ? getMaxMana() : mana + num < 0 ? 0 : mana + num;
+        return mana;
+    }
+    
+    @Override
+    public int setMana(int num) {
+        mana = num > getMaxMana() ? getMaxMana() : num < 0 ? 0 : num;
         return mana;
     }
     
@@ -81,11 +95,18 @@ public class SubTileReiujia extends SubTileEntropinnyum {
 		return BHLexicon.reiujia;
 	}
     
+    private void log() {
+        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+        String caller = stack[2].getMethodName();
+        System.out.println("Called from: " + caller + " Current mana: " + mana);
+    }
+    
     public class EventHandler {
         
         @SubscribeEvent
         public void consumeExplosion(ExplosionEvent.Start event) {
             // duplicate code from SubTileEntropinnyum.EventHandler.consumeExplosion
+            log();
             if(processExplosion(event.world, event.explosion.exploder, event.explosion.explosionX, event.explosion.explosionY, event.explosion.explosionZ)) {
                 event.setCanceled(true);
             }
@@ -94,6 +115,7 @@ public class SubTileReiujia extends SubTileEntropinnyum {
         @SubscribeEvent
         @Optional.Method(modid = "IC2")
         public void consumeExplosionIC2(ic2.api.event.ExplosionEvent event) {
+            log();
             if(processExplosion(event.world, event.entity, event.x, event.y, event.z, event.power)) {
                 event.setCanceled(true);
             }
@@ -104,13 +126,13 @@ public class SubTileReiujia extends SubTileEntropinnyum {
         }
             
         private boolean processExplosion(World world, Entity explosionSource, double posX, double posY, double posZ, double power) {
-            /*System.out.println(
+            System.out.println(
                 world + " " + 
                 explosionSource + " " + 
                 posX + " " + 
                 posY + " " + 
                 posZ + " " + 
-                power);*/
+                power);
             if (world.isRemote ||
                 mana != 0 ||
                 !(  Math.abs(supertile.xCoord - posX) <= RANGE &&

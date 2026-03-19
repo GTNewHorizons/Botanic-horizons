@@ -1,6 +1,8 @@
-package net.fuzzycraft.botanichorizons.block.tile;
+package net.fuzzycraft.botanichorizons.addons.block.tile;
 
 import java.util.List;
+
+import net.fuzzycraft.botanichorizons.util.ISparkFlower;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -10,10 +12,9 @@ import net.minecraft.util.AxisAlignedBB;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
+import vazkii.botania.api.subtile.SubTileGenerating;
 
 public class TileSparkFlower extends TileSpecialFlower implements ISparkAttachable {
-    
-    public int mana;
     
     @Override
 	public boolean canAttachSpark(ItemStack stack) {
@@ -52,12 +53,10 @@ public class TileSparkFlower extends TileSpecialFlower implements ISparkAttachab
     @Override
     public boolean isFull() { return true; }
     @Override
-	public void recieveMana(int mana) {
-        // NO-OP
-    }
+	public void recieveMana(int mana) { ((ISparkFlower)getSubTile()).receiveMana(mana); }
     @Override
 	public boolean canRecieveManaFromBursts() { return false; }
     
     @Override
-    public int getCurrentMana() { return mana; }
+    public int getCurrentMana() { return ((ISparkFlower)getSubTile()).getCurrentMana(); }
 }

@@ -1,12 +1,13 @@
-package net.fuzzycraft.botanichorizons.block;
+package net.fuzzycraft.botanichorizons.addons.item;
+
+import net.fuzzycraft.botanichorizons.addons.BHBlocks;
+import net.fuzzycraft.botanichorizons.addons.block.tile.TileSparkFlower;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
-import net.fuzzycraft.botanichorizons.block.tile.TileSparkFlower;
 
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
@@ -32,5 +33,9 @@ public class ItemBlockSparkFlower extends ItemBlockSpecialFlower {
 		}
 
 		return placed;
+	}
+    
+	public static ItemStack ofType(String type) {
+		return ofType(new ItemStack(BHBlocks.sparkFlower), type);
 	}
 }

@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.fuzzycraft.botanichorizons.addons.BHBlocks;
 import net.fuzzycraft.botanichorizons.addons.BHItems;
 import net.fuzzycraft.botanichorizons.addons.Multiblocks;
-import net.fuzzycraft.botanichorizons.block.subtile.generating.SubTileReiujia;
+import net.fuzzycraft.botanichorizons.addons.block.subtile.generating.SubTileReiujia;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.minecraft.init.Items;

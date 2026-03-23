@@ -50,6 +50,8 @@ tc.research_name.BH_LAPUTA=Shards of Laputa
 tc.research_text.BH_LAPUTA=Winning the game
 tc.research_name.BH_VIRUS=Dermological overgrowth
 tc.research_text.BH_VIRUS=This happens when you smoke weed
+tc.research_name.BH_REIUJIA=Reiujia
+tc.research_text.BH_REIUJIA=Homegrown nuclear protection
 
 botanichorizons.BH_FLOWERS.body=Old documents speak of magical flowers, but these seem to be extinct in the wild. You did notice that the mushrooms you've seen in deep caves share a lot of the properties with these purported flowers. With the invention of alchemy you think you can recreate these flowers by steeping the spores of a mushroom in the essence of surface plants.
 botanichorizons.BH_FLOWERDUPE.body=These flowers have proven very hard to grow in the wild, and don't take well to being broken. Fortunately your ventures into thaumaturgy have resulted in a new botanical recipe. Now you can split off a branch, dip it in this concoction, and it will create roots once more.
@@ -78,6 +80,7 @@ botanichorizons.BH_ELVEN_WRENCH_XL.body=Now that you've seen Elven Elementium in
 botanichorizons.BH_LAPUTA.body_0=Sometimes you have to show off. You found a way to infuse a patch of land and make it float in the sky. It seems to be pretty difficult though. The shard of laputa works as a temporary vessel to house the energies required, before it's pushed into the ground.
 botanichorizons.BH_LAPUTA.body_1=Since the amount of energy needed increases per area of land you want to float, you have quickly realised that you need better and better materials to do the job. The return on investment also doesn't appear to be that good.
 botanichorizons.BH_VIRUS.body=You've ventured into an odd corner of carnivorous plants and created something nastier. At least animal test subjects seem not to be a moral issue for you.
+botanichorizons.BH_REIUJIA.body=Entropinnyum's seemingly physics-defying ability to capture and nullify blasts has been a tantalizing mystery ever since you saw its first blooms appear in your garden. Turns out the flower relies on a rudimentary magical force field. With the application of some intelligent design, this natural phenomenon can be attuned and further strengthened, producing a new evolution of the flower. Superior in every way, it is capable of devouring even the cataclysmic consequences of a nuclear meltdown.
 
 tile.botanichorizons.automatedAlfPortal.name=Synthetic Elven Gateway
 tile.botanichorizons.automatedAlfPortal.hud.empty=Synthetic Elven Gateway (needs mana)
@@ -95,8 +98,8 @@ tile.botanichorizons.automatedConjurationPool.name=Fountain of Conjuration
 tile.botanichorizons.automatedConjurationPool.hud.empty=Fountain of Conjuration (needs mana)
 tile.botanichorizons.automatedConjurationPool.hud.idle=Fountain of Conjuration (unformed)
 tile.botanichorizons.automatedConjurationPool.hud.active=Fountain of Conjuration (online)
-tile.botanichorizons.flower.reiujia.name=Reiujia
-tile.botanichorizons.flower.reiujia.reference=The culmination of mystic wisdom
+botanichorizons.flower.reiujia.name=Reiujia
+botanichorizons.flower.reiujia.reference=The culmination of mystic wisdom
 
 item.botanichorizons.manasteelWrench.name=Manasteel Wrench
 item.botanichorizons.manasteelSuperWrench.name=Demolition Wrench

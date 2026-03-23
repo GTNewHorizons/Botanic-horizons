@@ -38,6 +38,8 @@ tc.research_name.BH_LAPUTA=拉普达碎片
 tc.research_text.BH_LAPUTA=通关游戏
 tc.research_name.BH_VIRUS=增生
 tc.research_text.BH_VIRUS=一次醉酒后
+tc.research_name.BH_REIUJIA=霊烏路花
+tc.research_text.BH_REIUJIA=自家种的核防护
 
 botanichorizons.BH_FLOWERS.body=你在故纸堆中翻到了魔法之花的只言片语,但看起来它们在野外已经灭绝.同时你注意到,岩穴中的蘑菇与这些传说中的花有许多类似的特征.随着炼金术的发展,你认为可以先从普通的地表植物中提取出某些源质,再将蘑菇孢子浸泡在其中,就可以得到那些传说中的花了.
 botanichorizons.BH_FLOWERDUPE.body=实践表明,这些花在野外很难繁殖,而且采集十分困难. 不过好在你在神秘学方面的冒险尝试获得了成功,开发了一系列植物魔法相关的合成表. 现在你可以分离一些花枝,将其浸入调配好的源质中,就可以繁殖出它的根部.

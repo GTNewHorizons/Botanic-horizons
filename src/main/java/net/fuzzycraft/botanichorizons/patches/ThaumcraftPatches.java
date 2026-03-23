@@ -1,24 +1,36 @@
 package net.fuzzycraft.botanichorizons.patches;
 
 import com.gtnewhorizon.structurelib.StructureLibAPI;
+
+import gregtech.api.enums.ItemList;
+
 import net.fuzzycraft.botanichorizons.addons.BHItems;
+import net.fuzzycraft.botanichorizons.addons.block.subtile.generating.SubTileReiujia;
+import net.fuzzycraft.botanichorizons.addons.item.ItemBlockSparkFlower;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.fuzzycraft.botanichorizons.util.OreDict;
 import net.fuzzycraft.botanichorizons.util.ResearchBuilder;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
+
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
+
+import twilightforest.item.TFItems;
+
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
 
 import java.util.ArrayList;
@@ -606,5 +618,47 @@ public class ThaumcraftPatches {
         ThaumcraftApi.addWarpToItem(new ItemStack(ModItems.virus, 1, Constants.VIRUS_METADATA_NECRO), 1);
         ThaumcraftApi.addWarpToItem(new ItemStack(ModItems.virus, 1, Constants.VIRUS_METADATA_NULL), 1);
 
+        new ResearchBuilder("REIUJIA")
+                .setBookLocation(3, 1)
+                .setResearchIconItem("botanichorizons", "reiujia.png")
+                .setDifficulty(2)
+                .setResearchAspects(
+                    (Aspect) gregtech.api.enums.TCAspects.ASTRUM.mAspect,
+                    (Aspect) gregtech.api.enums.TCAspects.RADIO.mAspect, 
+                    Aspect.PLANT, 
+                    Aspect.ENERGY
+                )
+                .setDependencies("ALTAR")
+                .addSingleTextPage()
+                .apply(builder -> {
+                        ItemStack entropinnyum = ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENTROPINNYUM);
+                        ItemStack uranium = ItemList.IC2_Uranium_238.get(1);
+                        ItemStack plutonium = ItemList.IC2_Plutonium.get(1);
+                        ItemStack ravenFeather = new ItemStack(TFItems.feather);
+                        ItemStack fieldGen = ItemList.Field_Generator_EV.get(1);
+                        builder.addInfusionRecipe(
+                            new AspectList().
+                                add((Aspect) gregtech.api.enums.TCAspects.ASTRUM.mAspect, 16).
+                                add((Aspect) gregtech.api.enums.TCAspects.RADIO.mAspect, 32).
+                                add(Aspect.PLANT, 32).
+                                add(Aspect.ENERGY, 64).
+                                add(Aspect.ARMOR, 64).
+                                add((Aspect) gregtech.api.enums.TCAspects.STRONTIO.mAspect, 16),
+                            ItemBlockSparkFlower.ofType(SubTileReiujia.NAME),
+                            10,
+                            entropinnyum,
+                            fieldGen,
+                            uranium,
+                            entropinnyum,
+                            plutonium,
+                            ravenFeather,
+                            plutonium,
+                            entropinnyum,
+                            uranium
+                        );
+                    }
+                )
+                .commit();
+            
     }
 }

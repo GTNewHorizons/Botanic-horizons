@@ -92,6 +92,39 @@ public class ThaumcraftPatches {
             })
             .commit();
 
+        // Black lotus infusion
+        new ResearchBuilder("BLACKLOTUS")
+            .setBookLocation(5,5)
+            .setResearchIconItem("botania", "blackLotus.png")
+            .setResearchAspects(Aspect.PLANT, Aspect.DARKNESS, Aspect.SENSES, Aspect.EXCHANGE)
+            .setDifficulty(1)
+            .setDependencies("FLOWERCOLOUR")
+            .setWarp(2)
+            .addSingleTextPage()
+            .apply(builder -> {
+                ItemStack gem = new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_DIAMOND);
+                ItemStack block = OreDictionary.getOres("blockBlackMetal").get(0);
+                builder.addInfusionRecipe(
+                    new AspectList().add(Aspect.PLANT, 16).add(Aspect.EXCHANGE, 16).add(Aspect.SENSES, 32).add(Aspect.DARKNESS, 64),
+                    new ItemStack(ModItems.blackLotus, 1, 0),
+                    6,
+                    new ItemStack(ModBlocks.flower, 1, 15),
+                    block, gem, gem, block, gem, gem
+                );
+            })
+            .apply(builder -> {
+                ItemStack block1 = OreDictionary.getOres("blockManasteel").get(0);
+                ItemStack block2 = OreDictionary.getOres("blockManaDiamond").get(0);
+                builder.addInfusionRecipe(
+                    new AspectList().add(Aspect.PLANT, 32).add(Aspect.EXCHANGE, 32).add(Aspect.SENSES, 64).add(Aspect.DARKNESS, 256),
+                    new ItemStack(ModItems.blackLotus, 1, 1),
+                    10,
+                    new ItemStack(ModItems.blackLotus, 1, OreDictionary.WILDCARD_VALUE),
+                    block1, block2, block1, block2, block1, block2, block1, block2
+                );
+            })
+            .commit();
+
         // flowers back into mushrooms
         new ResearchBuilder("MUSHROOMS")
             .setBookLocation(-2,6)

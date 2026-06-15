@@ -66,8 +66,8 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
             int slot = startPos;
             int break_capacity_remaining = break_capacity;
             while (break_capacity_remaining > 0) {
-                slot = (slot + 1) % scanner.multiblockLocations.size();
                 BlockPos pos = scanner.multiblockLocations.get(slot);
+                slot = (slot + 1) % scanner.multiblockLocations.size();
                 if (slot == startPos) {
                     // No more blocks to break
                     break;

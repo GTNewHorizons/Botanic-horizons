@@ -25,6 +25,8 @@ public class NEIConfig implements IConfigureNEI {
         API.addRecipeCatalyst(new ItemStack(BHBlocks.autoPoolInfusion), Constants.NEI_RECIPE_CATEGORY_POOL, -1);
         API.addRecipeCatalyst(new ItemStack(BHBlocks.autoPoolAlchemy), Constants.NEI_RECIPE_CATEGORY_POOL, -1);
         API.addRecipeCatalyst(new ItemStack(BHBlocks.autoPoolConjuration), Constants.NEI_RECIPE_CATEGORY_POOL, -1);
+        API.addRecipeCatalyst(new ItemStack(BHBlocks.autoApothecary), Constants.NEI_RECIPE_CATEGORY_APOTHECARY, -1);
+        API.addRecipeCatalyst(new ItemStack(BHBlocks.autoAltar), Constants.NEI_RECIPE_CATEGORY_ALTAR, -1);
     }
 }
 

@@ -98,6 +98,21 @@ tile.botanichorizons.automatedConjurationPool.name=Fountain of Conjuration
 tile.botanichorizons.automatedConjurationPool.hud.empty=Fountain of Conjuration (needs mana)
 tile.botanichorizons.automatedConjurationPool.hud.idle=Fountain of Conjuration (unformed)
 tile.botanichorizons.automatedConjurationPool.hud.active=Fountain of Conjuration (online)
+tile.botanichorizons.automatedApothecary.name=Industrial Grafting Station
+tile.botanichorizons.automatedApothecary.hud.empty=Industrial Grafting Station (needs mana)
+tile.botanichorizons.automatedApothecary.hud.idle=Industrial Grafting Station (unformed)
+tile.botanichorizons.automatedApothecary.hud.active=Industrial Grafting Station (online)
+tile.botanichorizons.automatedAltar.name=Synthetic Rune Infuser
+tile.botanichorizons.automatedAltar.hud.empty=Synthetic Rune Infuser (needs mana)
+tile.botanichorizons.automatedAltar.hud.idle=Synthetic Rune Infuser (unformed)
+tile.botanichorizons.automatedAltar.hud.active=Synthetic Rune Infuser (online)
+tile.botanichorizons.automatedAltar.hud.collecting=Synthetic Rune Infuser (gathering mana)
+tile.botanichorizons.automatedTerraPlate.name=Terrestrial Agglomeration Plateau
+tile.botanichorizons.automatedTerraPlate.hud.empty=Terrestrial Agglomeration Plateau (needs mana)
+tile.botanichorizons.automatedTerraPlate.hud.idle=Terrestrial Agglomeration Plateau (unformed)
+tile.botanichorizons.automatedTerraPlate.hud.active=Terrestrial Agglomeration Plateau (online)
+tile.botanichorizons.automatedTerraPlate.hud.collecting=Terrestrial Agglomeration Plateau (gathering mana)
+tile.botanichorizons.automatedTerraPlate.hud.crashing=Terrestrial Agglomeration Plateau (destabilized)
 
 item.botanichorizons.manasteelWrench.name=Manasteel Wrench
 item.botanichorizons.manasteelSuperWrench.name=Demolition Wrench
@@ -117,6 +132,16 @@ botanichorizons.lexicon.preview.automatedAlfPortal=Building the device
 botanichorizons.lexicon.text.automatedAlfPortal.1=The &1Synthetic Elven Gateway&0 uses advanced engineering techniques and wondrous elven materials to reinforce the link to &4Alfheim&0 even more than is possible with your first &1Elven Gateway&0. While the link is still too weak to allow living beings through, it allows sending several items at once. This works both ways, as &4Elven Garde&0 can also send back up to a stack of items every time!
 botanichorizons.lexicon.text.automatedAlfPortal.2=There is however a price to pay for this additional speed. Strengthening the link in this way costs both more &4Mana&0 to keep it open, and exchanging items also incurs an extra &4Mana&0 cost. &4Mana&0 and items are provided directly to the controller.
 
+botanichorizons.lexicon.entry.automatedAltar=Synthetic Rune Infuser
+botanichorizons.lexicon.tagline.automatedAltar=Pyramids of Power
+botanichorizons.lexicon.preview.automatedAltar=Building the device
+botanichorizons.lexicon.text.automatedAltar.1=Feeding the Runic Altar all the parts at the correct place at the correct time is a chore, by scaling up the device into the &1Synthetic Rune Infuser&0 and turning it in a pyramid, the focal point ends up inside of the machine. This allows the internal mechanics to supply the items as needed, and perform multiple crafts at the same time.
+
+botanichorizons.lexicon.entry.automatedApothecary=Industrial Grafting Station
+botanichorizons.lexicon.tagline.automatedApothecary=A bouquet of flowers
+botanichorizons.lexicon.preview.automatedApothecary=Building the device
+botanichorizons.lexicon.text.automatedApothecary.1=The &1Industrial Grafting Station&0 solves the issue of having a small workspace and having to source your materials from elsewhere all the time. This upgrade allows you to automatically craft flowers, without their water or seed cost. Instead, a bit of mana is used to regenerate the biomass included in the station.
+
 botanichorizons.lexicon.entry.automatedManaPool=Mana Fountains
 botanichorizons.lexicon.tagline.automatedManaPool=Immerse items in a steady stream of mana
 botanichorizons.lexicon.text.automatedManaPool.1=Automating a &1Mana Pool&0 involves dropping and collecting items. Some &1Robot Arms&0 seem to do the trick! You can have up to four &1Fountains&0 around a big central pool, and they can craft up to a stack of items at a time. Use a &1Wand of the Forest&0 on the &1Fountain's&0 controller block to form the structure after supplying it with a bit of &4Mana&0. Make sure the large pool in the middle is free from obstructions!
@@ -130,6 +155,11 @@ botanichorizons.lexicon.preview.automatedConjurationPool=Building the device
 botanichorizons.lexicon.tagline.automatedAlchemyPool=Large Chemical Reactor
 botanichorizons.lexicon.crafting.automatedAlchemyPool=Making the fountain
 botanichorizons.lexicon.preview.automatedAlchemyPool=Building the device
+
+botanichorizons.lexicon.entry.automatedTerraPlate=Bulk Terrasteel
+botanichorizons.lexicon.tagline.automatedTerraPlate=Bigger is better
+botanichorizons.lexicon.preview.automatedTerraPlate=Building the device
+botanichorizons.lexicon.text.automatedTerraPlate.1=The process of making Terrasteel requires large amounts of mana. The &1Terrestrial Agglomeration Plateau&0 large size increases the area in which energy can collect, allowing you to make multiple pieces of Terrasteel in one go at a small discount. The energies involved are extreme and any misplaced item unfortunately makes the machine go haywire.
 
 botanichorizons.lexicon.entry.basicWrenches=Wrenches
 botanichorizons.lexicon.tagline.basicWrenches=Rattles like a snake

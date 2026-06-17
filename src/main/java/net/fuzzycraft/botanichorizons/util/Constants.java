@@ -126,6 +126,7 @@ public final class Constants {
     public static final String NEI_RECIPE_CATEGORY_BREWERY = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerBrewery";
     public static final String NEI_RECIPE_CATEGORY_ALFHEIM = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerElvenTrade";
     public static final String NEI_RECIPE_CATEGORY_APOTHECARY = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerPetalApothecary";
+    public static final String NEI_RECIPE_CATEGORY_ALTAR = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerRunicAltar";
 
     public static final String TOOL_CLASS_WRENCH = "wrench";
 

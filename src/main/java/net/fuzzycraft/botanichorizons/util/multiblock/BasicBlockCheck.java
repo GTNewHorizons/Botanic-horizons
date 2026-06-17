@@ -25,4 +25,7 @@ public final class BasicBlockCheck implements MultiblockCheck {
         return new MultiblockComponent(metadata.lexiconPackedCoordinates(xOffset, yOffset, zOffset), referenceBlock, 0);
     }
 
+    public String toString() {
+        return String.format("BasicBlockCheck(%s)", referenceBlock.getUnlocalizedName());
+    }
 }

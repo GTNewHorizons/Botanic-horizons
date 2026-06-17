@@ -24,8 +24,11 @@ public final class BHLexicon {
     public static LexiconCategory multiblockCategory;
 
     public static LexiconEntry multiblockIntro;
+    public static LexiconEntry automatedAltar;
+    public static LexiconEntry automatedApothecary;
     public static LexiconEntry automatedManaPool;
     public static LexiconEntry automatedPortal;
+    public static LexiconEntry automatedTerraPlate;
     public static LexiconEntry basicWrenches;
     public static LexiconEntry multiblockWrenches;
 
@@ -41,6 +44,17 @@ public final class BHLexicon {
         titlePage.setPriority();
         titlePage.setIcon(new ItemStack(Items.writable_book));
         BHLexicon.multiblockIntro = titlePage;
+
+        LexiconEntry apothecaryEntry = new BHLexiconEntry("automatedApothecary", multiblockCategory);
+        apothecaryEntry.addPage(new PageText("botanichorizons.lexicon.text.automatedApothecary.1"));
+        // Multiblock preview disabled due to getBiomeGenForCoords returning null for getWaterColorMultiplier
+        /*apothecaryEntry.addPage(new PageMultiblock(
+                "botanichorizons.lexicon.preview.automatedApothecary",
+                Multiblocks.apothecary.lexiconMultiblock(
+                        0, 1, -2,
+                        BHBlocks.autoApothecary, 0
+                )));*/
+        BHLexicon.automatedApothecary = apothecaryEntry;
 
         LexiconEntry poolEntry = new BHLexiconEntry("automatedManaPool", multiblockCategory);
         poolEntry.addPage(new PageText("botanichorizons.lexicon.text.automatedManaPool.1"));
@@ -65,6 +79,27 @@ public final class BHLexicon {
                 )));
         poolEntry.setIcon(new ItemStack(ModBlocks.pool, 1, Constants.POOL_META_REGULAR_FABULOUS));
         BHLexicon.automatedManaPool = poolEntry;
+
+        LexiconEntry altarEntry = new BHLexiconEntry("automatedAltar", multiblockCategory);
+        altarEntry.addPage(new PageText("botanichorizons.lexicon.text.automatedAltar.1"));
+        altarEntry.addPage(new PageMultiblock(
+                "botanichorizons.lexicon.preview.automatedAltar",
+                Multiblocks.altar.lexiconMultiblock(
+                        0, 2, 0,
+                        BHBlocks.autoAltar, 0
+                )));
+        BHLexicon.automatedAltar = altarEntry;
+
+        LexiconEntry plateEntry = new BHLexiconEntry("automatedTerraPlate", multiblockCategory);
+        plateEntry.addPage(new PageText("botanichorizons.lexicon.text.automatedTerraPlate.1"));
+        plateEntry.addPage(new PageMultiblock(
+                "botanichorizons.lexicon.preview.automatedTerraPlate",
+                Multiblocks.terraPlate.lexiconMultiblock(
+                        0, 0, -4,
+                        BHBlocks.autoPlate, 0
+                )));
+        plateEntry.setKnowledgeType(BotaniaAPI.elvenKnowledge);
+        BHLexicon.automatedTerraPlate = plateEntry;
 
         LexiconEntry gatewayEntry = new BHLexiconEntry("automatedAlfPortal", multiblockCategory);
         gatewayEntry.setKnowledgeType(BotaniaAPI.elvenKnowledge);

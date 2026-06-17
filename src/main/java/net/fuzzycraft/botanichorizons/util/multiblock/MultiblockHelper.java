@@ -1,5 +1,6 @@
 package net.fuzzycraft.botanichorizons.util.multiblock;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.fuzzycraft.botanichorizons.util.Facing2D;
@@ -9,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.Level;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
@@ -52,9 +54,9 @@ public class MultiblockHelper {
                     String message = String.format("x: (%d + %d * %d~%d), z: (%d + %d * %d~%d), b: %s",
                             rootX, part.dx, orientation.dx, orientation.cw_dx,
                             rootZ, part.dz, orientation.dz, orientation.cw_dz,
-                            part.toString()
+                            part.check.toString()
                     );
-                    return new WrongBlockException(checkX, checkY, checkZ, message);
+                    return new WrongBlockException(checkX, checkY, checkZ, message, block.getUnlocalizedName(), world.getBlockMetadata(checkX, checkY, checkZ));
                 }
             } else {
                 // Can't validate structure if it's unloaded
@@ -112,6 +114,7 @@ public class MultiblockHelper {
                         errorLocation.posX + 0.5, errorLocation.posY + 0.5, errorLocation.posZ + 0.5,
                         MultiblockHelper.genParticleVelocity(), MultiblockHelper.genParticleVelocity(), MultiblockHelper.genParticleVelocity());
             }
+            FMLLog.log(Level.INFO, error, "Malformed multiblock");
             return true;
         } else if (player != null) {
             player.addChatComponentMessage(new ChatComponentText(error.getMessage()));

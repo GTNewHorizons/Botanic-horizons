@@ -3,8 +3,11 @@ package net.fuzzycraft.botanichorizons.addons;
 import gregtech.api.enums.Mods;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlchemyPool;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlfPortal;
+import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAltar;
+import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedApothecary;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedConjurationPool;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedCraftingPool;
+import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedTerraPlate;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.fuzzycraft.botanichorizons.util.multiblock.BasicBlockCheck;
 import net.fuzzycraft.botanichorizons.util.multiblock.MetaBlockCheck;
@@ -22,17 +25,31 @@ import vazkii.botania.common.block.ModFluffBlocks;
 public final class Multiblocks {
 
     public static MultiblockHelper alfPortal;
+    public static MultiblockHelper altar;
+    public static MultiblockHelper apothecary;
     public static MultiblockHelper poolConjuration;
     public static MultiblockHelper poolAlchemy;
     public static MultiblockHelper poolInfusion;
+    public static MultiblockHelper terraPlate;
+
+    public static MultiblockHelper placeholder;
 
     public static void init() {
         MultiblockCheck air = new BasicBlockCheck(Blocks.air);
         MultiblockCheck livingWood = new MetaBlockCheck(ModBlocks.livingwood, Constants.LIVINGWOOD_META_BLOCK);
         MultiblockCheck livingRock = new MetaBlockCheck(ModBlocks.livingrock, Constants.LIVINGSTONE_META_BLOCK);
+        MultiblockCheck livingRockSlab = new MetaBlockCheck(ModFluffBlocks.livingrockSlab, 0);
         MultiblockCheck glimmerWood = new MetaBlockCheck(ModBlocks.livingwood, Constants.LIVINGWOOD_META_GLIMMERING);
+        MultiblockCheck manaPylon = new MetaBlockCheck(ModBlocks.pylon, Constants.PYLON_META_MANA);
         MultiblockCheck naturaPylon = new MetaBlockCheck(ModBlocks.pylon, Constants.PYLON_META_NATURA);
         MultiblockCheck manaPool = new BasicBlockCheck(ModBlocks.pool);
+        MultiblockCheck lapisBlock = new BasicBlockCheck(Blocks.lapis_block);
+        MultiblockCheck manaBlock = new MetaBlockCheck(ModBlocks.storage, Constants.STORAGE_META_MANASTEELBLOCK);
+        MultiblockCheck terraBlock = new MetaBlockCheck(ModBlocks.storage, Constants.STORAGE_META_ELEMENTIUMBLOCK);
+        MultiblockCheck dirt = new MetaBlockCheck(Blocks.dirt, 0);
+        MultiblockCheck melon = new BasicBlockCheck(Blocks.melon_block);
+        MultiblockCheck pumpkin = new BasicBlockCheck(Blocks.lit_pumpkin);
+        MultiblockCheck water = new BasicBlockCheck(Blocks.water);
 
         // Mana pool
 
@@ -98,6 +115,89 @@ public final class Multiblocks {
                     "       ", " lllll ", " llgll ", " lglgl ", " llgll ", " lllll ", "       "
                 }
         );
+
+        // Terrestrial Agglomeration plate
+
+        MultiblockBuilder terraBuilder = new MultiblockBuilder();
+        terraBuilder.setRootCharacter("x");
+        terraBuilder.addCheck(".", air);
+        terraBuilder.addCheck("b", lapisBlock);
+        terraBuilder.addCheck("w", livingRock);
+        terraBuilder.addCheck("g", terraBlock);
+        terraBuilder.addCheck("p", manaPylon);
+
+        terraPlate = terraBuilder.buildForMap(
+                new String[]{
+                    "         ", "         ", "         ", "   ...   ", "   ...   ", "   ...   ", "         ", "         ", "         "
+                },
+                new String[]{
+                    "         ", " p     p ", "         ", "   bbb   ", "   bgb   ", "   bbb   ", "         ", " p     p ", "         "
+                },
+                new String[]{
+                    "bbbwwwbbb", "bbbwwwbbb", "bbbwwwbbb", "wwwbbbwww", "wwwbbbwww", "wwwbbbwww", "bbbwwwbbb", "bbbwwwbbb", "bbbwxwbbb"
+                }
+        );
+
+        // Petal apothecary
+
+        MultiblockBuilder apothecaryBuilder = new MultiblockBuilder();
+        apothecaryBuilder.setRootCharacter("x");
+        apothecaryBuilder.addCheck(".", air);
+        apothecaryBuilder.addCheck("w", livingWood);
+        apothecaryBuilder.addCheck("r", livingRock);
+        apothecaryBuilder.addCheck("W", water);
+        apothecaryBuilder.addCheck("d", dirt);
+        apothecaryBuilder.addCheck("P", pumpkin);
+        apothecaryBuilder.addCheck("M", melon);
+
+        apothecary = apothecaryBuilder.buildForMap(
+                new String[]{
+                    "wrrrwrrrw", "         ", "         ", "         ", "         "
+                },
+                new String[]{
+                    "wrrrwrrrw", "         ", " P M ... ", "     ... ", "         "
+                },
+                new String[]{
+                    "wrrrwrrrw", "rdddrWWWr", "rdddrWWWr", "rdddrWWWr", "rrrrxrrrr"
+                },
+                new String[]{
+                    "wrrrwrrrw", " rrr rrr ", " rrr rrr ", " rrr rrr ", "         "
+                }
+        );
+
+        // Altar
+
+        MultiblockBuilder altarBuilder = new MultiblockBuilder();
+        altarBuilder.setRootCharacter("x");
+        altarBuilder.addCheck("r", livingRock);
+        altarBuilder.addCheck("s", livingRockSlab);
+        altarBuilder.addCheck("m", manaBlock);
+
+        altar = altarBuilder.buildForMap(
+                new String[]{
+                        "       ", "       ", "       ", "   x   ", "       ", "       ", "       "
+                },
+                new String[]{
+                        "       ", " sssss ", " smrms ", " sr rs ", " smrms ", " sssss ", "       "
+                },
+                new String[]{
+                        "mrrrrrm", "r     r", "r     r", "r     r", "r     r", "r     r", "mrrrrrm"
+                }
+        );
+
+
+        // For new multiblocks
+
+        MultiblockBuilder tempBuilder = new MultiblockBuilder();
+        tempBuilder.setRootCharacter("x");
+        tempBuilder.addCheck("w", livingWood);
+        tempBuilder.addCheck("r", livingRock);
+        placeholder = tempBuilder.buildForMap(
+                new String[] {
+                        "rwr", "w w", "rxr"
+                }
+        );
+
     }
 
     public static void postInit() {
@@ -106,6 +206,10 @@ public final class Multiblocks {
             HoloProjectorSupport.registerOrientedWithStructureLib(poolAlchemy, BHBlocks.autoPoolAlchemy, TileAdvancedAlchemyPool.class);
             HoloProjectorSupport.registerOrientedWithStructureLib(poolConjuration, BHBlocks.autoPoolConjuration, TileAdvancedConjurationPool.class);
             HoloProjectorSupport.registerOrientedWithStructureLib(alfPortal, BHBlocks.autoPortal, TileAdvancedAlfPortal.class);
+
+            HoloProjectorSupport.registerOrientedWithStructureLib(apothecary, BHBlocks.autoApothecary, TileAdvancedApothecary.class);
+            HoloProjectorSupport.registerOrientedWithStructureLib(altar, BHBlocks.autoAltar, TileAdvancedAltar.class);
+            HoloProjectorSupport.registerOrientedWithStructureLib(terraPlate, BHBlocks.autoPlate, TileAdvancedTerraPlate.class);
         }
     }
 }

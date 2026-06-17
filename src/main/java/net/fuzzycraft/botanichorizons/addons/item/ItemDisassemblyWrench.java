@@ -66,30 +66,33 @@ public class ItemDisassemblyWrench extends ItemSuperchargedWrench {
             int slot = startPos;
             int break_capacity_remaining = break_capacity;
             while (break_capacity_remaining > 0) {
-                slot = (slot + 1) % scanner.multiblockLocations.size();
                 BlockPos pos = scanner.multiblockLocations.get(slot);
+
+                tryBreak: {
+                    Block block = world.getBlock(pos.x, pos.y, pos.z);
+                    int blockMeta = world.getBlockMetadata(pos.x, pos.y, pos.z);
+
+                    if (block == Blocks.air) {
+                        break tryBreak;
+                    }
+                    if (BlockBreakHelper.tryBreakWrenchable(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ)) {
+                        break_capacity_remaining--;
+                        break tryBreak;
+                    }
+                    if (BlockBreakHelper.tryBreakHeldTool(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ, dropRandom)) {
+                        break_capacity_remaining--;
+                        break tryBreak;
+                    }
+
+                    // Cannot break this block
+                    fail_count++;
+                }
+
+                slot = (slot + 1) % scanner.multiblockLocations.size();
                 if (slot == startPos) {
                     // No more blocks to break
                     break;
                 }
-
-                Block block = world.getBlock(pos.x, pos.y, pos.z);
-                int blockMeta = world.getBlockMetadata(pos.x, pos.y, pos.z);
-
-                if (block == Blocks.air) {
-                    continue;
-                }
-                if (BlockBreakHelper.tryBreakWrenchable(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ)) {
-                    break_capacity_remaining--;
-                    continue;
-                }
-                if (BlockBreakHelper.tryBreakHeldTool(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ, dropRandom)) {
-                    break_capacity_remaining--;
-                    continue;
-                }
-
-                // Cannot break this block
-                fail_count++;
             }
 
             // Item updates

@@ -91,34 +91,37 @@ public class ItemSelectiveWrench extends ItemSuperchargedWrench {
             int slot = startPos;
             int break_capacity_remaining = break_capacity;
             while (break_capacity_remaining > 0) {
-                slot = (slot + 1) % scanner.multiblockLocations.size();
                 BlockPos pos = scanner.multiblockLocations.get(slot);
+
+                tryBreak: {
+                    // Reject non-selected blocks
+                    Block block = world.getBlock(pos.x, pos.y, pos.z);
+                    if (block != scanBlock) {
+                        break tryBreak;
+                    }
+                    int blockMeta = world.getBlockMetadata(pos.x, pos.y, pos.z);
+                    if (blockMeta != scanMeta) {
+                        break tryBreak;
+                    }
+
+                    // Attempt to break
+                    if (BlockBreakHelper.tryBreakWrenchable(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ)) {
+                        break_capacity_remaining--;
+                        break tryBreak;
+                    }
+                    if (BlockBreakHelper.tryBreakHeldTool(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ, dropRandom)) {
+                        break_capacity_remaining--;
+                        break tryBreak;
+                    }
+
+                    FMLLog.warning("Can't actually disassemble block: %s:%d", block.getUnlocalizedName(), blockMeta);
+                }
+
+                slot = (slot + 1) % scanner.multiblockLocations.size();
                 if (slot == startPos) {
                     // No more blocks to break
                     break;
                 }
-
-                // Reject non-selected blocks
-                Block block = world.getBlock(pos.x, pos.y, pos.z);
-                if (block != scanBlock) {
-                    continue;
-                }
-                int blockMeta = world.getBlockMetadata(pos.x, pos.y, pos.z);
-                if (blockMeta != scanMeta) {
-                    continue;
-                }
-
-                // Attempt to break
-                if (BlockBreakHelper.tryBreakWrenchable(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ)) {
-                    break_capacity_remaining--;
-                    continue;
-                }
-                if (BlockBreakHelper.tryBreakHeldTool(world, player, pos.x, pos.y, pos.z, block, blockMeta, player.posX, player.posY, player.posZ, dropRandom)) {
-                    break_capacity_remaining--;
-                    continue;
-                }
-
-                FMLLog.warning("Can't actually disassemble block: %s:%d", block.getUnlocalizedName(), blockMeta);
             }
 
             // Item updates

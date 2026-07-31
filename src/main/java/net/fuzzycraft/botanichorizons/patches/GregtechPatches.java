@@ -1,11 +1,13 @@
 package net.fuzzycraft.botanichorizons.patches;
 
+import com.ruling_0.materiallib.api.MaterialLibAPI;
 import cpw.mods.fml.common.registry.GameRegistry;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.ToolDictNames;
+import gregtech.api.enums.materials.Materials;
+import gregtech.api.enums.materials.Shapes;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
@@ -432,13 +434,13 @@ public class GregtechPatches {
             } else {
                 // Smokey Quartz - deduplicate with Thaumic Tinkerer
                 GTValues.RA.stdBuilder()
-                        .itemInputs(new ItemStack(Items.quartz, 8), GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coal, 1))
+                        .itemInputs(new ItemStack(Items.quartz, 8), MaterialLibAPI.getStack(Materials.Coal, Shapes.dust, 1))
                         .itemOutputs(new ItemStack(ModItems.quartz, 8))
                         .duration(20 * SECONDS)
                         .eut(16)
                         .addTo(RecipeMaps.alloySmelterRecipes);
                 GTValues.RA.stdBuilder()
-                        .itemInputs(new ItemStack(Items.quartz, 8), GTOreDictUnificator.get(OrePrefixes.dust, Materials.Charcoal, 1))
+                        .itemInputs(new ItemStack(Items.quartz, 8), MaterialLibAPI.getStack(Materials.Charcoal, Shapes.dust, 1))
                         .itemOutputs(new ItemStack(ModItems.quartz, 8))
                         .duration(20 * SECONDS)
                         .eut(16)

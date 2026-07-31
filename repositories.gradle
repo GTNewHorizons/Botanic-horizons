@@ -6,4 +6,5 @@ repositories {
         name = "jitpack.io"
         url = "https://jitpack.io"
     }
+    mavenLocal()
 }

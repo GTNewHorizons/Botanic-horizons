@@ -27,4 +27,8 @@ public final class MetaBlockCheck implements MultiblockCheck {
         if (referenceBlock == Blocks.air) return null;
         return new MultiblockComponent(metadata.lexiconPackedCoordinates(xOffset, yOffset, zOffset), referenceBlock, referenceMeta);
     }
+
+    public String toString() {
+        return String.format("BasicBlockCheck(%s:%d)", referenceBlock.getUnlocalizedName(), referenceMeta);
+    }
 }

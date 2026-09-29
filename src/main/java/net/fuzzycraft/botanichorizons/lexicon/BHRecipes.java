@@ -8,4 +8,7 @@ public class BHRecipes {
     public static IRecipe poolInfusionRecipe;
     public static IRecipe poolAlchemyRecipe;
     public static IRecipe poolConjurationRecipe;
+
+    public static IRecipe altarMultiRecipe;
+    public static IRecipe apothecaryMultiRecipe;
 }

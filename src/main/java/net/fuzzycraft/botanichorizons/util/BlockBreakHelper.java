@@ -1,6 +1,5 @@
 package net.fuzzycraft.botanichorizons.util;
 
-import cpw.mods.fml.common.FMLLog;
 import ic2.api.tile.IWrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;

@@ -1,9 +1,11 @@
 package net.fuzzycraft.botanichorizons.util;
 
+import cofh.api.inventory.IInventoryHandler;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -69,6 +71,57 @@ public class InventoryHelper {
             return Math.min(maxMove, source.stackSize);
         }
         return 0;
+    }
+
+    public static void pushInventoryToWorldDown(TileEntity tileEntity, World worldObj, IInventory inventoryHandler, int startSlot, int endSlot) {
+        if (tileEntity.yCoord < 1) return;
+
+        for (int slot = startSlot; slot < endSlot; slot++) {
+            final ItemStack stack = inventoryHandler.getStackInSlot(slot);
+            if (stack == null || stack.getItem() == null || stack.stackSize == 0) continue;
+
+            TileEntity outputEntity = worldObj.getTileEntity(tileEntity.xCoord, tileEntity.yCoord - 1, tileEntity.zCoord);
+            if (outputEntity instanceof IInventory) {
+                IInventory outputInventory = (IInventory) outputEntity;
+                ItemStack remainingItems = InventoryHelper.pushToInventory(outputInventory, stack);
+                inventoryHandler.setInventorySlotContents(slot, remainingItems);
+            } else if (worldObj.isAirBlock(tileEntity.xCoord, tileEntity.yCoord - 1, tileEntity.zCoord)) {
+                // TODO: drop items in world
+            }
+        }
+    }
+
+    public static void defragInventory(IInventory inventoryHandler, int startSlot, int endSlot) {
+        for (int checkSlot = startSlot + 1; checkSlot < endSlot; checkSlot++) {
+            ItemStack sourceStack = inventoryHandler.getStackInSlot(checkSlot);
+            if (sourceStack != null) {
+                boolean done = false;
+                for (int refSlot = startSlot; refSlot < checkSlot && !done; refSlot++) {
+                    ItemStack destinationStack = inventoryHandler.getStackInSlot(refSlot);
+                    if (destinationStack == null) {
+                        inventoryHandler.setInventorySlotContents(refSlot, sourceStack);
+                        inventoryHandler.setInventorySlotContents(checkSlot, null);
+                        done = true;
+                    } else {
+                        final int itemsToMove = InventoryHelper.itemsToMove(destinationStack, sourceStack);
+                        if (itemsToMove > 0) {
+                            final ItemStack newDestinationStack = destinationStack.copy();
+                            final ItemStack newSourceStack = sourceStack.copy();
+                            newDestinationStack.stackSize += itemsToMove;
+                            newSourceStack.stackSize -= itemsToMove;
+                            inventoryHandler.setInventorySlotContents(refSlot, newDestinationStack);
+                            if (newSourceStack.stackSize == 0) {
+                                inventoryHandler.setInventorySlotContents(checkSlot, null);
+                                done = true;
+                            } else {
+                                inventoryHandler.setInventorySlotContents(checkSlot, newSourceStack);
+                                sourceStack = newSourceStack;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -138,4 +191,18 @@ public class InventoryHelper {
         item.motionY = random.nextGaussian() * speed + 0.2F;
         item.motionZ = random.nextGaussian() * speed;
     }
+
+    public static void dropAllItems(World world, int x, int y, int z, IInventory inventoryHandler) {
+        for (int slot = 0; slot < inventoryHandler.getSizeInventory(); slot++) {
+        ItemStack drop = inventoryHandler.getStackInSlot(slot);
+
+        if (drop != null && drop.stackSize > 0) {
+            ItemStack copy = drop.copy();
+            inventoryHandler.setInventorySlotContents(slot, null);
+            EntityItem entity = new EntityItem(world, (double)x + 0.5, (double)y + 0.5, (double)z + 0.5, copy);
+            InventoryHelper.setRandomDropDirection(entity, world);
+            world.spawnEntityInWorld(entity);
+        }
+    }
+}
 }

@@ -3,12 +3,18 @@ package net.fuzzycraft.botanichorizons.addons;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.fuzzycraft.botanichorizons.addons.block.BlockAdvancedAlchemyPool;
 import net.fuzzycraft.botanichorizons.addons.block.BlockAdvancedAlfPortal;
+import net.fuzzycraft.botanichorizons.addons.block.BlockAdvancedAltar;
+import net.fuzzycraft.botanichorizons.addons.block.BlockAdvancedApothecary;
 import net.fuzzycraft.botanichorizons.addons.block.BlockAdvancedConjurationPool;
 import net.fuzzycraft.botanichorizons.addons.block.BlockAdvancedCraftingPool;
+import net.fuzzycraft.botanichorizons.addons.block.BlockAdvancedTerraPlate;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlchemyPool;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAlfPortal;
+import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedAltar;
+import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedApothecary;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedConjurationPool;
 import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedCraftingPool;
+import net.fuzzycraft.botanichorizons.addons.tileentity.TileAdvancedTerraPlate;
 import net.fuzzycraft.botanichorizons.mod.ForgeMod;
 import net.minecraft.tileentity.TileEntity;
 
@@ -17,20 +23,29 @@ public final class BHBlocks {
     public static BlockAdvancedAlchemyPool autoPoolAlchemy;
     public static BlockAdvancedConjurationPool autoPoolConjuration;
     public static BlockAdvancedAlfPortal autoPortal;
+    public static BlockAdvancedAltar autoAltar;
+    public static BlockAdvancedTerraPlate autoPlate;
+    public static BlockAdvancedApothecary autoApothecary;
 
     public static void initBlocks() {
+        autoApothecary = new BlockAdvancedApothecary();
         autoPoolInfusion = new BlockAdvancedCraftingPool();
         autoPoolAlchemy = new BlockAdvancedAlchemyPool();
         autoPoolConjuration = new BlockAdvancedConjurationPool();
+        autoAltar = new BlockAdvancedAltar();
+        autoPlate = new BlockAdvancedTerraPlate();
         autoPortal = new BlockAdvancedAlfPortal();
 
         registerTileEntities();
     }
 
     public static void registerTileEntities() {
+        registerTile(TileAdvancedApothecary.class, BlockAdvancedApothecary.NAME);
         registerTile(TileAdvancedCraftingPool.class, BlockAdvancedCraftingPool.NAME);
         registerTile(TileAdvancedAlchemyPool.class, BlockAdvancedAlchemyPool.NAME);
         registerTile(TileAdvancedConjurationPool.class, BlockAdvancedConjurationPool.NAME);
+        registerTile(TileAdvancedAltar.class, BlockAdvancedAltar.NAME);
+        registerTile(TileAdvancedTerraPlate.class, BlockAdvancedTerraPlate.NAME);
         registerTile(TileAdvancedAlfPortal.class, BlockAdvancedAlfPortal.NAME);
     }
 

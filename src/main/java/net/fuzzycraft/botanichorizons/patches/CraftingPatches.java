@@ -1848,6 +1848,27 @@ public class CraftingPatches {
                 'B', Constants.gtChemicalBath(5)
         );
         BHRecipes.poolConjurationRecipe = BotaniaAPI.getLatestAddedRecipe();
+
+        addOreDictRecipe(new ItemStack(BHBlocks.autoAltar), "gMg", "rar", "GpG",
+                'a', new ItemStack(ModBlocks.runeAltar, 1, 0),
+                'M', new ItemStack(ModItems.rune, 1, Constants.RUNE_MANA),
+                'r', ItemList.Robot_Arm_IV.get(1),
+                'g', "gearManasteel",
+                'G', "gearElvenElementium",
+                'p', Constants.gtFormingPress(5)
+        );
+        BHRecipes.altarMultiRecipe = BotaniaAPI.getLatestAddedRecipe();
+
+        addOreDictRecipe(new ItemStack(BHBlocks.autoApothecary), "pqp", "MaP", "bmb",
+                'a', new ItemStack(ModBlocks.altar, 1, 0),
+                'M', new ItemStack(Blocks.melon_block, 1, 0),
+                'P', new ItemStack(Blocks.pumpkin, 1, 0),
+                'p', LibOreDict.PRISMARINE_SHARD,
+                'q', new ItemStack(ModItems.rune, 1, Constants.RUNE_WATER),
+                'b', new ItemStack(Items.water_bucket, 1, 0),
+                'm', Constants.gtMixer(3)
+        );
+        BHRecipes.apothecaryMultiRecipe = BotaniaAPI.getLatestAddedRecipe();
     }
 
     public static void addOreDictRecipe(ItemStack output, Object... recipe) {

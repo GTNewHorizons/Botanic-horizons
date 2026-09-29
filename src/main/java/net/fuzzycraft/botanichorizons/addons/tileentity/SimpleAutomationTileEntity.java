@@ -98,55 +98,12 @@ public abstract class SimpleAutomationTileEntity<R> extends AutomationTileEntity
 
     // Dump output downward
     public void handleOutputs() {
-        if (yCoord < 1) return;
-
-        for (int slot = INPUT_SIZE; slot < INPUT_SIZE + OUTPUT_SIZE; slot++) {
-            final ItemStack stack = inventoryHandler.getStackInSlot(slot);
-            if (stack == null || stack.getItem() == null || stack.stackSize == 0) continue;
-
-            TileEntity outputEntity = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
-            if (outputEntity instanceof IInventory) {
-                IInventory outputInventory = (IInventory) outputEntity;
-                ItemStack remainingItems = InventoryHelper.pushToInventory(outputInventory, stack);
-                inventoryHandler.setInventorySlotContents(slot, remainingItems);
-            } else if (worldObj.isAirBlock(xCoord, yCoord - 1, zCoord)) {
-                // TODO: drop items in world
-            }
-        }
+        InventoryHelper.pushInventoryToWorldDown(this, worldObj, inventoryHandler, INPUT_SIZE, INPUT_SIZE + OUTPUT_SIZE);
     }
 
     // pushes stacks left to try and make free space.
     public void cleanupInventory(int start, int end) {
-        for (int checkSlot = start + 1; checkSlot < end; checkSlot++) {
-            ItemStack sourceStack = inventoryHandler.getStackInSlot(checkSlot);
-            if (sourceStack != null) {
-                boolean done = false;
-                for (int refSlot = start; refSlot < checkSlot && !done; refSlot++) {
-                    ItemStack destinationStack = inventoryHandler.getStackInSlot(refSlot);
-                    if (destinationStack == null) {
-                        inventoryHandler.setInventorySlotContents(refSlot, sourceStack);
-                        inventoryHandler.setInventorySlotContents(checkSlot, null);
-                        done = true;
-                    } else {
-                        final int itemsToMove = InventoryHelper.itemsToMove(destinationStack, sourceStack);
-                        if (itemsToMove > 0) {
-                            final ItemStack newDestinationStack = destinationStack.copy();
-                            final ItemStack newSourceStack = sourceStack.copy();
-                            newDestinationStack.stackSize += itemsToMove;
-                            newSourceStack.stackSize -= itemsToMove;
-                            inventoryHandler.setInventorySlotContents(refSlot, newDestinationStack);
-                            if (newSourceStack.stackSize == 0) {
-                                inventoryHandler.setInventorySlotContents(checkSlot, null);
-                                done = true;
-                            } else {
-                                inventoryHandler.setInventorySlotContents(checkSlot, newSourceStack);
-                                sourceStack = newSourceStack;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        InventoryHelper.defragInventory(inventoryHandler, start, end);
     }
 
 
@@ -226,16 +183,6 @@ public abstract class SimpleAutomationTileEntity<R> extends AutomationTileEntity
 
     // Brock breaking
     public void dropItems(World world, int x, int y, int z) {
-        for (int slot = 0; slot < inventoryHandler.getSizeInventory(); slot++) {
-            ItemStack drop = inventoryHandler.getStackInSlot(slot);
-
-            if (drop != null && drop.stackSize > 0) {
-                ItemStack copy = drop.copy();
-                inventoryHandler.setInventorySlotContents(slot, null);
-                EntityItem entity = new EntityItem(world, (double)x + 0.5, (double)y + 0.5, (double)z + 0.5, copy);
-                InventoryHelper.setRandomDropDirection(entity, world);
-                world.spawnEntityInWorld(entity);
-            }
-        }
+        InventoryHelper.dropAllItems(world, x, y, z, inventoryHandler);
     }
 }

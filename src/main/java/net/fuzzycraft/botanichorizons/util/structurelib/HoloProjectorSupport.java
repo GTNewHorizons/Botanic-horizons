@@ -35,9 +35,9 @@ public class HoloProjectorSupport {
     public static <T extends TileEntity & IWrenchable> void registerOrientedWithStructureLib(MultiblockHelper definition, Block controllerBlock, Class<T> controllerTileClass) {
 
         final Map<MultiblockCheck, Character> keys = new HashMap<>();
-        int xMin = definition.blocks[0].dx, xMax = definition.blocks[0].dx;
-        int yMin = definition.blocks[0].dy, yMax = definition.blocks[0].dy;
-        int zMin = definition.blocks[0].dz, zMax = definition.blocks[0].dz;
+        int xMin = 0, xMax = 0;
+        int yMin = 0, yMax = 0;
+        int zMin = 0, zMax = 0;
 
         char counter = 'a';
 
@@ -69,7 +69,7 @@ public class HoloProjectorSupport {
         // pass 2: fill out the structure definition
         for (MultiblockStructure piece : definition.blocks) {
             final String key = keys.get(piece.check).toString();
-            final int xPos = piece.dx - xMin;
+            final int xPos = xMax - piece.dx;
             final int yPos = piece.dy - yMin;
             final int zPos = piece.dz - zMin;
             final String old = structureString[zPos][yPos];

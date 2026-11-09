@@ -5,11 +5,14 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.TierEU;
 import gregtech.api.enums.ToolDictNames;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeBuilder;
+import gregtech.api.util.recipe.Scanning;
+import gtPlusPlus.core.material.MaterialsAlloy;
 import net.fuzzycraft.botanichorizons.addons.BHBlocks;
 import net.fuzzycraft.botanichorizons.util.Constants;
 import net.fuzzycraft.botanichorizons.util.OreDict;
@@ -35,8 +38,13 @@ import java.util.List;
 
 import static gregtech.api.recipe.RecipeMaps.assemblerRecipes;
 import static gregtech.api.recipe.RecipeMaps.cutterRecipes;
+import static gregtech.api.util.GTRecipeBuilder.INGOTS;
+import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTRecipeBuilder.TICKS;
+import static gregtech.api.util.GTRecipeConstants.AssemblyLine;
+import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
+import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
 public class GregtechPatches {
     public static void applyPatches() {
@@ -272,6 +280,32 @@ public class GregtechPatches {
                 .duration(60 * 20)
                 .eut(30000)
                 .addTo(assemblerRecipes);
+
+        GTValues.RA.stdBuilder()
+                .metadata(RESEARCH_ITEM, new ItemStack(ModItems.manaResource, 1, Constants.MANARESOURCE_META_TERRASTEEL))
+                .metadata(SCANNING, new Scanning(5 * MINUTES, TierEU.RECIPE_EV))
+                .itemInputs(
+                        new ItemStack(ModBlocks.terraPlate),
+                        ItemList.Field_Generator_IV.get(1),
+                        ItemList.Conveyor_Module_IV.get(2),
+                        ItemList.Robot_Arm_IV.get(2),
+                        new ItemStack(ModItems.rune, 4, Constants.RUNE_MANA),
+                        GTOreDictUnificator.get(OrePrefixes.stick, Materials.Terrasteel, 4),
+                        GTOreDictUnificator.get(OrePrefixes.frameGt, Materials.Manasteel, 4),
+                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.Lapis, 16),
+                        GTOreDictUnificator.get(OrePrefixes.plate, Materials.Livingrock, 16),
+                        new Object[] { OrePrefixes.circuit.get(Materials.IV), 4 },
+                        GTOreDictUnificator.get(OrePrefixes.wireFine, Materials.Draconium, 64)
+                )
+                .fluidInputs(
+                        Materials.SolderingAlloy.getMolten(8 * INGOTS),
+                        Materials.Thaumium.getMolten(8 * INGOTS),
+                        Materials.Lubricant.getFluid(1000)
+                )
+                .itemOutputs(new ItemStack(BHBlocks.autoPlate, 1))
+                .eut(TierEU.RECIPE_IV)
+                .duration(20 * SECONDS)
+                .addTo(AssemblyLine);
 
     }
 

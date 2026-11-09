@@ -1,6 +1,5 @@
 package net.fuzzycraft.botanichorizons.addons.tileentity;
 
-import cpw.mods.fml.common.FMLLog;
 import ic2.api.tile.IWrenchable;
 import net.fuzzycraft.botanichorizons.util.Facing2D;
 import net.fuzzycraft.botanichorizons.util.SparkHelper;
@@ -39,7 +38,7 @@ abstract public class AutomationTileEntity extends TileEntity implements IManaRe
     protected boolean clientSparkTransfer = false;
     protected int structureCycle = 0;
 
-    protected int cachedMana = Integer.MIN_VALUE;
+    private int cachedMana = Integer.MIN_VALUE;
     protected int statusCycle = 0;
 
     // Delegated state
@@ -85,6 +84,7 @@ abstract public class AutomationTileEntity extends TileEntity implements IManaRe
             }
 
             if (storedMana < getManaMaximum() + SPARK_BUFFER_MANA) {
+                //FMLLog.warning("Requesting spark transfers: %d/%d mana", storedMana, getManaMaximum());
                 SparkHelper.requestSparkTransfers(worldObj, xCoord, yCoord, zCoord, getAttachedSpark());
                 markDirty();
             }
@@ -113,6 +113,13 @@ abstract public class AutomationTileEntity extends TileEntity implements IManaRe
     protected boolean shouldShareTE() {
         int delta = cachedMana - storedMana;
         return delta <= -DEFAULT_MANA_ERROR_RANGE || delta >= DEFAULT_MANA_ERROR_RANGE;
+    }
+
+    public void markTEForSharing(boolean immediate) {
+        cachedMana = Integer.MIN_VALUE;
+        if (immediate) {
+            statusCycle = STATUS_CYCLE;
+        }
     }
 
     // Persistence

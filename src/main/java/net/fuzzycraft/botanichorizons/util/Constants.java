@@ -69,6 +69,9 @@ public final class Constants {
     public static final int PYLON_META_NATURA = 1;
     public static final int PYLON_META_GAIA = 2;
 
+    public static final int RUNE_WATER = 0;
+    public static final int RUNE_MANA = 8;
+
     public static final int VIAL_META_MANAGLASS = 0;
     public static final int VIAL_META_ALFGLASS = 1;
 
@@ -111,6 +114,8 @@ public final class Constants {
 
     public static final String GT_MACHINE_ID = "gregtech:gt.blockmachines";
     public static final int GT_MACHINE_BATH_START_ID = 540;
+    public static final int GT_MACHINE_PRESS_START_ID = 600;
+    public static final int GT_MACHINE_MIXER_START_ID = 580;
 
     public static final int POOL_MAX_MANA_DILUTED =   10000;
     public static final int POOL_MAX_MANA_REGULAR = 1000000;
@@ -126,6 +131,7 @@ public final class Constants {
     public static final String NEI_RECIPE_CATEGORY_BREWERY = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerBrewery";
     public static final String NEI_RECIPE_CATEGORY_ALFHEIM = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerElvenTrade";
     public static final String NEI_RECIPE_CATEGORY_APOTHECARY = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerPetalApothecary";
+    public static final String NEI_RECIPE_CATEGORY_ALTAR = NEI_RECIPE_HANDLER_PREFIX + "RecipeHandlerRunicAltar";
 
     public static final String TOOL_CLASS_WRENCH = "wrench";
 
@@ -147,5 +153,13 @@ public final class Constants {
 
     public static ItemStack gtChemicalBath(int tier) {
         return new ItemStack(Block.getBlockFromName(GT_MACHINE_ID), 1, GT_MACHINE_BATH_START_ID + tier);
+    }
+
+    public static ItemStack gtFormingPress(int tier) {
+        return new ItemStack(Block.getBlockFromName(GT_MACHINE_ID), 1, GT_MACHINE_PRESS_START_ID + tier);
+    }
+
+    public static ItemStack gtMixer(int tier) {
+        return new ItemStack(Block.getBlockFromName(GT_MACHINE_ID), 1, GT_MACHINE_MIXER_START_ID + tier);
     }
 }

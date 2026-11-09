@@ -86,7 +86,7 @@ public abstract class TileAdvancedManaPool extends SimpleAutomationTileEntity<Re
                 pool.recieveMana(-deficit);
                 storedMana = 0;
             } else {
-                FMLLog.bigWarning("Exploit: External mana is no longer available");
+                FMLLog.bigWarning("Possible exploit: External mana is no longer available");
                 isOnline = false;
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing.index << 1, MC_BLOCK_UPDATE + MC_BLOCK_SEND_TO_CLIENT);
             }

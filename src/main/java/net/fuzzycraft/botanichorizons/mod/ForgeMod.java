@@ -59,12 +59,13 @@ public class ForgeMod {
         RunicAltarPatches.applyPatches();
         BreweryPatches.applyPatches();
 
-        GregtechPatches.applyPatches();
         AvaritiaPatches.applyPatches();
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        // Ore dictionary entries the patches enumerate (dustDraconium) are not all registered during preInit.
+        if (isPackMode()) GregtechPatches.applyPatches();
         Multiblocks.init();
         BHLexicon.init();
 
